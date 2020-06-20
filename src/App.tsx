@@ -1,25 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
+import HomeContainer from "./components/Home/HomeContainer";
+import NavContainer from './components/Nav/NavContainer';
+import FooterContainer from './components/Footer/FooterContainer';
+// import './App.css';
 
-function App() {
+//react.fc = functional component
+const App: React.FC = () =>  {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <NavContainer/>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/' component={HomeContainer}/>
+        </Switch>
+      </BrowserRouter>
+      <FooterContainer/>
+    </React.Fragment>
+
   );
 }
 

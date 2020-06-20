@@ -1,0 +1,22 @@
+$borderColor: blue;
+
+.home-parent-container {
+  // padding: vh;
+  border-style: solid;
+  border-color: green;
+}
+
+.home-container {
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  grid-auto-rows: 40vh 40vh;
+
+  div {
+    color: purple;
+    border-style: solid;
+    border-color: $borderColor;
+    &:hover{
+      background: yellow;
+    }
+  }
+}
