@@ -1,11 +1,75 @@
-.nav-container {
-  display: grid;
-  grid-template-columns: 10fr 1fr 1fr 1fr;
-  grid-template-rows: 6vh;
-  border-style: solid;
-  border-color: seagreen;
-  div {
+@import '../../layout/_variables';
+
+@function breakpoint($type){
+  @return map-get($breakpoints, $type);
+}
+
+@mixin mediaQ($type) {
+  @if ($type == 'phone'){
+    @media(max-width: breakpoint($type)){
+      @content;
+    }
+  } 
+}
+
+@mixin dynamicGrid($point) {
+  @if ($point == 'phone'){
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+    grid-template-rows: 6vh;
+    border-style: solid;
+    border-color: pink;
+    overflow: hidden;
+  } @else {
+    display: grid;
+    grid-template-columns: 10fr 1fr 1fr 1fr;
+    grid-template-rows: 6vh;
+    border-style: solid;
+    border-color: pink;
+  }
+}
+
+
+.nav {
+  @include dynamicGrid(desktop);
+  #{&}__item {
     border-style: solid;
     border-color: cadetblue;
+  }
+  #{&}__logo {
+    display: block;
+  }
+
+  #{&}__hamburger-container {
+    display: hidden;
+  }
+
+  @include mediaQ(phone){
+    @include dynamicGrid(phone);
+
+    #{&}__item{
+      display: none;
+    }
+    #{&}__ham-container{
+      position: relative;
+      border-color: yellow;
+      border-style: solid;
+    }
+    #{&}__hamburger{
+      position: relative;
+      top: 25%;
+      right: 25%;
+      border-color: green;
+      border-style: solid;
+        div {
+          position: relative;
+          align-items: center;
+          width: 5vw;
+          height: 3px;
+          background-color: black;
+          margin: 2px;
+        
+      }
+    }
   }
 }

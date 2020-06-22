@@ -1,0 +1,32 @@
+// break point map
+$breakpoints: (
+  "phone": 414px,
+  "tablet": 768px,
+  "desktop": 1366px,
+  "LGdesktop": 1920px
+);
+
+$colors: (
+  ocean: #84A3BA,
+  white: #FFFFFF,
+  sand: #DFAC9B,
+  sky: #3CC8C8
+) !default;
+
+
+
+// default are fallback variable names and values
+
+// You can assign to variables if they aren’t already assigned by adding 
+// the !default flag to the end of the value. 
+// This means that if the variable has already been assigned to, 
+// it won’t be re-assigned, but if it doesn’t have a value yet, it will be given one.
+
+// Sass has three directives for providing feedback to developers. They are @error, @warn, and @debug.
+
+$font-weights: ("regular": 400, "medium": 500, "bold": 700);
+
+// @debug map.get($font-weights, "medium"); // 500
+// @debug map.get($font-weights, "extra-bold"); // null
+
+
