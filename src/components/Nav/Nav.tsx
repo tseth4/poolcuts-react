@@ -12,8 +12,8 @@ export const Nav: React.FC<Props> = ({ isLoggedIn, handleLoginButton }: Props) =
   const [active, setActive] = useState(false);
 
   let activeUser: any;
+  let navLinks;
 
-  console.log(isLoggedIn);
 
   if (isLoggedIn){
     activeUser=(<div className="nav__item" onClick={() => handleLoginButton()}>Logout</div>)
