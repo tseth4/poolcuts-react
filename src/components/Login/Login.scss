@@ -1,0 +1,15 @@
+.login-container {
+  border-style: solid;
+  border-color: green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .login-inner {
+    border-style: solid;
+    border-radius: 25px;
+    margin: 10em;
+    padding: 10em;
+    border-style: solid;
+  }
+
+}

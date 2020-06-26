@@ -9,32 +9,28 @@ interface Props {
 }
 export const Nav: React.FC<Props> = ({ isLoggedIn, handleLoginButton }: Props) => {
 
-  const [active, setActive] = useState(false);
 
   let activeUser: any;
-  let navLinks;
+
 
 
   if (isLoggedIn){
-    activeUser=(<div className="nav__item" onClick={() => handleLoginButton()}>Logout</div>)
+    activeUser=(<li><a onClick={() => handleLoginButton()}>Logout</a></li>)
   } else {
-    activeUser=(<div className="nav__item" onClick={() => handleLoginButton()}>Login</div>)
+    activeUser=(<li><a onClick={() => handleLoginButton()}>Login</a></li>)
   }
 
   return (
-    <div className="nav" id="my-top-nav">
-      <div className="nav__logo">logo</div>
-      <div className="nav__item">Home</div>
-      <div className="nav__item">Services</div>
-      {activeUser}
-      <div className="nav__ham-container">
-        <div onClick={() => setActive(!active)} className="nav__hamburger">
-          <div className="line"></div>
-          <div className="line"></div>
-          <div className="line"></div>
-        </div>
-      </div>
-
-    </div>
+<div className="header">
+  <a href="/" className="logo">logo.</a>
+  <input className="menu-btn" type="checkbox" id="menu-btn" />
+  <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
+  <ul className="menu">
+    <li><a href="/services">Services</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/contact">Contact</a></li>
+    {activeUser}
+  </ul>
+</div>
   )
 }

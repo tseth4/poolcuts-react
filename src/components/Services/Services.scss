@@ -1,0 +1,10 @@
+.services-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .services-inner {
+    padding: 10em;
+    border-style: solid;
+  }
+
+}
