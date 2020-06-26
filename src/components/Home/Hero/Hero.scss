@@ -1,5 +1,14 @@
 .hero-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 75vh;
+  display: flex;
+  height: 75vh;
+  justify-content: center;
+  // background-image: url('../../../assets/hero-example.jpeg');
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center;    
+  // background-image: linear-gradient();
+  background-image:
+  linear-gradient(to right, rgba(255,0,0,0), black),
+  url('../../../assets/pic2.jpeg');
+  // background: ;
 }
