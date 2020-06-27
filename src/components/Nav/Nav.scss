@@ -13,6 +13,7 @@
 /* header */
 
 .header {
+  // display: block;
   // background-color: #fff;
   box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
   position: absolute;
@@ -23,14 +24,15 @@
     padding: 0;
     list-style: none;
     overflow: hidden;
-    // background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+    ;
   }
   li a {
     cursor: pointer;
     display: block;
-    color: white;
+    color: map-get($colors, ocean );
     padding: 20px 20px;
-    border-right: 1px solid white;
+    // border-right: 1px solid white;
     text-decoration: none;
     font-weight: map-get($font-weights, bold );
     font-size: 0.75em;
@@ -38,7 +40,7 @@
   li a:hover,
   .menu-btn:hover {
     transition: transform .2s; /* Animation */
-    transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    transform: scale(0.9); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
     // background-color: rgba(255, 255, 255, 1);     
   }
   .logo {
@@ -77,7 +79,7 @@
   }
   .menu-icon .navicon:before,
   .menu-icon .navicon:after {
-    background: #333;
+    background: white;
     content: "";
     display: block;
     height: 100%;

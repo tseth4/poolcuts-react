@@ -26,7 +26,7 @@ export const Nav: React.FC<Props> = ({ isLoggedIn, handleLoginButton }: Props) =
   <input className="menu-btn" type="checkbox" id="menu-btn" />
   <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
   <ul className="menu">
-    <li><a href="/services">Services</a></li>
+    <li><a href="/book">Services</a></li>
     <li><a href="/about">About</a></li>
     <li><a href="/contact">Contact</a></li>
     {activeUser}

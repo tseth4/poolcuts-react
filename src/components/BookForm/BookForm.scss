@@ -1,0 +1,18 @@
+.bookform-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  #{&}__inner {
+    padding-top: 10em;
+    // border: 1px solid violet;
+    width: 100%;
+  }
+
+  #{&}__form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}

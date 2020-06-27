@@ -7,6 +7,7 @@ import ServiceContainer from './components/Services/ServicesContainer';
 import About from './components/About/About';
 import Contact from './components/Contact/Contact';
 import LoginContainer from './components/Login/LoginContainer';
+import BookFormContainer from './components/BookForm/BookFromContainer';
 // import './App.css';
 
 //react.fc = functional component
@@ -21,6 +22,7 @@ const App: React.FC = () =>  {
           <Route exact path='/about' component={About}/>
           <Route exact path='/contact' component={Contact}/>
           <Route exact path='/login' component={LoginContainer}/>
+          <Route exact path='/book' component={BookFormContainer}/>
         </Switch>
       </BrowserRouter>
       <FooterContainer/>

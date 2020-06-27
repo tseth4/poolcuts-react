@@ -1,0 +1,92 @@
+@import '../../layout/variables';
+
+@mixin mobile {
+  @media (max-width: map-get($breakpoints, tablet)){
+    @content;
+  }
+}
+
+.service-select{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  flex-shrink: 2;
+  height: auto;
+
+
+  #{&}__item{
+    display: flex;
+    align-items: flex-end;
+    // grid-template-columns: auto auto 1.2fr;
+    flex-direction: row;
+    min-width: 50vw;
+    flex-grow: 3;
+    border-bottom: 1px solid lightslategray;
+  }
+
+  #{&}__button{
+    font-size: 18px;
+    display: inline-block;
+    padding: 0.25em;
+  }
+
+  #{&}__label{
+    display: flex;
+    justify-content: center;
+    // padding: 30px;
+    text-align: center;
+    width: 50px;
+    font-size: 12px;;
+    // border: 1px solid green;
+    
+  }
+
+  #{&}__details{
+    display: flex;
+    align-items: center;
+    // border: 1px solid orange;
+    justify-content: center;
+    font-size: 11px;
+    width: 50vw;
+  }
+  #{&}__button{
+    // border: 1px solid green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+
+
+
+    P{
+      cursor: pointer;
+      background-color: map-get($colors, sky );
+      color: white;
+      font-weight: map-get($font-weights, bold);
+      border-radius: 3px;
+      width: 5vw;
+      text-align: center;
+      padding: 0.5em;
+      font-size: 11px;
+      box-shadow:         1px 1px 1px 1px #ccc;
+      @include mobile{
+
+        font-size: 0.4em;
+      
+    }
+
+    }
+    p:hover {
+      transition: transform .2s; /* Animation */
+      transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+      // background-color: rgba(255, 255, 255, 1);    
+    }
+
+  }
+}
+
+
+
+
