@@ -13,9 +13,20 @@
 /* header */
 
 .header {
+
+
+  .menu li .signup{
+    font-weight: map-get($font-weights, bolder );
+    // border: 1px solid orange;
+    // border-radius: 12px;
+    // background-color: orange;
+    color: orange;
+  }
   // display: block;
   // background-color: #fff;
-  box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 1);
+
+  // box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
   position: absolute;
   width: 100%;
   z-index: 3;
@@ -34,7 +45,7 @@
     padding: 20px 20px;
     // border-right: 1px solid white;
     text-decoration: none;
-    font-weight: map-get($font-weights, bold );
+    font-weight: map-get($font-weights, medium );
     font-size: 0.75em;
   }
   li a:hover,
@@ -49,6 +60,7 @@
     font-size: 2em;
     padding: 10px 20px;
     text-decoration: none;
+    color: map-get($colors, sky );
   }
 
   /* menu */
@@ -70,7 +82,7 @@
     user-select: none;
   }
   .menu-icon .navicon {
-    background: #333;
+    background:map-get($colors, ocean );
     display: block;
     height: 2px;
     position: relative;
@@ -79,7 +91,7 @@
   }
   .menu-icon .navicon:before,
   .menu-icon .navicon:after {
-    background: white;
+    background: map-get($colors, ocean );
     content: "";
     display: block;
     height: 100%;

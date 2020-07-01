@@ -6,12 +6,9 @@ export default function NavContainer() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  // let isLoggedIn = true;
-
-  const handleLoginButton: any = () => {
+  const handleLoginButton = () => {
     setIsLoggedIn(!isLoggedIn);
     console.log("inisde handle login" + isLoggedIn)
-    // setIsLoggedIn(!isLoggedIn);
   }
 
   let navProps = {

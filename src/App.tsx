@@ -7,7 +7,7 @@ import ServiceContainer from './components/Services/ServicesContainer';
 import About from './components/About/About';
 import Contact from './components/Contact/Contact';
 import LoginContainer from './components/Login/LoginContainer';
-import BookFormContainer from './components/BookForm/BookFromContainer';
+import BookFormContainer from './components/BookForm/BookFormContainer';
 // import './App.css';
 
 //react.fc = functional component

@@ -2,9 +2,10 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   .about-inner {
-    padding: 10em;
+    padding: 5vw;
+    padding-top: 12vh;
     border-style: solid;
   }
-
 }
