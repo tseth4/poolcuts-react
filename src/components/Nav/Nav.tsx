@@ -21,7 +21,7 @@ export const Nav: React.FC<Props> = ({
   } else {
     activeUser = (
       <li>
-        <a onClick={() => handleLoginButton()}>Login</a>
+        <a href="/login" onClick={() => handleLoginButton()}>Login</a>
       </li>
     );
     signUpButton = (

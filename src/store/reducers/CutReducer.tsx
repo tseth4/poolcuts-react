@@ -1,5 +1,5 @@
 import { Cut } from "../types/Cut";
-import { CutActionTypes } from '../types/index';
+import { CutActionTypes } from '../types/Cut';
 
 const cutReducerDefaultState: Cut[] = [];
 

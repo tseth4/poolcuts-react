@@ -1,4 +1,4 @@
-import { SET_CUTS, CutActionTypes, AppActions } from "../types";
+import { AppActions } from "../types";
 import { Cut } from "../types/Cut";
 import { Dispatch } from "redux";
 import { getAllCutsService } from "../services/CutService";
