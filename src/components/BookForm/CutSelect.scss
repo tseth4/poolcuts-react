@@ -1,0 +1,27 @@
+@import "../../layout/variables";
+
+@mixin mobile {
+  @media (max-width: map-get($breakpoints, tablet)) {
+    @content;
+  }
+}
+
+.cutselect-container{
+  display: flex;
+  flex-direction: row;
+  // border: 1px solid black;
+  @include mobile {
+    padding-top: 200px;
+    flex-direction: column;
+    overflow: visible;
+
+  }
+  div {
+    margin: 15px;
+    // border: solid 1px purple;
+    border-radius: 15px;
+    padding: 9px;
+    background-color: map-get($colors, white);
+
+  }
+}

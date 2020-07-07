@@ -1,27 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Nav.scss";
+import { User } from "../../store/types/User";
+import { connect } from "react-redux";
+import { userInfo } from "os";
+import { AppState } from "../../store";
 
-interface Props {
+interface NavProps {
   isLoggedIn: boolean;
-  handleLoginButton: () => void;
+  handleLogoutButton: () => void;
 }
+
+type Props = NavProps;
+
 export const Nav: React.FC<Props> = ({
   isLoggedIn,
-  handleLoginButton,
+  handleLogoutButton,
 }: Props) => {
   let activeUser: any;
   let signUpButton: any;
 
   if (isLoggedIn) {
+    console.log(isLoggedIn);
     activeUser = (
       <li>
-        <a onClick={() => handleLoginButton()}>Logout</a>
+        <a onClick={() => handleLogoutButton()}>Logout</a>
       </li>
     );
   } else {
+    console.log(isLoggedIn);
+
     activeUser = (
       <li>
-        <a href="/login" onClick={() => handleLoginButton()}>Login</a>
+        <a href="/login">Login</a>
       </li>
     );
     signUpButton = (
@@ -42,7 +52,7 @@ export const Nav: React.FC<Props> = ({
       </label>
       <ul className="menu">
         <li>
-          <a href="/book">Services</a>
+          <a href="/services">Services</a>
         </li>
         <li>
           <a href="/about">About</a>
@@ -56,3 +66,6 @@ export const Nav: React.FC<Props> = ({
     </div>
   );
 };
+
+
+// export { Nav };

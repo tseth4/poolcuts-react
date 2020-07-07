@@ -1,0 +1,27 @@
+@import "../../layout/variables";
+
+.cut-container {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all .2s ease-in-out; 
+  // border:1px solid pink;
+  box-shadow: 0 19px 38px map-get($colors, ocean),
+  0 15px 12px map-get($colors, ocean);
+  div {
+    // border: 1px solid violet;
+    font-weight: map-get($font-weights, bolder);
+    font-style: italic;
+  }
+  P {
+    text-align: center;
+  }
+}
+.selected {
+  box-shadow: 0 19px 38px map-get($colors, sky),
+  0 15px 12px map-get($colors, sky);
+}
+.cut-container:hover{
+  /* Animation */
+  transform: scale(1.05);
+}

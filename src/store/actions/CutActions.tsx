@@ -3,6 +3,8 @@ import { Cut } from "../types/Cut";
 import { Dispatch } from "redux";
 import { getAllCutsService } from "../services/CutService";
 import { AppState } from "..";
+import { User } from "../types/User";
+import { boundLogoutUser } from "./UserActions";
 
 export const recieveAllCuts = (cuts: Cut[]): AppActions => {
   return {
@@ -11,9 +13,12 @@ export const recieveAllCuts = (cuts: Cut[]): AppActions => {
   };
 };
 
-export const boundGetAllCuts = () => (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-  getAllCutsService().then((res) => {
+export const boundGetAllCuts = (user: User) => (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+  console.log("bound get cuts");
+  getAllCutsService(user).then((res) => {
     dispatch(recieveAllCuts(res));
+  }).catch(e => {
+    console.log(e);
   });
 };
 

@@ -2,6 +2,7 @@ import request from "../request";
 import { LoginCredentials, User, RegisterCredentials } from "../types/User";
 
 export const authenticateUserService = (data: LoginCredentials) => {
+  console.log("authing in service");
   return request({
     url: "authenticate",
     method: "POST",
