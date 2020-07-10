@@ -11,26 +11,21 @@
   flex-direction: column;
   align-items: center;
   border-radius: 15px;
-  flex-shrink: 2;
-  // height: auto;
+  // flex-shrink: 2;
+  height: auto;
   background-color: white;
   box-shadow: 0 19px 38px map-get($colors, ocean),
     0 15px 12px map-get($colors, ocean);
   padding-top: 25px;
   padding-bottom: 25px;
-  margin-left: 15px;
-  margin-right: 15px;
+  // margin-left: 25px;
+  // margin-right: 25px;
 
   #{&}__item {
     display: flex;
     flex-direction: row;
-    min-width: 50vw;
-  }
-
-  #{&}__button {
-    font-size: 18px;
-    display: inline-block;
-    padding: 0.25em;
+    min-width: 45vw;
+    // border: 1px solid pink;
   }
 
   #{&}__label {
@@ -41,6 +36,7 @@
     text-align: right;
     width: 50px;
     font-size: 12px;
+    // flex: 2;
   }
 
   #{&}__details {
@@ -48,6 +44,7 @@
     align-items: center;
     // border: 1px solid orange;
     justify-content: center;
+
     font-size: 11px;
     width: 50vw;
   }
@@ -56,13 +53,15 @@
     color: map-get($colors, ocean);
   }
   #{&}__button {
-    // border: 1px solid green;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 30vw;
     cursor: pointer;      
-    background-color: map-get($colors, sky);
+    // background-color: map-get($colors, sky);
+    display: inline-block;
+    padding: 0.25em;
+    // flex: 1;
 
   }
 }

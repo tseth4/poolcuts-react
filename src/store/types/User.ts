@@ -8,6 +8,14 @@ export interface User {
   roles: string;
 }
 
+export interface Barber {
+  id: number,
+  username: string,
+  roles: string,
+  firstName: string,
+  lastName: string,
+  email: string
+}
 export interface LoginCredentials {
   username: string;
   password: string;
@@ -32,7 +40,6 @@ export interface SaveUserAction {
 
 export interface DeleteUserAction {
   type: typeof DELETE_USER;
-  id: string;
 }
 
 export type UserActionTypes = SaveUserAction | DeleteUserAction;

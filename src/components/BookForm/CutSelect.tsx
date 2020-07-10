@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { boundGetAllCuts } from "../../store/actions/CutActions";
 import { Cut } from "../../store/types/Cut";
@@ -16,6 +16,7 @@ interface CutSelectProps {
   handleSetForm: (key: string, value: string) => void;
   handleStep: () => void;
   form: Book;
+  handleSelectedCut: (cut: Cut) => void;
 }
 
 interface CutSelectState {}
@@ -32,6 +33,7 @@ const CutSelect: React.FC<Props> = ({
   handleSetForm,
   handleStep,
   form,
+  handleSelectedCut,
 }: Props) => {
   let cutsRender;
 
@@ -47,21 +49,32 @@ const CutSelect: React.FC<Props> = ({
   return (
     <React.Fragment>
       <div className="cutselect-container">
-        {cuts.map(
-          ({ cutId, appointmentDate, barberId, location, seatLeft }) => (
-            <CutComponent
-              form={form}
-              handleStep={handleStep}
-              handleSetForm={handleSetForm}
-              key={cutId}
-              cutId={cutId}
-              appointmentDate={appointmentDate}
-              barberId={barberId}
-              location={location}
-              seatLeft={seatLeft}
-            />
-          )
-        )}
+        <h1>Select open appointments</h1>
+        <table className="cutselect-table">
+          <thead className="cutselect-table__head">
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Barber</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody className="cutselect-table__body">
+            {cuts.map(({ cutId, appointmentDate, barberId, location }) => (
+              <CutComponent
+                form={form}
+                handleStep={handleStep}
+                handleSetForm={handleSetForm}
+                key={cutId}
+                cutId={cutId}
+                appointmentDate={appointmentDate}
+                barberId={barberId}
+                location={location}
+                handleSelectedCut={handleSelectedCut}
+              />
+            ))}
+          </tbody>
+        </table>
       </div>
     </React.Fragment>
   );

@@ -10,7 +10,7 @@
   height: 75vh;
   .login-inner {
     border-radius: 25px;
-    background-color: white;
+    background-color: map-get($colors, lightBlack);
     box-shadow: 0 19px 38px map-get($colors, ocean), 0 15px 12px map-get($colors, ocean);
     // border-color: purple;
     // margin: 10em;
@@ -49,9 +49,9 @@
     color: map-get($colors, ocean);
   }
   #{&}__logbtn{
-    background-color: white;
-    border: 2px solid map-get($colors, ocean);
-    color: map-get($colors, ocean);
+    background-color: map-get($colors, white);
+    border: 2px solid map-get($colors, white);
+    color: map-get($colors, white);
     height: 4vh;
     margin-top: 24px;
     border-radius: 8px;

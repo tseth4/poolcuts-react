@@ -1,9 +1,10 @@
+import { User, Barber } from "./User";
+
 export interface Cut {
-  cutId: number;
-  barberId: number;
-  seatLeft: number;
-  appointmentDate: string;
-  location: string;
+  cutId?: number;
+  barberId?:number | Barber;
+  appointmentDate?: string;
+  location?: string;
 }
 
 // describing action names available

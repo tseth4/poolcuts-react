@@ -4,7 +4,8 @@ import { Dispatch } from "redux";
 import { getAllCutsService } from "../services/CutService";
 import { AppState } from "..";
 import { User } from "../types/User";
-import { boundLogoutUser } from "./UserActions";
+import { boundLogoutUser, deleteUser } from "./UserActions";
+import { recieveError, deleteError } from "./ErrorAction";
 
 export const recieveAllCuts = (cuts: Cut[]): AppActions => {
   return {
@@ -17,8 +18,10 @@ export const boundGetAllCuts = (user: User) => (dispatch: Dispatch<AppActions>, 
   console.log("bound get cuts");
   getAllCutsService(user).then((res) => {
     dispatch(recieveAllCuts(res));
+    dispatch(deleteError());
   }).catch(e => {
-    console.log(e);
+    dispatch(recieveError(e));
+    dispatch(deleteUser());
   });
 };
 

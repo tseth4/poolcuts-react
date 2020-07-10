@@ -12,11 +12,10 @@ export const recieveUser = (user: User): AppActions => {
   }
 }
 
-export const deleteUser = (id: string): AppActions => {
+export const deleteUser = (): AppActions => {
   console.log("deleting");
   return{
-    type: "DELETE_USER",
-    id: id
+    type: "DELETE_USER"
   }
 }
 
@@ -27,10 +26,9 @@ export const boundLoginUser = (data: LoginCredentials) => (dispatch: Dispatch<Ap
   }).catch((e) => console.log(e));
 }
 
-export const boundLogoutUser = (id: string) => (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+export const boundLogoutUser = () => (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
   console.log("boundLogOut")
-  dispatch(deleteUser(id));
-  sessionStorage.clear();
+  dispatch(deleteUser());
 }
 
 export const boundRegisterUser = (data: RegisterCredentials) => (dispatch: Dispatch<AppActions>, getState: () => AppState) => {

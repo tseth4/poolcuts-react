@@ -6,8 +6,6 @@
   }
 }
 
-
-
 .bookform-container {
   display: flex;
   flex-direction: column;
@@ -40,7 +38,7 @@
       0 15px 12px map-get($colors, ocean);
     }
     span:hover{
-      // background-color: map-get($colors, ocean);
+      background-color: map-get($colors, ocean);
       // transform: scale(2);
       // color: yellow;
     }

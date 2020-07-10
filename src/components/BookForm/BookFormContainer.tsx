@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { ServiceSelect } from "./ServiceSelect";
 import CutSelect from "./CutSelect";
+import ReviewSubmit from "./ReviewSubmit";
 // import { Book } from '.'
 
 import "./BookForm.scss";
 import { Book } from "../../store/types/Book";
+import { Cut } from "../../store/types/Cut";
 
 const BookFormContainer = () => {
   // Book b = new Book();
@@ -18,6 +20,13 @@ const BookFormContainer = () => {
     category: undefined,
     cut: undefined,
     client: undefined,
+  });
+
+  const [selectedCut, setSelectedCut] = useState<Cut>({
+    cutId: undefined,
+    barberId: undefined,
+    appointmentDate: undefined,
+    location: undefined
   });
 
   const [step, setStep] = useState(0);
@@ -34,6 +43,10 @@ const BookFormContainer = () => {
     setForm({ ...form, [key]: value });
   };
 
+  const handleSelectedCut = (cut: Cut) => {
+    setSelectedCut(cut);
+  }
+
   let formProps = {
     handleSetForm: handleSetForm,
     handleStep: handleStep,
@@ -47,11 +60,18 @@ const BookFormContainer = () => {
         {/* <CutSelect {...formProps} /> */}
       </React.Fragment>
     );
-  } else if (step == 1) {
+  } 
+  else if (step == 1) {
     formContent = (
       <React.Fragment>
-        <CutSelect {...formProps}/>
+        <CutSelect {...formProps} handleSelectedCut={handleSelectedCut}/>
       </React.Fragment>
+    );
+  } else if (step == 2){
+    formContent = (
+    <React.Fragment>
+      <ReviewSubmit {...formProps} selectedCut={selectedCut}/>
+    </React.Fragment>
     );
   }
 
@@ -61,7 +81,7 @@ const BookFormContainer = () => {
     stepClass1 = "bookform-container__dot";
   }
 
-  if (form.cut !== null) {
+  if (form.cut != null) {
     console.log("form.cuttt");
     stepClass2 = "bookform-container__dot filled";
   } else {

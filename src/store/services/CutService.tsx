@@ -4,7 +4,7 @@ import { User } from "../types/User";
 export const getAllCutsService = (user: User) => {
   console.log(user);
   return request({
-    url: "cuts",
+    url: "cuts/open",
     method: "GET",
     headers: {
       'Authorization': `Bearer ` +  `${user.jwt}`,
