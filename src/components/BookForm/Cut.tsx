@@ -46,21 +46,22 @@ export const CutComponent: React.FC<Props> = ({
   }
 
   const handleClick = () => {
-    console.log("handle click");
-    handleSetForm("cut", cutId);
+    handleSetForm("cutId", cutId);
     handleSelectedCut({
       cutId: cutId,
       barberId: barberId,
       appointmentDate: appointmentDate,
       location: location,
     });
+    console.log("handle click", form.cutId);
     // handleStep();
   };
 
-  if (form.cut == cutId) {
-    cutClass = "cut-input selected";
+  if (form.cutId == cutId) {
+    console.log("class changed");
+    cutClass = "cutselect-datarow selected";
   } else {
-    cutClass = "cut-input";
+    cutClass = "cutselect-datarow ";
   }
 
   if (typeof barberId != "number" && barberId != null) {
@@ -69,11 +70,11 @@ export const CutComponent: React.FC<Props> = ({
 
   return (
     <React.Fragment>
-      <tr>
-        <td>Date</td>
-        <td>{formatAMPM(dateObj)}</td>
-        <td>{barberDetails}</td>
-        <td>{location}</td>
+      <tr onClick={handleClick} className={cutClass}>
+        <td className="cutselect-datarow__td">{date}</td>
+        <td className="cutselect-datarow__td">{formatAMPM(dateObj)}</td>
+        <td className="cutselect-datarow__td">{barberDetails}</td>
+        <td className="cutselect-datarow__td">{location}</td>
       </tr>
     </React.Fragment>
     // <div onClick={() => handleClick()} className={cutClass}>

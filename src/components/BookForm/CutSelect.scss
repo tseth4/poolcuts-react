@@ -12,13 +12,20 @@ $timing:.3s;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 15px;
   h1{
+    color: map-get($colors,white);
+    font-size: 25.6px;
+    padding-bottom: 10px;
+
     // text-align: center;
   }
 }
 
 .cutselect-table{
-
+  #{&}__head{
+    color: map-get($colors, white);
+  }
 }
 
 

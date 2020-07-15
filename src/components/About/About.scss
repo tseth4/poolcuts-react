@@ -1,3 +1,5 @@
+@import "../../layout/_variables";
+
 .about-container {
   display: flex;
   flex-direction: column;
@@ -6,6 +8,7 @@
   .about-inner {
     padding: 5vw;
     // padding-top: 12vh;
-    border-style: solid;
+    // border-style: solid;
+    color: map-get($colors, white);
   }
 }

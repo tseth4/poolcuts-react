@@ -1,5 +1,5 @@
 export interface User {
-  id: string;
+  id: number;
   jwt: string;
   username: string;
   firstName: string;

@@ -6,6 +6,8 @@ import { AppState } from "..";
 import { User } from "../types/User";
 import { boundLogoutUser, deleteUser } from "./UserActions";
 import { recieveError, deleteError } from "./ErrorAction";
+import { FBUser } from "../types/FBUser";
+import { deleteFBUser } from "./FBUserActions";
 
 export const recieveAllCuts = (cuts: Cut[]): AppActions => {
   return {
@@ -14,14 +16,14 @@ export const recieveAllCuts = (cuts: Cut[]): AppActions => {
   };
 };
 
-export const boundGetAllCuts = (user: User) => (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
-  console.log("bound get cuts");
+export const boundGetAllCuts = (user: User | FBUser) => (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
   getAllCutsService(user).then((res) => {
     dispatch(recieveAllCuts(res));
     dispatch(deleteError());
   }).catch(e => {
     dispatch(recieveError(e));
     dispatch(deleteUser());
+    dispatch(deleteFBUser());
   });
 };
 

@@ -8,6 +8,7 @@ import { boundLoginUser } from "../../store/actions/UserActions";
 import { bindActionCreators } from "redux";
 import { AppState } from "../../store";
 import { Redirect, Route, RouteProps } from "react-router";
+import FacebookLogin  from "../Login/FacebookLogin";
 
 interface LoginProps {
   user?: User[];
@@ -32,7 +33,6 @@ const Login: React.FC<Props> = ({ user, boundLoginUser }: Props) => {
   const handleLogin = (event: any) => {
     event.preventDefault();
     boundLoginUser(value);
-    
   };
 
   if (value.username.length > 1 && value.password.length > 1) {
@@ -47,41 +47,38 @@ const Login: React.FC<Props> = ({ user, boundLoginUser }: Props) => {
     );
   }
 
-
-
   return (
     <div className="login-container">
-      <div className="login-inner">
-        <form onSubmit={handleLogin} className="form-container">
-          <h3>Login</h3>
-          <div className="form-container__textbox">
-            <input
-              type="text"
-              id="uname"
-              placeholder="Username"
-              className="form-container__inpt"
-              onChange={handleInputChange("username")}
-            />
-          </div>
-          <div className="form-container__textbox">
-            <input
-              value={value.password}
-              type="text"
-              id="pword"
-              placeholder="Password"
-              className="form-container__inpt"
-              onChange={handleInputChange("password")}
-            />
-          </div>
-          <button
-            disabled={buttonDisabled}
-            type="submit"
-            className="form-container__logbtn"
-          >
-            Login
-          </button>
-        </form>
-      </div>
+      <form onSubmit={handleLogin} className="form-container">
+        <h3>Login</h3>
+        <div className="form-container__textbox">
+          <input
+            type="text"
+            id="uname"
+            placeholder="Username"
+            className="form-container__inpt"
+            onChange={handleInputChange("username")}
+          />
+        </div>
+        <div className="form-container__textbox">
+          <input
+            value={value.password}
+            type="password"
+            id="pword"
+            placeholder="Password"
+            className="form-container__inpt"
+            onChange={handleInputChange("password")}
+          />
+        </div>
+        <button
+          disabled={buttonDisabled}
+          type="submit"
+          className="form-container__logbtn"
+        >
+          Login
+        </button>
+        <p><FacebookLogin/></p>
+      </form>
     </div>
   );
 };

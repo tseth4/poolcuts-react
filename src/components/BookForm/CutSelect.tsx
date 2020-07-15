@@ -10,6 +10,7 @@ import { User } from "../../store/types/User";
 import { CutComponent } from "./Cut";
 import "./CutSelect.scss";
 import { Book } from "../../store/types/Book";
+import { FBUser } from "../../store/types/FBUser";
 
 interface CutSelectProps {
   cuts?: Cut[];
@@ -30,6 +31,7 @@ const CutSelect: React.FC<Props> = ({
   cuts,
   boundGetAllCuts,
   user,
+  fbUser,
   handleSetForm,
   handleStep,
   form,
@@ -41,15 +43,17 @@ const CutSelect: React.FC<Props> = ({
     console.log(cuts);
 
     console.log(user);
-    if (user.length > 0 || user != null) {
+    if (user.length > 0 && user != null) {
       boundGetAllCuts(user[0]);
+    } else if (fbUser.length > 0 && fbUser != null){
+      boundGetAllCuts(fbUser[0]);
     }
   }, []);
 
   return (
     <React.Fragment>
       <div className="cutselect-container">
-        <h1>Select open appointments</h1>
+        <h1>Select open appointment</h1>
         <table className="cutselect-table">
           <thead className="cutselect-table__head">
             <tr>
@@ -84,11 +88,12 @@ const CutSelect: React.FC<Props> = ({
 interface LinkStateProps {
   cuts: Cut[];
   user: User[];
+  fbUser: FBUser[];
 }
 
 //specifies return value of mapDispatchToProps
 interface LinkDispatchToProps {
-  boundGetAllCuts: (user: User) => void;
+  boundGetAllCuts: (user: User | FBUser) => void;
 }
 
 const mapStateToProps = (
@@ -97,6 +102,7 @@ const mapStateToProps = (
 ): LinkStateProps => ({
   cuts: state.cut,
   user: state.user,
+  fbUser: state.fbUser
 });
 
 const mapDispatchToProps = (

@@ -1,3 +1,5 @@
+@import "../../layout/_variables";
+
 .contact-container {
   display: flex;
   flex-direction: column;
@@ -5,6 +7,7 @@
   .contact-inner {
     padding: 5vw;
     padding-top: 12vh;
-    border-style: solid;
+    // border-style: solid;
+    color: map-get($colors, white);
   }
 }

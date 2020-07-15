@@ -45,7 +45,20 @@ export const Nav: React.FC<Props> = ({
     <div className="header">
       <a href="/" className="logo">
         <b>logo.</b>
+        <div id="bars">
+          <div className="bar"></div>
+          <div className="bar"></div>
+          <div className="bar"></div>
+          <div className="bar"></div>
+          <div className="bar"></div>
+          <div className="bar"></div>
+          <div className="bar"></div>
+          <div className="bar"></div>
+          <div className="bar"></div>
+          <div className="bar"></div>
+        </div>
       </a>
+
       <input className="menu-btn" type="checkbox" id="menu-btn" />
       <label className="menu-icon" htmlFor="menu-btn">
         <span className="navicon"></span>

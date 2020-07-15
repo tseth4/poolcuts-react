@@ -1,0 +1,52 @@
+@import "../../layout/variables";
+
+.rs-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  box-shadow: 0 19px 38px map-get($colors, black),
+    0 15px 12px map-get($colors, black);
+  padding: 25px;
+  margin: 25px;
+  color: map-get($colors, white);
+  #{&}__item {
+    padding: 8px;
+  }
+
+  #{&}__property {
+    color: map-get($colors, gold);
+  }
+
+  #{&}__button-container {
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #{&}__button {
+    background-color: map-get($colors, lightBlack);
+    border: 2px solid map-get($colors, white);
+    color: map-get($colors, white);
+    height: 4vh;
+    margin-top: 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    // padding: 5px;
+    min-width: 75px;
+  }
+
+  .disabled {
+    // background-color: map-get($colors, lightBlack);
+
+    border: 2px solid map-get($colors, black);
+    color: map-get($colors, black);
+    cursor: default;
+    // height: 4vh;
+    // margin-top: 24px;
+    // border-radius: 8px;
+    // // padding: 5px;
+    // min-width: 75px;
+
+  }
+}

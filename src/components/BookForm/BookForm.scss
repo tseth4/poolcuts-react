@@ -16,7 +16,7 @@
 
   @include mobile{
     // border: 10px solid green;
-    overflow: scroll;
+    // overflow: scroll;
 
   }
 
@@ -30,20 +30,22 @@
       // background-color: #bbb;
       border-radius: 50%;
       display: inline-block;
-      border: 5px solid white;
+      border: 5px solid map-get($colors, lightBlack);
       margin: 10px;
       cursor: pointer;
       // transition: all .2s ease-in-out; 
-      box-shadow: 0 19px 38px map-get($colors, ocean),
-      0 15px 12px map-get($colors, ocean);
+      box-shadow: 0 19px 38px map-get($colors, black),
+      0 15px 12px map-get($colors, black);
     }
     span:hover{
-      background-color: map-get($colors, ocean);
+      background-color: map-get($colors, black);
       // transform: scale(2);
       // color: yellow;
     }
     .filled{
-      background-color: map-get($colors, ocean);
+      background-color: map-get($colors, lightBlack);
+      box-shadow: 0 12px 30px map-get($colors, white),
+      0 8px 5px map-get($colors, white);
     }
   }
 

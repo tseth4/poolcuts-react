@@ -8,15 +8,6 @@
   justify-content: center;
   align-items: center;
   height: 75vh;
-  .login-inner {
-    border-radius: 25px;
-    background-color: map-get($colors, lightBlack);
-    box-shadow: 0 19px 38px map-get($colors, ocean), 0 15px 12px map-get($colors, ocean);
-    // border-color: purple;
-    // margin: 10em;
-    // padding: 10em;
-    width: 50%;
-  }
 
   
 }
@@ -26,10 +17,21 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10vw;
+  padding: 40px;
+  align-self: center;
+  // border: 1px solid yellow;
+  border-radius: 25px;
+  background-color: map-get($colors, lightBlack);
+  box-shadow: 0 19px 38px map-get($colors, black), 0 15px 12px map-get($colors, black);
+  // margin: 10em;
+  // padding: 10em;
+  // width: 50%;
+
   #{&}__textbox{
-    border-bottom: 1px solid map-get($colors, ocean);
-    position: relative;
+    // border: 1px solid pink;
+    border-bottom: 1px solid map-get($colors, offGrey);
+    width: 100%;
+    // position: relative;
     // margin: 15px 0;
 
   }
@@ -42,14 +44,18 @@
     margin-top: 24px;
     // height: 40px;
     box-sizing: border-box;
-
+    color: map-get($colors, white);
   }
 
   #{&}__inpt::placeholder{
-    color: map-get($colors, ocean);
+    color: map-get($colors, white);
   }
+
+  // #{&}__input:focus{
+  //   color: map-get($colors, white);
+  // }
   #{&}__logbtn{
-    background-color: map-get($colors, white);
+    background-color: map-get($colors, lightBlack);
     border: 2px solid map-get($colors, white);
     color: map-get($colors, white);
     height: 4vh;
@@ -57,13 +63,10 @@
     border-radius: 8px;
     cursor: pointer;
     // padding: 5px;
-
-  }
-  button {
     min-width: 75px;
   }
   h3 {
-    color: map-get($colors, ocean);
+    color: map-get($colors, gold);
   }
 
 

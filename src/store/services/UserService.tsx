@@ -11,6 +11,7 @@ export const authenticateUserService = (data: LoginCredentials) => {
 }
 
 export const registerUserService = (data: RegisterCredentials) => {
+  console.log("registering")
   return request({
     url: "register",
     method: "POST",
@@ -23,5 +24,12 @@ export const registerAdminService = (data: RegisterCredentials) => {
     url: "register/admin",
     method: "POST",
     data
+  })
+}
+
+export const getUserService = (email: string) => {
+  return request({
+    url: `user/${email}`,
+    method: "GET"
   })
 }
