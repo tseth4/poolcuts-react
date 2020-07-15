@@ -1,4 +1,4 @@
-$borderColor: blue;
+
 
 .home-parent-container {
   // padding: vh;
@@ -12,11 +12,11 @@ $borderColor: blue;
   grid-auto-rows: 40vh 40vh;
 
   div {
-    color: purple;
-    border-style: solid;
-    border-color: $borderColor;
+    // color: purple;
+    border: 1px solid gray;
+    // border-color: $borderColor;
     &:hover{
-      background: yellow;
+      background: lightgray;
     }
   }
 }

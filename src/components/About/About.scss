@@ -1,10 +1,14 @@
+@import "../../layout/_variables";
+
 .about-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   .about-inner {
-    padding: 10em;
-    border-style: solid;
+    padding: 5vw;
+    // padding-top: 12vh;
+    // border-style: solid;
+    color: map-get($colors, white);
   }
-
 }
