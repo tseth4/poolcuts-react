@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import "./Login.scss";
 import { User, LoginCredentials } from "../../store/types/User";
+import { IError } from "../../store/types/Error";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../store/types";
 import { boundLoginUser } from "../../store/actions/UserActions";
 import { bindActionCreators } from "redux";
 import { AppState } from "../../store";
 import { Redirect, Route, RouteProps } from "react-router";
-import FacebookLogin  from "../Login/FacebookLogin";
+import FacebookLogin from "../Login/FacebookLogin";
 
 interface LoginProps {
   user?: User[];
@@ -18,8 +19,16 @@ interface LoginState {}
 
 type Props = LoginProps & LinkDispatchToProps & LinkStateProps & LoginState;
 
-const Login: React.FC<Props> = ({ user, boundLoginUser }: Props) => {
+const Login: React.FC<Props> = ({ user, boundLoginUser, error }: Props) => {
   let buttonDisabled: boolean = true;
+  let loginError: boolean;
+  let errorMessage: string = "";
+
+  if (error.length > 0 || error[0] != undefined) {
+    errorMessage = "Invalid username and/or password";
+  } else {
+    errorMessage = "";
+  }
 
   const [value, setValue] = useState({
     username: "",
@@ -77,7 +86,10 @@ const Login: React.FC<Props> = ({ user, boundLoginUser }: Props) => {
         >
           Login
         </button>
-        <p><FacebookLogin/></p>
+        <p className="login-error">{errorMessage}</p>
+        <p>
+          <FacebookLogin />
+        </p>
       </form>
     </div>
   );
@@ -85,6 +97,7 @@ const Login: React.FC<Props> = ({ user, boundLoginUser }: Props) => {
 
 interface LinkStateProps {
   user: User[];
+  error: IError[];
 }
 
 interface LinkDispatchToProps {
@@ -96,6 +109,7 @@ const mapStateToProps = (
   ownProps: LoginProps
 ): LinkStateProps => ({
   user: state.user,
+  error: state.error,
 });
 
 const mapDispatchToProps = (

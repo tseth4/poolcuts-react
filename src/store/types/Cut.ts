@@ -1,10 +1,12 @@
 import { User, Barber } from "./User";
+import { FBUserAuthResponse } from "./FBUser";
 
 export interface Cut {
   cutId?: number;
   barberId?:number | Barber;
   appointmentDate?: string;
   location?: string;
+  fbBarberId?: number | FBUserAuthResponse;
 }
 
 // describing action names available

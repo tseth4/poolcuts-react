@@ -10,7 +10,7 @@ import { User } from "../../store/types/User";
 import { CutComponent } from "./Cut";
 import "./CutSelect.scss";
 import { Book } from "../../store/types/Book";
-import { FBUser } from "../../store/types/FBUser";
+import { FBUser, FBUserAuthResponse } from "../../store/types/FBUser";
 
 interface CutSelectProps {
   cuts?: Cut[];
@@ -40,9 +40,6 @@ const CutSelect: React.FC<Props> = ({
   let cutsRender;
 
   useEffect(() => {
-    console.log(cuts);
-
-    console.log(user);
     if (user.length > 0 && user != null) {
       boundGetAllCuts(user[0]);
     } else if (fbUser.length > 0 && fbUser != null){
@@ -64,7 +61,7 @@ const CutSelect: React.FC<Props> = ({
             </tr>
           </thead>
           <tbody className="cutselect-table__body">
-            {cuts.map(({ cutId, appointmentDate, barberId, location }) => (
+            {cuts.map(({ cutId, appointmentDate, barberId, location, fbBarberId }) => (
               <CutComponent
                 form={form}
                 handleStep={handleStep}
@@ -73,6 +70,7 @@ const CutSelect: React.FC<Props> = ({
                 cutId={cutId}
                 appointmentDate={appointmentDate}
                 barberId={barberId}
+                fbBarberId={fbBarberId}
                 location={location}
                 handleSelectedCut={handleSelectedCut}
               />
@@ -88,7 +86,7 @@ const CutSelect: React.FC<Props> = ({
 interface LinkStateProps {
   cuts: Cut[];
   user: User[];
-  fbUser: FBUser[];
+  fbUser: FBUserAuthResponse[];
 }
 
 //specifies return value of mapDispatchToProps

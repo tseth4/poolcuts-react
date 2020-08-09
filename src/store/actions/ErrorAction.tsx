@@ -1,7 +1,8 @@
 import { AppActions } from "../types"
-import { Error } from "../types/Error"
+import { IError } from "../types/Error"
 
-export const recieveError = (error: Error): AppActions => {
+export const recieveError = (error: IError): AppActions => {
+  console.log(error);
   return {
     type: "SAVE_ERROR",
     error: error

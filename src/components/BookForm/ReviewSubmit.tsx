@@ -23,7 +23,11 @@ interface RsState {}
 
 type Props = RsProps & LinkDispatchToProps & LinkStateProps & RsState;
 
-const ReviewSubmit: React.FC<Props> = ({ form, selectedCut, currentUser }: Props) => {
+const ReviewSubmit: React.FC<Props> = ({
+  form,
+  selectedCut,
+  currentUser,
+}: Props) => {
   let buttonDisable: boolean = true;
   let buttonClass: string;
   let price: number = 0.0;
@@ -43,15 +47,17 @@ const ReviewSubmit: React.FC<Props> = ({ form, selectedCut, currentUser }: Props
 
   let date = dateObj.toDateString();
 
-  if (form.category == null || 
-    // form.clientId == null || 
-    form.cutId == null){
-    console.log(form)
+  if (
+    form.category == null ||
+    // form.clientId == null ||
+    form.cutId == null
+  ) {
+    console.log(form);
     buttonDisable = true;
-    buttonClass = "rs-container__button disabled"; 
+    buttonClass = "rs-container__button disabled";
   } else {
     buttonDisable = false;
-    buttonClass = "rs-container__button"; 
+    buttonClass = "rs-container__button";
   }
 
   return (
@@ -78,7 +84,9 @@ const ReviewSubmit: React.FC<Props> = ({ form, selectedCut, currentUser }: Props
         {price}
       </div>
       <div className="rs-container__button-container">
-        <button disabled={buttonDisable} type="submit" className={buttonClass}>Book</button>
+        <button disabled={buttonDisable} type="submit" className={buttonClass}>
+          Book
+        </button>
       </div>
     </div>
   );
@@ -99,7 +107,7 @@ const mapStateToProps = (
 ): LinkStateProps => ({
   // cuts: state.cut,
   user: state.user,
-  fbUser: state.fbUser
+  fbUser: state.fbUser,
 });
 
 const mapDispatchToProps = (

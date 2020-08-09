@@ -1,17 +1,20 @@
-import { Error, ErrorActionTypes } from '../types/Error';
+import { IError, ErrorActionTypes } from "../types/Error";
 
+const errorReducerDefaultState: IError[] = [];
 
-const errorReducerDefaultState: Error[] = []
-
-const errorReducer = (state = errorReducerDefaultState, action: ErrorActionTypes ): Error[] | any => {
-  switch (action.type){
+const errorReducer = (
+  state = errorReducerDefaultState,
+  action: ErrorActionTypes
+): Error[] | any => {
+  switch (action.type) {
     case "SAVE_ERROR":
+      console.log(action.error);
       return [action.error];
     case "DELETE_ERROR":
-      return []
+      return [];
     default:
       return state;
   }
-}
+};
 
 export { errorReducer };

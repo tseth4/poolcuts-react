@@ -8,6 +8,7 @@ import Contact from "../components/Contact/Contact";
 import Login from "../components/Login/Login";
 import BookFormContainer from "../components/BookForm/BookFormContainer";
 import PrivateRoute from "./PrivateRoute";
+import ProfileContainer  from "../components/Profile/ProfileContainer";
 // import './App.css';
 
 export const history = createHistory();
@@ -23,9 +24,7 @@ const AppRouter = () => (
         <Route exact path="/about" component={About} />
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/login" component={Login} />
-        {/* <Route exact path='/login' render={()=><Login/>}/> */}
-        {/* <PrivateRoute path="/book" component={BookFormContainer}/> */}
-        {/* <Route exact path='/book' component={BookFormContainer}/> */}
+        <PrivateRoute path="/profile" component={ProfileContainer}/>
       </Switch>
     </div>
   </Router>

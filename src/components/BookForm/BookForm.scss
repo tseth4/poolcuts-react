@@ -12,12 +12,11 @@
   justify-content: center;
   align-items: center;
   height: 75vh;
-  // border: 10px solid pink;
+  border: 10px solid pink;
 
   @include mobile{
     // border: 10px solid green;
     // overflow: scroll;
-
   }
 
   #{&}__pselect{

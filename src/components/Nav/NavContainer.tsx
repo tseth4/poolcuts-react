@@ -9,13 +9,14 @@ import { AppActions } from "../../store/types";
 import { bindActionCreators } from "redux";
 import { boundLogoutUser } from "../../store/actions/UserActions";
 import { boundLogoutFBUser } from "../../store/actions/FBUserActions";
+import  NavLoading  from "./NavLoading";
 
-import { FBUser } from "../../store/types/FBUser";
+import { FBUser, FBUserAuthResponse } from "../../store/types/FBUser";
 // import { profile } from 'console';
 
 interface NavContainerProps {
   user?: User[];
-  fbUser?: FBUser[]; 
+  fbUser?: FBUserAuthResponse[]; 
 }
 
 interface NavContainerState {}
@@ -23,20 +24,9 @@ interface NavContainerState {}
 type Props = NavContainerProps & NavContainerState & LinkDispatchToProps & LinkStateProps;
 const NavContainer: React.FC<Props> = ({ user, fbUser, boundLogoutUser, boundLogoutFBUser }: Props) => {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(user.length > 0 || fbUser.length > 0 ? true : false);
+  const [isLoggedIn, setIsLoggedIn] = useState((user.length > 0 && user[0].roles != undefined) || (fbUser.length > 0 && fbUser[0] != undefined) ? true : false);
 
-  // useEffect(() => {
-  //   window.location.reload();
-  // })
-
-  console.log(fbUser.length);
-  console.log(user.length);
-
-  if (fbUser){
-    console.log(fbUser);
-  } else if (user){
-    console.log(user);
-  }
+console.log(fbUser);
 
   const handleLogoutButton = () => {
     console.log("logiongout")
@@ -57,14 +47,25 @@ const NavContainer: React.FC<Props> = ({ user, fbUser, boundLogoutUser, boundLog
   let navProps = {
     isLoggedIn: isLoggedIn,
     handleLogoutButton: handleLogoutButton,
+    user: user,
+    fbUser: fbUser
   };
 
-  return <Nav {...navProps} />;
+  console.log(isLoggedIn)
+
+  if (isLoggedIn){
+    console.log("nav main components");
+    return <Nav {...navProps} />;
+  } else {
+    console.log("nav loading components");
+    return <NavLoading/>
+  }
+
 };
 
 interface LinkStateProps {
   user: User[];
-  fbUser: FBUser[];
+  fbUser: FBUserAuthResponse[];
 }
 
 interface LinkDispatchToProps {

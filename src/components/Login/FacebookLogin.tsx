@@ -34,16 +34,19 @@ const FacebookLogin: React.FC<Props> = ({
   });
   const responseFacebook = (response: any) => {
     console.log("response facebook called");
-    let name = response.name.split(" ");
-    let firstName = name[0];
-    let lastName = name.length == 3 ? name[2] : name[1];
-    boundLoginFBUser({
-      id: response.id,
-      accessToken: response.accessToken,
-      email: response.email,
-      firstName: firstName,
-      lastName: lastName,
-    });
+    console.log(response);
+    if (response.status != "unknown") {
+      let name = response.name.split(" ");
+      let firstName = name[0];
+      let lastName = name.length == 3 ? name[2] : name[1];
+      boundLoginFBUser({
+        id: response.id,
+        accessToken: response.accessToken,
+        email: response.email,
+        firstName: firstName,
+        lastName: lastName,
+      });
+    }
     // boundLoginFBUser(state);
   };
 

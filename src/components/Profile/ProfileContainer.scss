@@ -1,0 +1,41 @@
+@import "../../layout/_variables";
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  padding: 1vh;
+  height: 75vh;
+  // border: white 1px solid;
+  #{&}__row {
+    display: flex;
+    flex-direction: row;
+    // border: pink 1px solid;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+  }
+
+  #{&}__item {
+    margin: 5px;
+    border: white 1px solid;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 1vh;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (max-width: 48em) {
+    #{&}__row {
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

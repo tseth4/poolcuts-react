@@ -26,7 +26,7 @@ const PrivateRoute: React.FC<Props> = ({ user, fbUser, component, path }: Props)
   } else {
     console.log("private route redirect");
     console.log(fbUser)
-    return <Redirect to="/"/>
+    return <Redirect to="/login"/>
     // <Redirect to="/login"/>;
   }
 }
