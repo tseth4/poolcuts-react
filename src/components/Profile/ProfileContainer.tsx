@@ -35,12 +35,11 @@ const ProfileContainer: React.FC<Props> = ({ user, fbUser }: Props) => {
 
   if (fbUser.length > 0) {
     userType = fbUser[0].roles;
-    userNameView = fbUser[0].firstName
-  } else if (user.length > 0){
+    userNameView = fbUser[0].firstName;
+  } else if (user.length > 0) {
     userType = user[0].roles;
-    userNameView = user[0].firstName
+    userNameView = user[0].firstName;
   }
-  
 
   if (userType == "ROLE_ADMIN") {
     adminViews = (
@@ -56,14 +55,12 @@ const ProfileContainer: React.FC<Props> = ({ user, fbUser }: Props) => {
       </React.Fragment>
     );
   } else {
-    adminViews = (
-      <React.Fragment></React.Fragment>
-    )
+    adminViews = <React.Fragment></React.Fragment>;
   }
 
   return (
     <div className="profile-container">
-      <h1 style={{color: "white"}}>Welcome {userNameView}</h1>
+      <h1 style={{ color: "white" }}>Welcome {userNameView}</h1>
       {adminViews}
       <div className="profile-container__row">
         <div className="profile-container__item">

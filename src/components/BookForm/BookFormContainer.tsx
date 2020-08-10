@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { boundBookAppointment } from "../../store/actions/BookActions";
 
 import "./BookForm.scss";
-import { Book } from "../../store/types/Book";
+import { Book, NewBooking } from "../../store/types/Book";
 import { Cut } from "../../store/types/Cut";
 import { User } from "../../store/types/User";
 import { AppState } from "../../store";
@@ -28,22 +28,25 @@ type Props = BookFormContainerProps &
 const BookFormContainer: React.FC<Props> = ({ user, fbUser, boundBookAppointment }: Props) => {
   // Book b = new Book();
   let currentUser: any = undefined;
-  if (user !== undefined && user.length > 0) {
-    currentUser = user[0];
-  } else if (fbUser !== undefined && fbUser.length > 0) {
-    currentUser = fbUser[0];
-  }
+
 
   let formContent;
   let stepClass1 = "bookform-container__dot";
   let stepClass2 = "bookform-container__dot";
   let stepClass3 = "bookform-container__dot";
 
-  const [form, setForm] = useState<Book>({
+  const [form, setForm] = useState<NewBooking>({
     category: undefined,
     cutId: undefined,
-    clientId: undefined,
+    clientId: user.length > 0 ? user[0].id : undefined,
+    fbClientId: fbUser.length > 0 ? fbUser[0].id : undefined
   });
+
+  if (user !== undefined && user.length > 0) {
+    currentUser = user[0];
+  } else if (fbUser !== undefined && fbUser.length > 0) {
+    currentUser = fbUser[0];
+  }
 
   const [selectedCut, setSelectedCut] = useState<Cut>({
     cutId: undefined,
@@ -110,6 +113,10 @@ const BookFormContainer: React.FC<Props> = ({ user, fbUser, boundBookAppointment
     event.preventDefault();
     boundBookAppointment(form, currentUser);
   };
+
+  if(form){
+    console.log(form);
+  }
 
   return (
     <div className="bookform-container">

@@ -39,10 +39,10 @@ const CutList: React.FC<Props> = ({
   console.log(cuts);
   return (
     <React.Fragment>
-      <div className="cutselect-container">
+      <div className="cutlist-container">
         <h1>Your open appointments</h1>
-        <table className="cutselect-table">
-          <thead className="cutselect-table__head">
+        <table className="cutlist-table">
+          <thead className="cutlist-table__head">
             <tr>
               <th>Date</th>
               <th>Time</th>
@@ -50,7 +50,7 @@ const CutList: React.FC<Props> = ({
               <th>Location</th>
             </tr>
           </thead>
-          <tbody className="cutselect-table__body">
+          <tbody className="cutlist-table__body">
             {cuts.map(({ cutId, appointmentDate, barberId, location, fbBarberId }) => (
               <CutComponent
                 // form={form}
@@ -67,7 +67,9 @@ const CutList: React.FC<Props> = ({
             ))}
           </tbody>
         </table>
-        <button>create new open cut</button>
+        <button disabled={true} type="submit" className="cutlist-button">
+          Book
+        </button>
       </div>
     </React.Fragment>
   );

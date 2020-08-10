@@ -16,6 +16,33 @@ export interface Barber {
   lastName: string,
   email: string
 }
+
+export interface Client {
+  id: number,
+  username: string,
+  roles: string,
+  firstName: string,
+  lastName: string,
+  email: string 
+}
+
+export interface fbBarber {
+  id: number,
+  roles: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  cut: any
+}
+
+export interface fbClient {
+  id: number,
+  roles: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  cut: any 
+}
 export interface LoginCredentials {
   username: string;
   password: string;

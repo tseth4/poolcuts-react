@@ -1,0 +1,24 @@
+@import "../../../layout/_variables.scss";
+
+.cutlist-datarow {
+  color: map-get($colors, white);
+
+  #{&}__td {
+    padding: 15px;
+    text-align: left;
+    vertical-align: middle;
+    font-weight: map-get($font-weights, medium);
+    font-size: 12px;
+    // color: map-get($colors, white);
+    border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+  }
+}
+.selected {
+  background-color: map-get($colors, offGrey);
+  color: map-get($colors, black);
+}
+.cutlist-datarow:hover {
+  cursor: pointer;
+  background-color: map-get($colors, offGrey);
+  color: map-get($colors, black);
+}

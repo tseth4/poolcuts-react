@@ -1,5 +1,5 @@
-import React from "react";
-import { Book } from "../../store/types/Book";
+import React, { useEffect, useState } from "react";
+import { Book, NewBooking } from "../../store/types/Book";
 import { Cut } from "../../store/types/Cut";
 import { format } from "path";
 import { AppState } from "../../store";
@@ -9,12 +9,14 @@ import { AppActions } from "../../store/types";
 import { connect } from "react-redux";
 import "./ReviewSubmit.scss";
 import { FBUser } from "../../store/types/FBUser";
+import { bindActionCreators } from "redux";
+import { boundUnsetSuccessMessage, boundCancelBooking, boundUnsetCancelSuccessMessage } from "../../store/actions/BookActions";
 
 interface RsProps {
   cuts?: Cut[];
   handleSetForm: (key: string, value: string) => void;
   handleStep: () => void;
-  form: Book;
+  form: NewBooking;
   selectedCut: Cut;
   currentUser: User | FBUser;
 }
@@ -27,10 +29,27 @@ const ReviewSubmit: React.FC<Props> = ({
   form,
   selectedCut,
   currentUser,
+  bookSuccess,
+  boundUnsetSuccessMessage,
+  boundCancelBooking,
+  cancelBookResp
 }: Props) => {
+
   let buttonDisable: boolean = true;
   let buttonClass: string;
+  let successMessage: string = "";
+  let cancelSuccessMessage: string = "";
+  let cancelButton: any;
   let price: number = 0.0;
+
+  function isEmpty(obj: any) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
   if (form.category == "haircut") {
     price = 27.0;
   } else if (form.category == "kidscut") {
@@ -48,17 +67,51 @@ const ReviewSubmit: React.FC<Props> = ({
   let date = dateObj.toDateString();
 
   if (
-    form.category == null ||
-    // form.clientId == null ||
-    form.cutId == null
+    (form.category == undefined )||
+    (form.clientId == undefined && form.fbClientId == undefined) ||
+    (form.cutId == undefined)
   ) {
-    console.log(form);
     buttonDisable = true;
     buttonClass = "rs-container__button disabled";
   } else {
     buttonDisable = false;
     buttonClass = "rs-container__button";
   }
+
+  const testing = () => {
+    let bookId = bookSuccess.bookId;
+    if (bookId){
+      boundCancelBooking(bookId, currentUser);
+    }
+    console.log("testing click");
+  }
+
+  if (!isEmpty(bookSuccess)){
+    successMessage = "successfully booked new booking with id: " + bookSuccess.bookId;
+    cancelButton = (
+      <React.Fragment>
+        <div onClick={testing}>Cancel Book</div>
+      </React.Fragment>
+    )
+  }
+
+  if (cancelBookResp.length > 0){
+    successMessage = "";
+    cancelSuccessMessage = "Cancel successfull for book id " + cancelBookResp[0];
+    cancelButton = (<React.Fragment></React.Fragment>);
+  }
+
+  useEffect(() => {
+    boundUnsetSuccessMessage();
+    boundUnsetCancelSuccessMessage();
+    return function cleanup() {
+      console.log("clean up")
+      boundUnsetSuccessMessage();
+      boundUnsetCancelSuccessMessage();
+    }
+  }, []);
+
+  console.log(bookSuccess);
 
   return (
     <div className="rs-container">
@@ -87,6 +140,8 @@ const ReviewSubmit: React.FC<Props> = ({
         <button disabled={buttonDisable} type="submit" className={buttonClass}>
           Book
         </button>
+        {successMessage}
+        {cancelButton}
       </div>
     </div>
   );
@@ -95,10 +150,15 @@ const ReviewSubmit: React.FC<Props> = ({
 interface LinkStateProps {
   user: User[];
   fbUser: FBUser[];
+  bookSuccess: Book;
+  cancelBookResp: number[];
 }
 
 interface LinkDispatchToProps {
   // boundGetAllCuts: (user: User) => void;
+  boundUnsetSuccessMessage: () => void;
+  boundCancelBooking: (id: number, user: any) => void;
+  boundUnsetCancelSuccessMessage: () => void;
 }
 
 const mapStateToProps = (
@@ -108,6 +168,8 @@ const mapStateToProps = (
   // cuts: state.cut,
   user: state.user,
   fbUser: state.fbUser,
+  bookSuccess: state.bookSuccess,
+  cancelBookResp: state.cancelBookResp
 });
 
 const mapDispatchToProps = (
@@ -115,6 +177,9 @@ const mapDispatchToProps = (
   ownProps: RsProps
 ): LinkDispatchToProps => ({
   // boundGetAllCuts: bindActionCreators(boundGetAllCuts, dispatch),
+  boundUnsetSuccessMessage: bindActionCreators(boundUnsetSuccessMessage, dispatch),
+  boundCancelBooking: bindActionCreators(boundCancelBooking, dispatch),
+  boundUnsetCancelSuccessMessage: bindActionCreators(boundUnsetCancelSuccessMessage, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewSubmit);

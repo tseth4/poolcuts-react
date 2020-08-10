@@ -19,12 +19,12 @@ interface LoginState {}
 
 type Props = LoginProps & LinkDispatchToProps & LinkStateProps & LoginState;
 
-const Login: React.FC<Props> = ({ user, boundLoginUser, error }: Props) => {
+const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
   let buttonDisabled: boolean = true;
   let loginError: boolean;
   let errorMessage: string = "";
 
-  if (error.length > 0 || error[0] != undefined) {
+  if (authError.length > 0 || authError[0] != undefined) {
     errorMessage = "Invalid username and/or password";
   } else {
     errorMessage = "";
@@ -97,7 +97,7 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, error }: Props) => {
 
 interface LinkStateProps {
   user: User[];
-  error: IError[];
+  authError: IError[];
 }
 
 interface LinkDispatchToProps {
@@ -109,7 +109,7 @@ const mapStateToProps = (
   ownProps: LoginProps
 ): LinkStateProps => ({
   user: state.user,
-  error: state.error,
+  authError: state.authError,
 });
 
 const mapDispatchToProps = (

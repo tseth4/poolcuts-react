@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./Cut.scss";
-import { Barber } from "../../../store/types/User";
+import { Barber, fbBarber } from "../../../store/types/User";
 import { Book } from "../../../store/types/Book";
 import { Cut } from "../../../store/types/Cut";
 import { FBUserAuthResponse } from "../../../store/types/FBUser";
@@ -11,7 +11,7 @@ interface CutProps {
   barberId?: number | Barber;
   location?: string;
   seatLeft?: number;
-  fbBarberId?: number | FBUserAuthResponse;
+  fbBarberId?: number | fbBarber;
   // handleSetForm: (key: string, value: any) => void;
   // handleStep: () => void;
   // form: Book;
@@ -68,7 +68,7 @@ export const CutComponent: React.FC<Props> = ({
   //   cutClass = "cutselect-datarow ";
   // }
 
-  cutClass = "cutselect-datarow";
+  cutClass = "cutlist-datarow";
 
   if (typeof barberId != "number" && barberId != null) {
     barberDetails = barberId.firstName + " " + barberId.lastName;
@@ -79,10 +79,10 @@ export const CutComponent: React.FC<Props> = ({
   return (
     <React.Fragment>
       <tr onClick={handleClick} className={cutClass}>
-        <td className="cutselect-datarow__td">{date}</td>
-        <td className="cutselect-datarow__td">{formatAMPM(dateObj)}</td>
-        <td className="cutselect-datarow__td">{barberDetails}</td>
-        <td className="cutselect-datarow__td">{location}</td>
+        <td className="cutlist-datarow__td">{date}</td>
+        <td className="cutlist-datarow__td">{formatAMPM(dateObj)}</td>
+        <td className="cutlist-datarow__td">{barberDetails}</td>
+        <td className="cutlist-datarow__td">{location}</td>
       </tr>
     </React.Fragment>
     // <div onClick={() => handleClick()} className={cutClass}>

@@ -9,14 +9,14 @@ import { bindActionCreators } from "redux";
 import { User } from "../../store/types/User";
 import { CutComponent } from "./Cut";
 import "./CutSelect.scss";
-import { Book } from "../../store/types/Book";
+import { Book, NewBooking } from "../../store/types/Book";
 import { FBUser, FBUserAuthResponse } from "../../store/types/FBUser";
 
 interface CutSelectProps {
   cuts?: Cut[];
   handleSetForm: (key: string, value: string) => void;
   handleStep: () => void;
-  form: Book;
+  form: NewBooking;
   handleSelectedCut: (cut: Cut) => void;
 }
 

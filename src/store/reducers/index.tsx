@@ -1,17 +1,22 @@
 import { combineReducers } from "redux";
-import { cutReducer } from "./CutReducer";
+import { cutReducer, cutErrorReducer, cutSuccessReducer } from "./CutReducer";
 import { userReducer } from "./UserReducer";
 import { fbUserReducer } from "./FBUsesrReducer";
-import { errorReducer } from "./ErrorReducer";
-import { bookReducer, appointmentReducer } from "./BookReducer";
+import { errorReducer } from "./AuthErrorReducer";
+import { bookReducer, appointmentReducer, bookSuccessReducer, bookErrorReducer, cancelBookReducer } from "./BookReducer";
 
 const rootReducer = combineReducers({
   cut: cutReducer,
   user: userReducer,
   fbUser: fbUserReducer,
-  error: errorReducer,
+  authError: errorReducer,
   book: bookReducer,
-  appt: appointmentReducer
+  appt: appointmentReducer,
+  bookSuccess: bookSuccessReducer,
+  bookError: bookErrorReducer,
+  cutError: cutErrorReducer,
+  cutSuccess: cutSuccessReducer,
+  cancelBookResp: cancelBookReducer
 });
 
 export default rootReducer;

@@ -5,9 +5,10 @@ import { getAllCutsService, getOpenFacebookBarberCuts, getOpenBarberCuts } from 
 import { AppState } from "..";
 import { User } from "../types/User";
 import { boundLogoutUser, deleteUser } from "./UserActions";
-import { recieveError, deleteError } from "./ErrorAction";
+import { recieveError, deleteError } from "./AuthErrorActions";
 import { FBUser, FBUserAuthResponse } from "../types/FBUser";
 import { deleteFBUser } from "./FBUserActions";
+import { IError } from "../types/Error";
 
 export const recieveAllCuts = (cuts: Cut[]): AppActions => {
   return {
@@ -16,12 +17,26 @@ export const recieveAllCuts = (cuts: Cut[]): AppActions => {
   };
 };
 
+export const recieveCutError = (error: IError): AppActions => {
+  console.log(error);
+  return {
+    type: "SET_CUT_ERROR",
+    cutError: error
+  };
+}
+
+export const deleteCutError = (): AppActions => {
+  return{
+    type: "DELETE_CUT_ERROR",
+  }
+}
+
 export const boundGetAllCuts = (user: User | FBUser) => (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
   getAllCutsService(user).then((res) => {
     dispatch(recieveAllCuts(res));
-    dispatch(deleteError());
+    dispatch(deleteCutError());
   }).catch(e => {
-    dispatch(recieveError(e));
+    dispatch(recieveCutError(e));
     dispatch(deleteUser());
     dispatch(deleteFBUser());
   });
@@ -30,16 +45,18 @@ export const boundGetAllCuts = (user: User | FBUser) => (dispatch: Dispatch<AppA
 export const boundGetOpenFacebookBarberCuts = (barber: FBUserAuthResponse) => (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
   getOpenFacebookBarberCuts(barber).then((res)=> {
     dispatch(recieveAllCuts(res));
+    dispatch(deleteCutError());
   }).catch(e => {
-    dispatch(recieveError(e));
+    dispatch(recieveCutError(e));
   })
 }
 
 export const boundGetOpenBarberCuts = (barber: User) => (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
   getOpenBarberCuts(barber).then((res) => {
     dispatch(recieveAllCuts(res));
+    dispatch(deleteCutError());
   }).catch(e => {
-    dispatch(recieveError(e));
+    dispatch(recieveCutError(e));
   })
 }
 

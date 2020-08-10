@@ -31,25 +31,27 @@ const BookingList: React.FC<Props> = ({books, user, fbUser, boundGetBarberBookin
   }, []);
   return (
     <React.Fragment>
-      <div>
+      <div className="bookinglist-container">
         <h1>Your upcoming bookings</h1>
-        <table>
-          <thead>
+        <table className="bookinglist-table">
+          <thead className="bookinglist-table__head">
             <tr>
               <th>Category</th>
               <th>Barber</th>
               <th>Date</th>
+              <th>Time</th>
               <th>Client</th>
             </tr>
           </thead>
-          <tbody>
-            {books.map(({ bookId, category, cutId, clientId}) => (
+          <tbody className="bookinglist-table__body">
+            {books.map(({ bookId, category, cut, fbClient, client}) => (
               <BookComponent
                 key={bookId}
                 bookId={bookId}
                 category={category}
-                cutId={cutId}
-                clientId={clientId}
+                cut={cut}
+                client={client}
+                fbClient={fbClient}
               />
             ))}
           </tbody>

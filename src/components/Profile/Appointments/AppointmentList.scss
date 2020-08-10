@@ -1,0 +1,29 @@
+@import "../../../layout/_variables.scss";
+$color:#3694d7;
+$timing:.3s;
+@mixin mobile {
+  @media (max-width: map-get($breakpoints, tablet)) {
+    @content;
+  }
+}
+
+.appointmentlist-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 15px;
+  h1{
+    color: map-get($colors,white);
+    font-size: 25.6px;
+    padding-bottom: 10px;
+
+    // text-align: center;
+  }
+}
+
+.appointmentlist-table{
+  #{&}__head{
+    color: map-get($colors, white);
+  }
+}

@@ -4,6 +4,7 @@ import { AppState } from "..";
 import { Dispatch } from "redux";
 import { getUserService, registerUserService, authenticateFBUserService } from "../services/UserService";
 import { recieveUser } from "./UserActions";
+import { recieveError, deleteError } from "./AuthErrorActions";
 export const recieveFBUser = (fbUser: FBUserAuthResponse): AppActions => {
   return {
     type: "SAVE_FBUSER",
@@ -21,14 +22,12 @@ export const boundLoginFBUser = (data: FBUser) => (
   dispatch: Dispatch<AppActions>,
   getState: () => AppState
 ) => {
-  console.log("bound login facebook called")
   if (data.email !== undefined) {
-    console.log("action checking if data.email is undefined")
     authenticateFBUserService(data).then().then((res) => {
-      console.log(res);
       dispatch(recieveFBUser(res));
-    }).catch((err) => {
-      console.log(err);
+      dispatch(deleteError());
+    }).catch((e) => {
+      dispatch(recieveError(e.data));
     })
   }
 };

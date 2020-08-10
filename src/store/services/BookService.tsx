@@ -1,19 +1,22 @@
 import request from "../request";
-import { Book } from "../types/Book";
+import { Book, NewBooking } from "../types/Book";
 import { User } from "../types/User";
 import { FBUser, FBUserAuthResponse } from "../types/FBUser";
 // export const bookApptService = (data: Book) => {
 // }
 
-export const bookAppointmentService = (data: Book, user: any) => {
+export const bookAppointmentService = (data: NewBooking, user: any) => {
   let headers: any;
+  let url: any;
   if (typeof user === 'object' && hasOwnProperty(user, 'jwt')) {
     console.log(user.jwt);
+    url = `cut/${data.cutId}/user/${user.email}/book/new`;
     headers = {
       Authorization: `Bearer ` + `${user.jwt}`,
       "Content-Type": "application/json",
     };
   } else if (typeof user === 'object' && hasOwnProperty(user, 'accessToken')) {
+    url = `cut/${data.cutId}/facebook/${data.fbClientId}/book/new`
     headers = {
       Authorization: `Token ` + `${user.accessToken}`,
       "Content-Type": "application/json",
@@ -21,7 +24,7 @@ export const bookAppointmentService = (data: Book, user: any) => {
   }
   console.log(data);
   return request({
-    url: `cut/${data.cutId}/user/${user.email}/book/new`,
+    url: url,
     method: "POST",
     headers: headers,
     data
@@ -76,6 +79,27 @@ export const getClientAppointmentsService = (user: User) => {
     method: "GET",
     headers: headers
   })
+}
+
+export const cancelAppointmentService = (id: number, user: any) => {
+  let headers: any;
+  if (typeof user === 'object' && hasOwnProperty(user, 'jwt')) {
+    headers = {
+      Authorization: `Bearer ` + `${user.jwt}`,
+      "Content-Type": "application/json",
+    };
+  } else if (typeof user === 'object' && hasOwnProperty(user, 'accessToken')) {
+    headers = {
+      Authorization: `Token ` + `${user.accessToken}`,
+      "Content-Type": "application/json",
+    };
+  }
+  return request({
+    url: `/book/${id}/delete`,
+    method: "DELETE",
+    headers: headers
+  })
+
 }
 
 function hasOwnProperty<X extends {}, Y extends PropertyKey>

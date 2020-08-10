@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import { Cut } from "../../store/types/Cut";
 import "./Cut.scss";
-import { Book } from "../../store/types/Book";
-import { Barber } from "../../store/types/User";
+import { Book, NewBooking } from "../../store/types/Book";
+import { Barber, fbBarber } from "../../store/types/User";
 import { FBUserAuthResponse } from "../../store/types/FBUser";
 interface CutProps {
   cutId?: number;
   appointmentDate?: string;
-  barberId?: number | Barber;
-  fbBarberId?: number | FBUserAuthResponse;
+  barberId?: Barber;
+  fbBarberId?: fbBarber;
   location?: string;
   seatLeft?: number;
   handleSetForm: (key: string, value: any) => void;
   handleStep: () => void;
-  form: Book;
+  form: NewBooking;
   handleSelectedCut: (cut: Cut) => void;
 }
 
@@ -55,8 +55,8 @@ export const CutComponent: React.FC<Props> = ({
       barberId: barberId,
       appointmentDate: appointmentDate,
       location: location,
+      fbBarberId: fbBarberId
     });
-    console.log("handle click", form.cutId);
     // handleStep();
   };
 

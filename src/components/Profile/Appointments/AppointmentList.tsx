@@ -36,25 +36,27 @@ const AppointmentList: React.FC<Props> = ({
   }, [])
   return (
     <React.Fragment>
-      <div>
+      <div className="appointmentlist-container">
         <h1>Upcoming appointments</h1>
-        <table>
-          <thead>
+        <table className="appointmentlist-table">
+          <thead className="appointmentlist-table__head">
             <tr>
               <th>Category</th>
               <th>Barber</th>
               <th>Date</th>
+              <th>Time</th>
               <th>Client</th>
             </tr>
           </thead>
-          <tbody>
-            {appts.map(({bookId, category, cutId, clientId}) => (
+          <tbody className="appointmentlist-table__body">
+            {appts.map(({bookId, category, cut, client, fbClient}) => (
               <AppointmentComponent 
                 key={bookId}
                 bookId={bookId}
                 category={category}
-                cutId={cutId}
-                clientId={clientId}
+                cut={cut}
+                client={client}
+                fbClient={fbClient}
               />
             ))}
           </tbody>

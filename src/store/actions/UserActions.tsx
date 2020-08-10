@@ -7,7 +7,7 @@ import {
   registerAdminService,
 } from "../services/UserService";
 import { AppState } from "..";
-import { recieveError, deleteError } from "./ErrorAction";
+import { recieveError, deleteError } from "./AuthErrorActions";
 
 export const recieveUser = (user: User): AppActions => {
   console.log(user);
