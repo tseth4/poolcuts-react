@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { NewCut } from "../../store/types/Cut";
+import AppointmentDate from "./AppointmentDate";
+import LocationSelect from "./LocationSelect";
 
 const CutFormContainer = () => {
   
@@ -9,7 +11,13 @@ const CutFormContainer = () => {
     location: undefined,
   });
 
-  return <div></div>;
+  return (
+    <div>
+      <AppointmentDate/>
+      <LocationSelect/>
+    </div>
+  )
+
 };
 
 export default CutFormContainer;

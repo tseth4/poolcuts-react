@@ -23,7 +23,7 @@ export const boundLoginFBUser = (data: FBUser) => (
   getState: () => AppState
 ) => {
   if (data.email !== undefined) {
-    authenticateFBUserService(data).then().then((res) => {
+    authenticateFBUserService(data).then((res) => {
       dispatch(recieveFBUser(res));
       dispatch(deleteError());
     }).catch((e) => {

@@ -3,20 +3,22 @@ import {Redirect, Route, RouteProps} from 'react-router';
 import { User } from '../store/types/User';
 import { AppState } from '../store';
 import { connect } from "react-redux";
-import { FBUser } from '../store/types/FBUser';
+import { FBUser, FBUserAuthResponse } from '../store/types/FBUser';
 
 interface PrivateRouteProps {
-  user?: User[],
-  fbUser?: FBUser[],
+  // user?: User[],
+  // fbUser?: FBUser[],
   component?: any,
   path?: any
 }
 
 interface PrivateRouteState {}
 
-type Props = PrivateRouteProps
+type Props = PrivateRouteProps & LinkStateProps;
 const PrivateRoute: React.FC<Props> = ({ user, fbUser, component, path }: Props) => {
   if ((user !== undefined && user.length >= 1) || (fbUser !== undefined && fbUser.length >= 1)){
+    console.log(fbUser)
+    console.log("private success")
     return (
       <Route
       exact path={path}
@@ -33,7 +35,7 @@ const PrivateRoute: React.FC<Props> = ({ user, fbUser, component, path }: Props)
 
 interface LinkStateProps {
   user: User[];
-  fbUser: FBUser[];
+  fbUser: FBUserAuthResponse[];
 }
 
 const mapStateToProps =(
