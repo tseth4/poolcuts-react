@@ -61,7 +61,7 @@ const CutSelect: React.FC<Props> = ({
             </tr>
           </thead>
           <tbody className="cutselect-table__body">
-            {cuts.map(({ cutId, appointmentDate, barberId, location, fbBarberId }) => (
+            {cuts.sort((a: any, b: any) => +new Date(a.appointmentDate) - +new Date(b.appointmentDate)).map(({ cutId, appointmentDate, barberId, location, fbBarberId }) => (
               <CutComponent
                 form={form}
                 handleStep={handleStep}

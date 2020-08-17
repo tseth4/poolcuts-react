@@ -23,7 +23,7 @@ const App: React.FC = () => {
         <div className="appcontainer">
         <AppRouter />
         </div>
-        <FooterContainer />
+        {/* <FooterContainer /> */}
       </Provider>
     </React.Fragment>
   );

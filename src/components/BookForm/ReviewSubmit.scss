@@ -36,6 +36,12 @@
     min-width: 75px;
   }
 
+  #{&}__successmsg {
+    color: map-get($colors, white);
+  }
+
+
+
   .disabled {
     // background-color: map-get($colors, lightBlack);
 

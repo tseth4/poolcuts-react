@@ -42,6 +42,7 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
   const handleLogin = (event: any) => {
     event.preventDefault();
     boundLoginUser(value);
+    // window.location.reload();
   };
 
   if (value.username.length > 1 && value.password.length > 1) {
@@ -51,7 +52,7 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
   if (user.length > 0) {
     return (
       <React.Fragment>
-        <Redirect to="/" />
+        <Redirect to="/services" />
       </React.Fragment>
     );
   }

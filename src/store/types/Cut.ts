@@ -10,6 +10,12 @@ export interface Cut {
   fbBarberId?: fbBarber;
 }
 
+export interface NewCut {
+  barberId?: number;
+  appointmentDate?: string;
+  location?: string;
+}
+
 // describing action names available
 export const ADD_CUT = "ADD_CUT";
 export const DELETE_CUT = "DELETE_CUT";

@@ -25,37 +25,47 @@ const FacebookLogin: React.FC<Props> = ({
   fbUser,
   boundLoginFBUser,
 }: Props) => {
-  const [state, setState] = useState<FBUser>({
-    id: undefined,
-    accessToken: undefined,
-    email: undefined,
-    firstName: undefined,
-    lastName: undefined,
-  });
+  let errorMessage: string = "";
+
+  // const [state, setState] = useState<FBUser>({
+  // });
   const responseFacebook = (response: any) => {
-    console.log("response facebook called");
-    console.log(response);
     if (response.status != "unknown") {
-      let name = response.name.split(" ");
-      let firstName = name[0];
-      let lastName = name.length == 3 ? name[2] : name[1];
-      boundLoginFBUser({
-        id: response.id,
-        accessToken: response.accessToken,
-        email: response.email,
-        firstName: firstName,
-        lastName: lastName,
-      });
+      if (response.name == undefined){
+        sessionStorage.clear();
+      }
+      if (response.error){
+        console.log(response.error)
+        errorMessage = response.error.message;
+        console.log(errorMessage);
+        
+        // window.location.reload();
+      } else {
+        console.log(response);
+        let name = response.name.split(" ");
+        let firstName = name[0];
+        let lastName = name.length == 3 ? name[2] : name[1];
+        boundLoginFBUser({
+          id: response.id,
+          accessToken: response.accessToken,
+          email: response.email,
+          firstName: firstName,
+          lastName: lastName,
+        });
+      }
     }
-    // boundLoginFBUser(state);
   };
 
   if (fbUser.length > 0) {
     return (
       <React.Fragment>
-        <Redirect to="/" />
+        <Redirect to="/services" />
       </React.Fragment>
     );
+  }
+  if (errorMessage){
+    console.log(errorMessage)
+
   }
 
   const componentClicked = () => console.log("clicked");
@@ -69,6 +79,7 @@ const FacebookLogin: React.FC<Props> = ({
         onClick={componentClicked}
         callback={responseFacebook}
       />
+      <p>{errorMessage}</p>
     </React.Fragment>
   );
 };

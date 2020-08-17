@@ -1,10 +1,10 @@
 // For logging In
 export interface FBUser {
-  id?: number,
-  accessToken?: string,
-  email?: string,
-  firstName?: string,
-  lastName?: string
+  id: number,
+  accessToken: string,
+  email: string,
+  firstName: string,
+  lastName: string
 }
 
 // For storing

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ServiceSelect } from "./ServiceSelect";
 import CutSelect from "./CutSelect";
 import ReviewSubmit from "./ReviewSubmit";
 import { connect } from "react-redux";
 // import { Book } from '.'
-import { boundBookAppointment } from "../../store/actions/BookActions";
+import { boundBookAppointment, boundUnsetSuccessMessage } from "../../store/actions/BookActions";
 
 import "./BookForm.scss";
 import { Book, NewBooking } from "../../store/types/Book";
@@ -15,6 +15,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../store/types";
 import { bindActionCreators } from "redux";
 import { FBUser } from "../../store/types/FBUser";
+import { Redirect } from "react-router";
 
 interface BookFormContainerProps {}
 
@@ -25,8 +26,16 @@ type Props = BookFormContainerProps &
   LinkDispatchToProps &
   LinkStateProps;
 
-const BookFormContainer: React.FC<Props> = ({ user, fbUser, boundBookAppointment }: Props) => {
+const BookFormContainer: React.FC<Props> = ({ user, fbUser, boundBookAppointment, bookSuccess }: Props) => {
   // Book b = new Book();
+
+  function isEmpty(obj: any) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
   let currentUser: any = undefined;
 
 
@@ -112,10 +121,25 @@ const BookFormContainer: React.FC<Props> = ({ user, fbUser, boundBookAppointment
   const handleBookAppointment = (event: any) => {
     event.preventDefault();
     boundBookAppointment(form, currentUser);
+ 
   };
 
   if(form){
     console.log(form);
+  }
+
+  useEffect(() => {
+    boundUnsetSuccessMessage();
+    // boundUnsetCancelSuccessMessage();
+    return function cleanup() {
+      console.log("clean up");
+      boundUnsetSuccessMessage();
+      // boundUnsetCancelSuccessMessage();
+    };
+  }, []);
+
+  if (!isEmpty(bookSuccess)){
+    return <Redirect to="/profile"/>
   }
 
   return (
@@ -138,10 +162,12 @@ const BookFormContainer: React.FC<Props> = ({ user, fbUser, boundBookAppointment
 interface LinkStateProps {
   user: User[];
   fbUser: FBUser[];
+  bookSuccess: Book
 }
 
 interface LinkDispatchToProps {
   boundBookAppointment: (book: Book, user: User) => void;
+  boundUnsetSuccessMessage: () => void;
 }
 
 const mapStateToProps = (
@@ -150,6 +176,7 @@ const mapStateToProps = (
 ): LinkStateProps => ({
   user: state.user,
   fbUser: state.fbUser,
+  bookSuccess: state.bookSuccess
 });
 
 const mapDispatchToProps = (
@@ -157,6 +184,7 @@ const mapDispatchToProps = (
   ownProps: BookFormContainerProps
 ): LinkDispatchToProps => ({
   boundBookAppointment: bindActionCreators(boundBookAppointment, dispatch),
+  boundUnsetSuccessMessage: bindActionCreators(boundUnsetSuccessMessage, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookFormContainer);

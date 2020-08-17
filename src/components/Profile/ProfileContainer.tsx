@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { User } from "../../store/types/User";
 import { FBUser, FBUserAuthResponse } from "../../store/types/FBUser";
 import { connect } from "react-redux";
@@ -9,6 +9,11 @@ import CutList from "./Cuts/CutList";
 import "./ProfileContainer.scss";
 import BookContainer from "./Books/BookingList";
 import AppointmentList from "./Appointments/AppointmentList";
+import {
+  boundCancelBooking,
+} from "../../store/actions/BookActions";
+import { bindActionCreators } from "redux";
+import { SelectedIds } from "../../store/types/SelectedIds";
 
 interface ProfileContainerProps {
   user?: User[];
@@ -76,7 +81,10 @@ interface LinkStateProps {
   fbUser: FBUserAuthResponse[];
 }
 
-interface LinkDispatchToProps {}
+interface LinkDispatchToProps {
+  boundCancelBooking: (id: number, user: any) => void;
+
+}
 
 const mapStateToProps = (
   state: AppState,
@@ -89,6 +97,8 @@ const mapStateToProps = (
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   ownProps: ProfileContainerProps
-): LinkDispatchToProps => ({});
+): LinkDispatchToProps => ({
+  boundCancelBooking: bindActionCreators(boundCancelBooking, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);

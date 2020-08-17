@@ -12,19 +12,25 @@ interface CutProps {
   location?: string;
   seatLeft?: number;
   fbBarberId?: number | fbBarber;
+  handleSetSelectedCuts: (id: number) => void;
+  selectedCutsArr: number[];
   // handleSetForm: (key: string, value: any) => void;
   // handleStep: () => void;
   // form: Book;
   // handleSelectedCut: (cut: Cut) => void;
 }
 
-type Props = CutProps;
+interface CutState {}
+
+type Props = CutProps & CutState;
 export const CutComponent: React.FC<Props> = ({
   cutId,
   appointmentDate,
   barberId,
   location,
-  fbBarberId
+  fbBarberId,
+  handleSetSelectedCuts,
+  selectedCutsArr
   // handleSetForm,
   // handleStep,
   // form,
@@ -50,6 +56,11 @@ export const CutComponent: React.FC<Props> = ({
   }
 
   const handleClick = () => {
+    let tempId: number = 0;
+    if (cutId != null){
+      tempId = cutId;
+      handleSetSelectedCuts(tempId);
+    }
     // handleSetForm("cutId", cutId);
     // handleSelectedCut({
     //   cutId: cutId,
@@ -61,14 +72,12 @@ export const CutComponent: React.FC<Props> = ({
     // handleStep();
   };
 
-  // if (form.cutId == cutId) {
-  //   console.log("class changed");
-  //   cutClass = "cutselect-datarow selected";
-  // } else {
-  //   cutClass = "cutselect-datarow ";
-  // }
-
-  cutClass = "cutlist-datarow";
+  if (cutId != null && selectedCutsArr.indexOf(cutId) != -1) {
+    console.log("class changed");
+    cutClass = "cutlist-datarow selected";
+  } else {
+    cutClass = "cutlist-datarow ";
+  }
 
   if (typeof barberId != "number" && barberId != null) {
     barberDetails = barberId.firstName + " " + barberId.lastName;

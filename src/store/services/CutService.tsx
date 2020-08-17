@@ -1,15 +1,17 @@
 import request from "../request";
 import { User } from "../types/User";
 import { FBUser, FBUserAuthResponse } from "../types/FBUser";
+import { SelectedIds } from "../types/SelectedIds";
+import { NewCut } from "../types/Cut";
 
 export const getAllCutsService = (user: any) => {
   let headers: any;
-  if (typeof user === 'object' && hasOwnProperty(user, 'jwt')) {
+  if (typeof user === "object" && hasOwnProperty(user, "jwt")) {
     headers = {
       Authorization: `Bearer ` + `${user.jwt}`,
       "Content-Type": "application/json",
     };
-  } else if (typeof user === 'object' && hasOwnProperty(user, 'accessToken')) {
+  } else if (typeof user === "object" && hasOwnProperty(user, "accessToken")) {
     headers = {
       Authorization: `Token ` + `${user.accessToken}`,
       "Content-Type": "application/json",
@@ -18,7 +20,7 @@ export const getAllCutsService = (user: any) => {
   return request({
     url: "cuts/open",
     method: "GET",
-    headers: headers
+    headers: headers,
   });
 };
 
@@ -28,13 +30,35 @@ export const getOpenBarberCuts = (barber: User) => {
     Authorization: `Bearer ` + `${barber.jwt}`,
     "Content-Type": "application/json",
   };
-  
+
   return request({
     url: `/cuts/barber/${barber.id}`,
     method: "GET",
-    headers: headers
-  })
-}
+    headers: headers,
+  });
+};
+
+export const deleteCutsByIdsArr = (data: SelectedIds, user: any) => {
+  let headers: any;
+  if (typeof user === "object" && hasOwnProperty(user, "jwt")) {
+    headers = {
+      Authorization: `Bearer ` + `${user.jwt}`,
+      "Content-Type": "application/json",
+    };
+  } else if (typeof user === "object" && hasOwnProperty(user, "accessToken")) {
+    headers = {
+      Authorization: `Token ` + `${user.accessToken}`,
+      "Content-Type": "application/json",
+    };
+  }
+
+  return request({
+    url: "/cuts/delete",
+    method: "DELETE",
+    headers,
+    data,
+  });
+};
 
 export const getOpenFacebookBarberCuts = (barber: FBUserAuthResponse) => {
   // http://localhost:8080/cuts/facebook/barber/3799831360043592
@@ -46,21 +70,40 @@ export const getOpenFacebookBarberCuts = (barber: FBUserAuthResponse) => {
   return request({
     url: `/cuts/facebook/barber/${barber.id}`,
     method: "GET",
-    headers
-  })
+    headers,
+  });
+};
+
+export const newCutService = (
+  data: NewCut,
+  user: FBUserAuthResponse | User
+) => {
+  let headers: any;
+  let url: string = "";
+  if (typeof user === "object" && hasOwnProperty(user, "jwt")) {
+    headers = {
+      Authorization: `Bearer ` + `${user.jwt}`,
+      "Content-Type": "application/json",
+    };
+    url = `/barber/${user.id}/cut/new`;
+  } else if (typeof user === "object" && hasOwnProperty(user, "accessToken")) {
+    headers = {
+      Authorization: `Token ` + `${user.accessToken}`,
+      "Content-Type": "application/json",
+    };
+    url = `/barber/facebook/${user.id}/cut/new`;
+  }
+  return request({
+    url: url,
+    method: "POST",
+    headers,
+    data,
+  });
+};
+
+function hasOwnProperty<X extends {}, Y extends PropertyKey>(
+  obj: X,
+  prop: Y
+): obj is X & Record<Y, unknown> {
+  return obj.hasOwnProperty(prop);
 }
-
-
-
-
-// your open cuts BY BARBER ID "/cuts/barber/{barberId}"
-
-// OPEN CUTS BY FB BARBER ID "/cuts/facebook/barber/{barberId}"
-
-
-
-function hasOwnProperty<X extends {}, Y extends PropertyKey>
-  (obj: X, prop: Y): obj is X & Record<Y, unknown> {
-  return obj.hasOwnProperty(prop)
-}
-

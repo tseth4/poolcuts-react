@@ -2,13 +2,14 @@ import { Book, NewBooking } from "../types/Book";
 import { Dispatch } from "react";
 import { AppActions } from "../types";
 import { AppState } from "..";
-import { bookAppointmentService, getBarberBookingsService, getFacebookBarberBookingsService, getFBClientAppointmentsService, getClientAppointmentsService, cancelAppointmentService } from "../services/BookService";
+import { bookAppointmentService, getBarberBookingsService, getFacebookBarberBookingsService, getFBClientAppointmentsService, getClientAppointmentsService, cancelAppointmentService, cancelBooksByIdsArr } from "../services/BookService";
 import { User } from "../types/User";
 import { FBUser, FBUserAuthResponse } from "../types/FBUser";
 // import { recieveError, deleteError } from "./AuthErrorActions";
 import { deleteUser } from "./UserActions";
 import { deleteFBUser } from "./FBUserActions";
 import { IError } from "../types/Error";
+import { SelectedIds } from "../types/SelectedIds";
 
 export const recieveBooks = (books: Book[]): AppActions => {
   return {
@@ -135,5 +136,8 @@ export const boundCancelBooking = (id: number, user: any) => (dispatch: Dispatch
     dispatch(deleteCancelBookResp());
     dispatch(recieveBookError(e));
   })
+}
 
+export const boundCancelBooksByIdArr = (ids: SelectedIds, user: any) => (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+  cancelBooksByIdsArr(ids, user).then(res => console.log(res)).catch(e => dispatch(recieveBookError(e)));
 }

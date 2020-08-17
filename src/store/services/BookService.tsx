@@ -2,6 +2,7 @@ import request from "../request";
 import { Book, NewBooking } from "../types/Book";
 import { User } from "../types/User";
 import { FBUser, FBUserAuthResponse } from "../types/FBUser";
+import { SelectedIds } from "../types/SelectedIds";
 // export const bookApptService = (data: Book) => {
 // }
 
@@ -9,7 +10,6 @@ export const bookAppointmentService = (data: NewBooking, user: any) => {
   let headers: any;
   let url: any;
   if (typeof user === 'object' && hasOwnProperty(user, 'jwt')) {
-    console.log(user.jwt);
     url = `cut/${data.cutId}/user/${user.email}/book/new`;
     headers = {
       Authorization: `Bearer ` + `${user.jwt}`,
@@ -22,7 +22,6 @@ export const bookAppointmentService = (data: NewBooking, user: any) => {
       "Content-Type": "application/json",
     };
   }
-  console.log(data);
   return request({
     url: url,
     method: "POST",
@@ -99,7 +98,28 @@ export const cancelAppointmentService = (id: number, user: any) => {
     method: "DELETE",
     headers: headers
   })
+}
 
+export const cancelBooksByIdsArr = (data: SelectedIds, user: any) => {
+  let headers: any;
+  if (typeof user === 'object' && hasOwnProperty(user, 'jwt')) {
+    headers = {
+      Authorization: `Bearer ` + `${user.jwt}`,
+      "Content-Type": "application/json",
+    };
+  } else if (typeof user === 'object' && hasOwnProperty(user, 'accessToken')) {
+    headers = {
+      Authorization: `Token ` + `${user.accessToken}`,
+      "Content-Type": "application/json",
+    };
+  }
+
+  return request({
+    url: '/books/delete',
+    method: "DELETE",
+    headers,
+    data
+  })
 }
 
 function hasOwnProperty<X extends {}, Y extends PropertyKey>

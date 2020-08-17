@@ -8,7 +8,6 @@ import { stringify } from "querystring";
 import { FBUserAuthResponse } from "../../store/types/FBUser";
 
 interface NavProps {
-  isLoggedIn: boolean;
   handleLogoutButton: () => void;
   user: User[];
   fbUser: FBUserAuthResponse[];
@@ -17,7 +16,6 @@ interface NavProps {
 type Props = NavProps;
 
 export const Nav: React.FC<Props> = ({
-  isLoggedIn,
   handleLogoutButton,
   user,
   fbUser,
@@ -27,25 +25,30 @@ export const Nav: React.FC<Props> = ({
   let dashboardLink: any;
   let temp_role: string;
   let userType: string = "";
+  let profileView: any;
 
   // const [userType, setUserType] = useState <string> ();
   if (fbUser.length > 0) {
     userType = fbUser[0].roles;
-  } else if (user.length > 0){
+  } else if (user.length > 0) {
     userType = user[0].roles;
   }
 
-
-  if (isLoggedIn) {
-    console.log(isLoggedIn);
+  if (
+    (user.length > 0 && user[0].roles != undefined) ||
+    (fbUser.length > 0 && fbUser[0] != undefined)
+  ) {
     activeUser = (
       <li>
         <a onClick={() => handleLogoutButton()}>Logout</a>
       </li>
     );
+    profileView = (
+      <li>
+        <a href="/profile">profile</a>
+      </li>
+    );
   } else {
-    console.log(isLoggedIn);
-
     activeUser = (
       <li>
         <a href="/login">Login</a>
@@ -81,9 +84,7 @@ export const Nav: React.FC<Props> = ({
         <span className="navicon"></span>
       </label>
       <ul className="menu">
-        <li>
-          <a href="/profile">profile</a>
-        </li>
+        {profileView}
         <li>
           <a href="/services">Services</a>
         </li>
