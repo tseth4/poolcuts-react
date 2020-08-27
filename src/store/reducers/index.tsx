@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { cutReducer, cutErrorReducer, cutSuccessReducer } from "./CutReducer";
+import { cutReducer, cutErrorReducer, addCutSuccessReducer, updateCutSuccessReducer } from "./CutReducer";
 import { userReducer } from "./UserReducer";
 import { fbUserReducer } from "./FBUsesrReducer";
 import { errorReducer } from "./AuthErrorReducer";
@@ -15,8 +15,9 @@ const rootReducer = combineReducers({
   bookSuccess: bookSuccessReducer,
   bookError: bookErrorReducer,
   cutError: cutErrorReducer,
-  cutSuccess: cutSuccessReducer,
-  cancelBookResp: cancelBookReducer
+  addCutSuccess: addCutSuccessReducer,
+  cancelBookResp: cancelBookReducer,
+  updateCutSuccess: updateCutSuccessReducer
 });
 
 export default rootReducer;

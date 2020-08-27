@@ -47,6 +47,8 @@ const CutSelect: React.FC<Props> = ({
     }
   }, []);
 
+  console.log(cuts);
+
   return (
     <React.Fragment>
       <div className="cutselect-container">

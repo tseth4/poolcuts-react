@@ -4,7 +4,10 @@ import CutSelect from "./CutSelect";
 import ReviewSubmit from "./ReviewSubmit";
 import { connect } from "react-redux";
 // import { Book } from '.'
-import { boundBookAppointment, boundUnsetSuccessMessage } from "../../store/actions/BookActions";
+import {
+  boundBookAppointment,
+  boundUnsetSuccessMessage,
+} from "../../store/actions/BookActions";
 
 import "./BookForm.scss";
 import { Book, NewBooking } from "../../store/types/Book";
@@ -26,18 +29,21 @@ type Props = BookFormContainerProps &
   LinkDispatchToProps &
   LinkStateProps;
 
-const BookFormContainer: React.FC<Props> = ({ user, fbUser, boundBookAppointment, bookSuccess }: Props) => {
+const BookFormContainer: React.FC<Props> = ({
+  user,
+  fbUser,
+  boundBookAppointment,
+  bookSuccess,
+}: Props) => {
   // Book b = new Book();
 
   function isEmpty(obj: any) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) return false;
     }
     return true;
-}
+  }
   let currentUser: any = undefined;
-
 
   let formContent;
   let stepClass1 = "bookform-container__dot";
@@ -48,7 +54,7 @@ const BookFormContainer: React.FC<Props> = ({ user, fbUser, boundBookAppointment
     category: undefined,
     cutId: undefined,
     clientId: user.length > 0 ? user[0].id : undefined,
-    fbClientId: fbUser.length > 0 ? fbUser[0].id : undefined
+    fbClientId: fbUser.length > 0 ? fbUser[0].id : undefined,
   });
 
   if (user !== undefined && user.length > 0) {
@@ -100,7 +106,11 @@ const BookFormContainer: React.FC<Props> = ({ user, fbUser, boundBookAppointment
   } else if (step == 2) {
     formContent = (
       <React.Fragment>
-        <ReviewSubmit {...formProps} selectedCut={selectedCut} currentUser={currentUser} />
+        <ReviewSubmit
+          {...formProps}
+          selectedCut={selectedCut}
+          currentUser={currentUser}
+        />
       </React.Fragment>
     );
   }
@@ -121,25 +131,21 @@ const BookFormContainer: React.FC<Props> = ({ user, fbUser, boundBookAppointment
   const handleBookAppointment = (event: any) => {
     event.preventDefault();
     boundBookAppointment(form, currentUser);
- 
   };
 
-  if(form){
+  if (form) {
     console.log(form);
   }
 
   useEffect(() => {
-    boundUnsetSuccessMessage();
-    // boundUnsetCancelSuccessMessage();
+    // boundUnsetSuccessMessage();
     return function cleanup() {
-      console.log("clean up");
       boundUnsetSuccessMessage();
-      // boundUnsetCancelSuccessMessage();
     };
   }, []);
 
-  if (!isEmpty(bookSuccess)){
-    return <Redirect to="/profile"/>
+  if (!isEmpty(bookSuccess)) {
+    return <Redirect to="/profile" />;
   }
 
   return (
@@ -162,7 +168,7 @@ const BookFormContainer: React.FC<Props> = ({ user, fbUser, boundBookAppointment
 interface LinkStateProps {
   user: User[];
   fbUser: FBUser[];
-  bookSuccess: Book
+  bookSuccess: Book;
 }
 
 interface LinkDispatchToProps {
@@ -176,7 +182,7 @@ const mapStateToProps = (
 ): LinkStateProps => ({
   user: state.user,
   fbUser: state.fbUser,
-  bookSuccess: state.bookSuccess
+  bookSuccess: state.bookSuccess,
 });
 
 const mapDispatchToProps = (
@@ -184,7 +190,10 @@ const mapDispatchToProps = (
   ownProps: BookFormContainerProps
 ): LinkDispatchToProps => ({
   boundBookAppointment: bindActionCreators(boundBookAppointment, dispatch),
-  boundUnsetSuccessMessage: bindActionCreators(boundUnsetSuccessMessage, dispatch)
+  boundUnsetSuccessMessage: bindActionCreators(
+    boundUnsetSuccessMessage,
+    dispatch
+  ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookFormContainer);

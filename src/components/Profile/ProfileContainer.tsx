@@ -9,11 +9,10 @@ import CutList from "./Cuts/CutList";
 import "./ProfileContainer.scss";
 import BookContainer from "./Books/BookingList";
 import AppointmentList from "./Appointments/AppointmentList";
-import {
-  boundCancelBooking,
-} from "../../store/actions/BookActions";
+import { boundCancelBooking } from "../../store/actions/BookActions";
 import { bindActionCreators } from "redux";
 import { SelectedIds } from "../../store/types/SelectedIds";
+import CutEditFormModal from "./Cuts/CutFormModal";
 
 interface ProfileContainerProps {
   user?: User[];
@@ -31,12 +30,18 @@ const ProfileContainer: React.FC<Props> = ({ user, fbUser }: Props) => {
   let adminViews: any;
   let userNameView: string = "";
   let userType: string = "";
+  // let modalClass = "cutform-modal";
+  const [modalClass, setModalClass] = useState({class: "cutform-modal", type: ""});
 
   //If user role == admin == admin
   // show open cuts and upcoming bookings
 
   // if user roles == user
   // show appointments
+
+  const handleEditCutFormModal = (type: string) => {
+    setModalClass({class: "cutform-modal active", type: type});
+  }
 
   if (fbUser.length > 0) {
     userType = fbUser[0].roles;
@@ -49,9 +54,10 @@ const ProfileContainer: React.FC<Props> = ({ user, fbUser }: Props) => {
   if (userType == "ROLE_ADMIN") {
     adminViews = (
       <React.Fragment>
+        <CutEditFormModal modalClass={modalClass} setModalClass={setModalClass}/>
         <div className="profile-container__row">
           <div className="profile-container__item">
-            <CutList />
+            <CutList handleEditCutFormModal={handleEditCutFormModal}/>
           </div>
           <div className="profile-container__item">
             <BookContainer />
@@ -83,7 +89,6 @@ interface LinkStateProps {
 
 interface LinkDispatchToProps {
   boundCancelBooking: (id: number, user: any) => void;
-
 }
 
 const mapStateToProps = (

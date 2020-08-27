@@ -33,6 +33,8 @@ const BookingList: React.FC<Props> = ({
   console.log(books);
   console.log(user);
 
+  
+
   useEffect(() => {
     if (user.length > 0 && user != null) {
       boundGetBarberBookings(user[0]);

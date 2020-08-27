@@ -16,8 +16,11 @@ import { AppState } from "../../../store";
 import { CutComponent } from "./Cut";
 import { SelectedIds } from "../../../store/types/SelectedIds";
 
+import { Link } from "react-router-dom";
+
 interface CutListProps {
   // cuts?: Cut[];
+  handleEditCutFormModal: (type: string) => void;
 }
 
 interface CutListState {}
@@ -30,8 +33,10 @@ const CutList: React.FC<Props> = ({
   boundGetOpenBarberCuts,
   fbUser,
   user,
-  boundCancelCutsByIdArr
+  boundCancelCutsByIdArr,
+  handleEditCutFormModal,
 }: Props) => {
+  let editDisabled: boolean = true;
   let deleteDisabled: boolean = true;
   let currentUser: any = undefined;
 
@@ -52,7 +57,6 @@ const CutList: React.FC<Props> = ({
   const [selectedCuts, setSelectedCuts] = useState<SelectedIds>({ ids: [] });
 
   const handleSetSelectedCuts = (id: number): void => {
-    console.log("id:       " + id);
     if (selectedCuts.ids.indexOf(id) == -1) {
       setSelectedCuts({ ids: [...selectedCuts.ids, id] });
     } else {
@@ -65,17 +69,25 @@ const CutList: React.FC<Props> = ({
     selectedCutsArr: selectedCuts.ids,
   };
 
-  if(selectedCuts.ids.length > 0){
+  if (selectedCuts.ids.length > 0) {
     deleteDisabled = false;
   } else {
     deleteDisabled = true;
   }
 
-  const handleClick = () => {
-    console.log("handleclickss")
-    boundCancelCutsByIdArr(selectedCuts, currentUser);
+  if (selectedCuts.ids.length === 1) {
+    editDisabled = false;
+  } else {
+    editDisabled = true;
   }
 
+  const handleClick = () => {
+    boundCancelCutsByIdArr(selectedCuts, currentUser);
+  };
+
+  const handleAdd = () => {
+    // return <Redirect to="/cut/new" />;
+  };
 
   // select the cuts and add it the array
   // if array is not empty show the delete button
@@ -123,10 +135,28 @@ const CutList: React.FC<Props> = ({
             </tbody>
           </table>
           <div className="cutlist-table-container__buttoncontainer">
-            <button disabled={deleteDisabled} onClick={handleClick} type="submit" className="cutlist-button">
+            <button
+              disabled={editDisabled}
+              onClick={() => handleEditCutFormModal("edit")}
+              type="submit"
+              className="cutlist-button"
+            >
+              Edit
+            </button>
+            <button
+              disabled={deleteDisabled}
+              onClick={handleClick}
+              type="submit"
+              className="cutlist-button"
+            >
               Delete
             </button>
-            <button disabled={true} type="submit" className="cutlist-button">
+            <button
+              disabled={false}
+              // onClick={handleAdd}
+              type="submit"
+              className="cutlist-button"
+            >
               Add
             </button>
           </div>

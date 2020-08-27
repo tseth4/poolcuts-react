@@ -62,6 +62,19 @@ const ReviewSubmit: React.FC<Props> = ({
     price = 16.0;
   }
 
+  // handle time and date
+  // time helper function
+  function formatAMPM(date: Date) {
+    var hours = date.getHours();
+    var minutes: any = date.getMinutes();
+    var ampm = hours >= 12 ? "pm" : "am";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    var strTime = hours + ":" + minutes + " " + ampm;
+    return strTime;
+  }
+
   let dateObj = new Date();
 
   if (selectedCut.appointmentDate != null) {
@@ -131,6 +144,10 @@ const ReviewSubmit: React.FC<Props> = ({
       <div className="rs-container__item">
         <span className="rs-container__property">Date: </span>
         {date}
+      </div>
+      <div className="rs-container__item">
+        <span className="rs-container__property">Time: </span>
+        {formatAMPM(dateObj)}
       </div>
       {/* <div>Barber: {selectedCut.barberId}</div> */}
       <div className="rs-container__item">

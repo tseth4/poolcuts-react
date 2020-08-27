@@ -101,6 +101,34 @@ export const newCutService = (
   });
 };
 
+export const updateCutService = (
+  data: NewCut,
+  user: FBUserAuthResponse | User
+) => {
+  let headers: any;
+  let url: string = "";
+  if (typeof user === "object" && hasOwnProperty(user, "jwt")) {
+    headers = {
+      Authorization: `Bearer ` + `${user.jwt}`,
+      "Content-Type": "application/json",
+    };
+    url = `/barber/${user.id}/cut/update`;
+  } else if (typeof user === "object" && hasOwnProperty(user, "accessToken")) {
+    headers = {
+      Authorization: `Token ` + `${user.accessToken}`,
+      "Content-Type": "application/json",
+    };
+    url = `/barber/facebook/${user.id}/cut/update`;
+  }
+  return request({
+    url: url,
+    method: "PUT",
+    headers,
+    data,
+  });
+
+};
+
 function hasOwnProperty<X extends {}, Y extends PropertyKey>(
   obj: X,
   prop: Y

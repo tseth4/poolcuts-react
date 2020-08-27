@@ -12,6 +12,13 @@ export interface Cut {
 
 export interface NewCut {
   barberId?: number;
+  fbBarberId?: number;
+  appointmentDate?: string;
+  location?: string;
+}
+
+export interface UpdateCut {
+  cutId?: number;
   appointmentDate?: string;
   location?: string;
 }
@@ -26,6 +33,8 @@ export const DELETE_CUT_ERROR = "DELETE_CUT_ERROR";
 export const ADD_CUT_SUCCESS = "ADD_CUT_SUCCESS";
 export const DELETE_CUT_SUCCESS = "DELETE_CUT_SUCCESS";
 
+export const ADD_UPDATE_CUT_SUCCESS = "ADD_UPDATE_CUT_SUCCESS";
+export const DELETE_UPDATE_CUT_SUCCESS = "DELETE_UPDATE_CUT_SUCCESS"
 // describing the shape of cut slice state
 export interface AddCutAction {
   type: typeof ADD_CUT;
@@ -48,6 +57,15 @@ export interface SetCutsAction {
   cuts: Cut[];
 }
 
+export interface AddUpdateCutSuccessAction {
+  type: typeof ADD_UPDATE_CUT_SUCCESS;
+  id: number
+}
+
+export interface DeleteUpdateCutSuccessAction {
+  type: typeof DELETE_UPDATE_CUT_SUCCESS
+}
+
 export interface AddCutSuccessAction {
   type: typeof ADD_CUT_SUCCESS;
   cut: Cut
@@ -66,4 +84,4 @@ export interface DeleteCutErrorAction {
   type: typeof DELETE_CUT_ERROR;
 }
 
-export type CutActionTypes = SetCutsAction | AddCutAction | DeleteCutAction | UpdateCutAction | SetCutErrorAction | DeleteCutErrorAction | AddCutSuccessAction;
+export type CutActionTypes = DeleteUpdateCutSuccessAction | AddUpdateCutSuccessAction | SetCutsAction | AddCutAction | DeleteCutAction | UpdateCutAction | SetCutErrorAction | DeleteCutErrorAction | AddCutSuccessAction | DeleteCutSuccessAction;
