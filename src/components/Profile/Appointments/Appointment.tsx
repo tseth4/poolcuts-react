@@ -1,8 +1,8 @@
-import React from 'react';
-import { Cut } from '../../../store/types/Cut';
-import { User, Client, fbClient } from '../../../store/types/User';
-import { FBUserAuthResponse } from '../../../store/types/FBUser';
+import React from "react";
+import { Cut } from "../../../store/types/Cut";
 import "./Appointment.scss";
+import { User, Client, fbClient } from "../../../store/types/User";
+import { FBUserAuthResponse } from "../../../store/types/FBUser";
 
 interface AppointmentProps {
   bookId?: number;
@@ -10,23 +10,30 @@ interface AppointmentProps {
   cut?: Cut;
   client?: Client;
   fbClient?: fbClient;
+  handleSetSelectedAppointments: (id: number) => void;
+  selectedAppointmentsArr: number[];
 }
 
-type Props = AppointmentProps;
+interface AppointmentState {}
 
-export const AppointmentComponent: React.FC<Props> = ({
+type Props = AppointmentProps & AppointmentState;
+
+export const Appointment: React.FC<Props> = ({
   bookId,
   category,
   cut,
   client,
-  fbClient
+  fbClient,
+  handleSetSelectedAppointments,
+  selectedAppointmentsArr,
 }: Props) => {
-
   let barberDetails: string = "";
   let appointmentDateDetails: Date;
   let dateObj = new Date();
   let date = dateObj.toDateString();
   let clientDetails: string = "";
+  let location: string = "";
+  let appointmentClass = "appointmentlist-container";
 
   function formatAMPM(date: Date) {
     var hours = date.getHours();
@@ -39,10 +46,10 @@ export const AppointmentComponent: React.FC<Props> = ({
     return strTime;
   }
 
-  if (cut){
-    if (cut.barberId != null){
+  if (cut) {
+    if (cut.barberId != null) {
       barberDetails = cut.barberId.firstName + " " + cut.barberId.lastName;
-    } else if (cut.fbBarberId != null){
+    } else if (cut.fbBarberId != null) {
       barberDetails = cut.fbBarberId.firstName + " " + cut.fbBarberId.lastName;
     }
     if (cut.appointmentDate != null) {
@@ -50,19 +57,39 @@ export const AppointmentComponent: React.FC<Props> = ({
     }
     if (client != null) {
       clientDetails = client.firstName + " " + client.lastName;
-    } else if (fbClient != null){
+    } else if (fbClient != null) {
       clientDetails = fbClient.firstName + " " + fbClient.lastName;
     }
+    if (cut.location != null) {
+      location = cut.location;
+    }
   }
+
+  const handleClick = () => {
+    let tempId: number = 0;
+    if (bookId != null) {
+      tempId = bookId;
+      handleSetSelectedAppointments(tempId);
+    }
+  };
+
+  if (bookId != null && selectedAppointmentsArr.indexOf(bookId) != -1) {
+    appointmentClass = "appointmentlist-datarow selected";
+    console.log(appointmentClass);
+  } else {
+    appointmentClass = "appointmentlist-datarow";
+  }
+
   return (
     <React.Fragment>
-      <tr className="appointmentlist-datarow">
-        <td className="appointmentlist-datarow__td">{category}</td>
-        <td className="appointmentlist-datarow__td">{barberDetails}</td>
-        <td className="appointmentlist-datarow__td">{date}</td>
-        <td className="appointmentlist-datarow__td">{formatAMPM(dateObj)}</td>
-        <td className="appointmentlist-datarow__td">{clientDetails}</td>
-      </tr>
+      <div onClick={handleClick} className={appointmentClass}>
+        <div className="appointmentlist-datarow__td">{category}</div>
+        <div className="appointmentlist-datarow__td">{barberDetails}</div>
+        <div className="appointmentlist-datarow__td">{date}</div>
+        <div className="appointmentlist-datarow__td">{formatAMPM(dateObj)}</div>
+        {/* <div className="appointmentlist-datarow__td">{clientDetails}</div> */}
+        <div className="appointmentlist-datarow__td">{location}</div>
+      </div>
     </React.Fragment>
-  )
-}
+  );
+};

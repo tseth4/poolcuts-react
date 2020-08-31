@@ -12,6 +12,7 @@ import ProfileContainer  from "../components/Profile/ProfileContainer";
 import ErrorRoute from "./ErrorRoute";
 import AdminRoute from "./AdminRoute";
 import CutFormContainer from "../components/CutForm/CutFormContainer";
+import SignUp from "../components/SignUp/SignUp"
 // import './App.css';
 
 export const history = createHistory();
@@ -28,6 +29,7 @@ const AppRouter = () => (
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/error" component={ErrorRoute}/>
+        <Route exact path="/signup" component={SignUp}/>
         <PrivateRoute path="/profile" component={ProfileContainer}/>
         <AdminRoute path="/cut/new" component={CutFormContainer}/>
       </Switch>

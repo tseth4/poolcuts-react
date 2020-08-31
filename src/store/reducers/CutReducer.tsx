@@ -3,13 +3,25 @@ import { CutActionTypes } from "../types/Cut";
 import { IError } from "../types/Error";
 
 const cutReducerDefaultState: Cut[] = [];
-
 const cutReducer = (
   state = cutReducerDefaultState,
   action: CutActionTypes
 ): Cut[] => {
   switch (action.type) {
     case "SET_CUTS":
+      return action.cuts;
+    default:
+      return state;
+  }
+};
+
+const openBarberCutsReducerDefaultState: Cut[] = [];
+const openBarberCutsReducer = (
+  state = openBarberCutsReducerDefaultState,
+  action: CutActionTypes
+): Cut[] => {
+  switch (action.type) {
+    case "SET_BARBER_CUTS":
       return action.cuts;
     default:
       return state;
@@ -61,4 +73,10 @@ const updateCutSuccessReducer = (
   }
 };
 
-export { cutReducer, cutErrorReducer, addCutSuccessReducer, updateCutSuccessReducer };
+export {
+  cutReducer,
+  cutErrorReducer,
+  addCutSuccessReducer,
+  updateCutSuccessReducer,
+  openBarberCutsReducer
+};

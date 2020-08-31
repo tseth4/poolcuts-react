@@ -27,15 +27,29 @@ export interface UpdateCut {
 export const ADD_CUT = "ADD_CUT";
 export const DELETE_CUT = "DELETE_CUT";
 export const UPDATE_CUT = "UPDATE_CUT";
+
+export const SET_BARBER_CUTS = "SET_BARBER_CUTS";
+
 export const SET_CUTS = "SET_CUTS";
+
 export const SET_CUT_ERROR = "SET_CUT_ERROR";
 export const DELETE_CUT_ERROR = "DELETE_CUT_ERROR";
+
 export const ADD_CUT_SUCCESS = "ADD_CUT_SUCCESS";
 export const DELETE_CUT_SUCCESS = "DELETE_CUT_SUCCESS";
+
+export const SAVE_CUT_TO_EDIT = "SAVE_CUT_TO_EDIT";
+export const DELETE_CUT_TO_EDIT = "DELETE_CUT_TO_EDIT";
 
 export const ADD_UPDATE_CUT_SUCCESS = "ADD_UPDATE_CUT_SUCCESS";
 export const DELETE_UPDATE_CUT_SUCCESS = "DELETE_UPDATE_CUT_SUCCESS"
 // describing the shape of cut slice state
+
+export interface SetBarberCutsAction {
+  type: typeof SET_BARBER_CUTS;
+  cuts: Cut[]
+}
+
 export interface AddCutAction {
   type: typeof ADD_CUT;
   cut: Cut
@@ -84,4 +98,13 @@ export interface DeleteCutErrorAction {
   type: typeof DELETE_CUT_ERROR;
 }
 
-export type CutActionTypes = DeleteUpdateCutSuccessAction | AddUpdateCutSuccessAction | SetCutsAction | AddCutAction | DeleteCutAction | UpdateCutAction | SetCutErrorAction | DeleteCutErrorAction | AddCutSuccessAction | DeleteCutSuccessAction;
+export interface SaveCutToEditAction {
+  type: typeof SAVE_CUT_TO_EDIT;
+  cut: Cut
+}
+
+export interface DeleteCutToEditAction {
+  type: typeof DELETE_CUT_TO_EDIT;
+}
+
+export type CutActionTypes = SetBarberCutsAction | SaveCutToEditAction | DeleteCutToEditAction | DeleteUpdateCutSuccessAction | AddUpdateCutSuccessAction | SetCutsAction | AddCutAction | DeleteCutAction | UpdateCutAction | SetCutErrorAction | DeleteCutErrorAction | AddCutSuccessAction | DeleteCutSuccessAction;

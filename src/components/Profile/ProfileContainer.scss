@@ -3,44 +3,38 @@
 .profile-container {
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-
+  overflow: auto;
   padding: 1vh;
-  height: 75vh;
-  // border: white 1px solid;
+
   #{&}__row {
     display: flex;
     flex-direction: row;
-    // border: pink 1px solid;
-    width: 100%;
-    height: 100%;
+
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    padding: 4vh;
-
   }
 
   #{&}__item {
-    margin: 5px;
-    // border: white 1px solid;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-    box-shadow: 0 19px 38px map-get($colors, black),
-    0 15px 12px map-get($colors, black);
-    margin: 1vw;
+    // margin: 50px;
+    // // border: white 1px solid;
+    // // width: 100%;
+    // height: 100%;
+    // // box-sizing: border-box;
+    // // padding: 10px;
+    // justify-content: center;
+    // align-items: center;
+    // border-radius: 8px;
+    // box-shadow: 0 19px 38px map-get($colors, black),
+    //   0 15px 12px map-get($colors, black);
+    // // margin: 1vw;
   }
 
   @media (max-width: 48em) {
     #{&}__row {
       flex-direction: column;
-      width: 100%;
-      height: 100%;
+      // width: 100%;
+      // height: 100%;
     }
   }
 }

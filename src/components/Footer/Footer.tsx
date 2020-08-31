@@ -1,9 +1,9 @@
-import React from 'react'
-import './Footer.scss';
+import React from "react";
+import "./Footer.scss";
 export default function Footer() {
   return (
     <div className="footer-container">
-      <p> . </p>
+      <div>Site made by Tristan Setha</div>
     </div>
-  )
+  );
 }

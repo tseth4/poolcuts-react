@@ -4,7 +4,7 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { makeStyles } from "@material-ui/core/styles";
-import { NewCut } from "../../store/types/Cut";
+import { NewCut, UpdateCut } from "../../store/types/Cut";
 import { format } from "date-fns";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,43 +16,52 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   select: {
-    background: "linear-gradient(45deg, #3cc8c8 30%, #a1a9a8 90%)",
+    color: "white",
     borderRadius: 3,
-    border: 0,
+    // border: 0,
+    borderColor: "white",
     height: 48,
     padding: "0 30px",
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
   },
   inputLabel: {
-    color: "white"
-  }
+    color: "white",
+  },
 }));
 
 interface LocationSelectProps {
   handleSetForm: (input: any, value: any) => void;
   form: NewCut;
+  // handleSetEditForm: (input: any, value: any) => void;
+  // editForm: UpdateCut;
+  // modalClass: any;
 }
 
 interface LocationSelectState {}
 
 type Props = LocationSelectProps & LocationSelectState;
 
-const LocationSelect: React.FC<Props> = ({handleSetForm, form}: Props )=> {
+const LocationSelect: React.FC<Props> = ({
+  handleSetForm,
+  form,
+}: // handleSetEditForm,
+// editForm,
+// modalClass,
+Props) => {
   const classes = useStyles();
 
-  const [val, setVal] = useState();
-
   const handleSelectChange = (event: any) => {
-    setVal(event.target.value);
     handleSetForm("location", event.target.value);
   };
-
-  if (val) console.log(val);
 
   return (
     <div>
       <div>
-        <InputLabel className={classes.inputLabel} id="demo-simple-select-label">Location</InputLabel>
+        <InputLabel
+          className={classes.inputLabel}
+          id="demo-simple-select-label"
+        >
+          <a style={{ fontSize: "11pt"}}>Location:</a>
+        </InputLabel>
         <Select
           className={classes.select}
           labelId="demo-simple-select-label"
@@ -66,6 +75,6 @@ const LocationSelect: React.FC<Props> = ({handleSetForm, form}: Props )=> {
       </div>
     </div>
   );
-}
+};
 
 export default LocationSelect;

@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./BookingList.scss";
 import {
   boundGetBarberBookings,
   boundGetFacebookBarberBookings,
+  boundCancelBooksByIdArr,
 } from "../../../store/actions/BookActions";
 import { connect } from "react-redux";
 import { Book } from "../../../store/types/Book";
@@ -13,6 +14,7 @@ import { bindActionCreators } from "redux";
 import { AppActions } from "../../../store/types";
 import { FBUserAuthResponse } from "../../../store/types/FBUser";
 import { BookComponent } from "./Book";
+import { SelectedIds } from "../../../store/types/SelectedIds";
 
 interface BookingListProps {}
 
@@ -29,12 +31,19 @@ const BookingList: React.FC<Props> = ({
   fbUser,
   boundGetBarberBookings,
   boundGetFacebookBarberBookings,
+  boundCancelBooksByIdArr,
 }: Props) => {
-  console.log(books);
-  console.log(user);
+  let deleteDisabled: boolean = true;
+  let currentUser: any = undefined;
 
-  
+  // Setting currentUser
+  if (user !== undefined && user.length > 0) {
+    currentUser = user[0];
+  } else if (fbUser !== undefined && fbUser.length > 0) {
+    currentUser = fbUser[0];
+  }
 
+  // fetch bookings based on user type
   useEffect(() => {
     if (user.length > 0 && user != null) {
       boundGetBarberBookings(user[0]);
@@ -42,34 +51,73 @@ const BookingList: React.FC<Props> = ({
       boundGetFacebookBarberBookings(fbUser[0]);
     }
   }, []);
+
+  // state for selectedBooks
+  const [selectedBooks, setSelectedBooks] = useState<SelectedIds>({ ids: [] });
+
+  const handleSetSelectedBooks = (id: number): void => {
+    if (selectedBooks.ids.indexOf(id) == -1) {
+      setSelectedBooks({ ids: [...selectedBooks.ids, id] });
+    } else {
+      setSelectedBooks({ ids: [...selectedBooks.ids.filter((i) => i != id)] });
+    }
+  };
+
+  // Props
+  const bookingListProps = {
+    handleSetSelectedBooks: handleSetSelectedBooks,
+    selectedBooksArr: selectedBooks.ids,
+  };
+
+  // Handle button enablement
+  if (selectedBooks.ids.length > 0) {
+    deleteDisabled = false;
+  } else {
+    deleteDisabled = true;
+  }
+
+  // handle delete button / click of button
+  const handleClick = () => {
+    boundCancelBooksByIdArr(selectedBooks, currentUser);
+  };
+
   return (
     <React.Fragment>
       <div className="bookinglist-container">
         <h1>Your upcoming bookings</h1>
-        <div className="bookinglist-table-container">
-          <table className="bookinglist-table">
-            <thead className="bookinglist-table__head">
-              <tr>
-                <th>Category</th>
-                <th>Barber</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Client</th>
-              </tr>
-            </thead>
-            <tbody className="bookinglist-table__body">
-              {books.map(({ bookId, category, cut, fbClient, client }) => (
-                <BookComponent
-                  key={bookId}
-                  bookId={bookId}
-                  category={category}
-                  cut={cut}
-                  client={client}
-                  fbClient={fbClient}
-                />
-              ))}
-            </tbody>
-          </table>
+        <div className="bookinglist-table">
+          <div className="bookinglist-table__row">
+            <div className="bookinglist-table__head">Type</div>
+            {/* <div className="bookinglist-table__head">Barber</div> */}
+            <div className="bookinglist-table__head">Date</div>
+            <div className="bookinglist-table__head">Time</div>
+            <div className="bookinglist-table__head">Client</div>
+            <div className="bookinglist-table__head">Location</div>
+          </div>
+          {books.map(({ bookId, category, cut, fbClient, client }) => (
+            <BookComponent
+              {...bookingListProps}
+              key={bookId}
+              bookId={bookId}
+              category={category}
+              cut={cut}
+              client={client}
+              fbClient={fbClient}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="profile-container__item">
+        {" "}
+        <div className="bookinglist-table-container__buttoncontainer">
+          <button
+            disabled={deleteDisabled}
+            onClick={handleClick}
+            type="submit"
+            className="bookinglist-button"
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </React.Fragment>
@@ -85,6 +133,7 @@ interface LinkStateProps {
 interface LinkDispatchToProps {
   boundGetBarberBookings: (barber: User) => void;
   boundGetFacebookBarberBookings: (barber: FBUserAuthResponse) => void;
+  boundCancelBooksByIdArr: (ids: SelectedIds, user: any) => void;
 }
 
 const mapStateToProps = (
@@ -103,6 +152,10 @@ const mapDispatchToProps = (
   boundGetBarberBookings: bindActionCreators(boundGetBarberBookings, dispatch),
   boundGetFacebookBarberBookings: bindActionCreators(
     boundGetFacebookBarberBookings,
+    dispatch
+  ),
+  boundCancelBooksByIdArr: bindActionCreators(
+    boundCancelBooksByIdArr,
     dispatch
   ),
 });

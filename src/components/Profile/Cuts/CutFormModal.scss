@@ -1,52 +1,49 @@
 @import "../../../layout/_variables.scss";
 
-
-.cutform-modal{
+.cutform-modal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  border: 1px solid black;
+  // border: 1px solid black;
   border-radius: 10px;
   z-index: 10;
   background-color: map-get($colors, lightBlack);
   width: 500px;
   max-width: 80%;
   transition: 200ms ease-in-out;
+  color: white;
 
-
-
-
-
-
-  #{&}__header{
+  #{&}__header {
     padding: 10px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid black;
+
+    // border-bottom: 1px solid black;
   }
 
-  #{&}__header #{&}__header-title{
+  #{&}__header #{&}__header-title {
     font-size: 1.25rem;
     font-weight: bold;
   }
 
-  #{&}__header #{&}__close-button{
+  #{&}__header #{&}__close-button {
     cursor: pointer;
     border: none;
     outline: none;
     background: none;
     font-size: 1.25rem;
     font-weight: bold;
+    color: white;
   }
 
-  #{&}__body{
+  #{&}__body {
     padding: 10px 15px;
   }
 }
 
-.active{
+.active {
   transform: translate(-50%, -50%) scale(1);
 }
 
@@ -58,11 +55,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   pointer-events: none;
 }
 
-#overlay-active{
+#overlay-active {
   opacity: 1;
   position: fixed;
   transition: 200ms ease-in-out;
@@ -70,6 +67,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   pointer-events: all;
 }

@@ -42,7 +42,7 @@ const CutSelect: React.FC<Props> = ({
   useEffect(() => {
     if (user.length > 0 && user != null) {
       boundGetAllCuts(user[0]);
-    } else if (fbUser.length > 0 && fbUser != null){
+    } else if (fbUser.length > 0 && fbUser != null) {
       boundGetAllCuts(fbUser[0]);
     }
   }, []);
@@ -53,32 +53,41 @@ const CutSelect: React.FC<Props> = ({
     <React.Fragment>
       <div className="cutselect-container">
         <h1>Select open appointment</h1>
-        <table className="cutselect-table">
-          <thead className="cutselect-table__head">
-            <tr>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Barber</th>
-              <th>Location</th>
-            </tr>
-          </thead>
-          <tbody className="cutselect-table__body">
-            {cuts.sort((a: any, b: any) => +new Date(a.appointmentDate) - +new Date(b.appointmentDate)).map(({ cutId, appointmentDate, barberId, location, fbBarberId }) => (
-              <CutComponent
-                form={form}
-                handleStep={handleStep}
-                handleSetForm={handleSetForm}
-                key={cutId}
-                cutId={cutId}
-                appointmentDate={appointmentDate}
-                barberId={barberId}
-                fbBarberId={fbBarberId}
-                location={location}
-                handleSelectedCut={handleSelectedCut}
-              />
-            ))}
-          </tbody>
-        </table>
+        <div className="cutselect-table">
+          <div className="cutselect-table__row">
+            <div className="cutselect-table__head">Date</div>
+            <div className="cutselect-table__head">Time</div>
+            <div className="cutselect-table__head">Barber</div>
+            <div className="cutselect-table__head">Location</div>
+          </div>
+            {cuts
+              .sort(
+                (a: any, b: any) =>
+                  +new Date(a.appointmentDate) - +new Date(b.appointmentDate)
+              )
+              .map(
+                ({
+                  cutId,
+                  appointmentDate,
+                  barberId,
+                  location,
+                  fbBarberId,
+                }) => (
+                  <CutComponent
+                    form={form}
+                    handleStep={handleStep}
+                    handleSetForm={handleSetForm}
+                    key={cutId}
+                    cutId={cutId}
+                    appointmentDate={appointmentDate}
+                    barberId={barberId}
+                    fbBarberId={fbBarberId}
+                    location={location}
+                    handleSelectedCut={handleSelectedCut}
+                  />
+                )
+              )}
+        </div>
       </div>
     </React.Fragment>
   );
@@ -102,7 +111,7 @@ const mapStateToProps = (
 ): LinkStateProps => ({
   cuts: state.cut,
   user: state.user,
-  fbUser: state.fbUser
+  fbUser: state.fbUser,
 });
 
 const mapDispatchToProps = (

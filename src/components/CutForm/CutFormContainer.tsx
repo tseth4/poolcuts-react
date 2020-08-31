@@ -21,7 +21,8 @@ import { Redirect } from "react-router";
 import { Modal } from "@material-ui/core";
 
 interface CutFormContainerProps {
-  modalClass: any;
+  // modalClass: any;
+  handleCloseModal: () => void;
 }
 
 interface CutFormContainerState {}
@@ -37,8 +38,7 @@ const CutFormContainer: React.FC<Props> = ({
   addCutSuccess,
   boundUnsetCutSuccess,
   boundNewOpenCut,
-  modalClass,
-  boundUpdateCut,
+  handleCloseModal,
 }: Props) => {
   let locationSelect: any;
   let formContent;
@@ -64,22 +64,12 @@ const CutFormContainer: React.FC<Props> = ({
     barberId: user.length > 0 ? user[0].id : undefined,
     fbBarberId: fbUser.length > 0 ? fbUser[0].id : undefined,
     appointmentDate: undefined,
-    location: undefined,
-  });
-
-  const [editForm, setEditForm] = useState<UpdateCut>({
-    cutId: undefined,
-    appointmentDate: undefined,
-    location: undefined,
+    location: "Shop",
   });
 
   const handleNewCutSubmit = (event: any) => {
     event.preventDefault();
-    if (modalClass.type == "add") {
-      boundNewOpenCut(form, currentUser);
-    } else if (modalClass.type == "edit") {
-      boundUpdateCut(form, currentUser);
-    }
+    boundNewOpenCut(form, currentUser);
   };
 
   useEffect(() => {
@@ -88,6 +78,11 @@ const CutFormContainer: React.FC<Props> = ({
       boundUnsetCutSuccess();
     };
   }, []);
+
+  useEffect(() => {
+    console.log("changing")
+    console.log(form)
+  }, [form]);
 
   const handleSetForm = (input: any, value: any) => {
     setForm({
@@ -126,11 +121,7 @@ const CutFormContainer: React.FC<Props> = ({
   } else if (step == 1) {
     formContent = (
       <React.Fragment>
-        <ReviewSubmit
-          modalClass={modalClass}
-          form={form}
-          currentUser={currentUser}
-        />
+        <ReviewSubmit form={form} currentUser={currentUser} />
       </React.Fragment>
     );
   }
@@ -142,9 +133,11 @@ const CutFormContainer: React.FC<Props> = ({
   }
 
   // handle successfull creation
-  if (!isEmpty(addCutSuccess)) {
-    return <Redirect to="/profile" />;
-  }
+  useEffect(() => {
+    if (!isEmpty(addCutSuccess)) {
+      handleCloseModal();
+    }
+  }, [addCutSuccess]);
 
   return (
     <div className="cutform-container">

@@ -1,6 +1,8 @@
-.footer-container {
+@import "../../layout/variables";
 
-  position: static;
+.footer-container {
+  display: flex;
+  position: absolute;
   // left: 0;
   bottom: 0;
   width: 100%;
@@ -8,4 +10,10 @@
   color: white;
   text-align: center;
   // bottom: 1%;
+  flex-direction: column;
+  font-size: 0.7rem;
+
+  #{&}__banner {
+
+  }
 }

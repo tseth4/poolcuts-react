@@ -19,6 +19,13 @@ import { IError } from "../types/Error";
 import { SelectedIds } from "../types/SelectedIds";
 import { cancelBooksByIdsArr } from "../services/BookService";
 
+export const recieveAllOpenBarberCuts = (cuts: Cut[]): AppActions => {
+  return {
+    type: "SET_BARBER_CUTS",
+    cuts
+  }
+}
+
 export const recieveAllCuts = (cuts: Cut[]): AppActions => {
   return {
     type: "SET_CUTS",
@@ -82,13 +89,14 @@ export const boundGetAllCuts = (user: User | FBUser) => (
     });
 };
 
+// recieve user cuts
 export const boundGetOpenFacebookBarberCuts = (barber: FBUserAuthResponse) => (
   dispatch: Dispatch<AppActions>,
   getState: () => AppState
 ) => {
   getOpenFacebookBarberCuts(barber)
     .then((res) => {
-      dispatch(recieveAllCuts(res));
+      dispatch(recieveAllOpenBarberCuts(res));
       dispatch(deleteCutError());
     })
     .catch((e) => {
@@ -102,7 +110,7 @@ export const boundGetOpenBarberCuts = (barber: User) => (
 ) => {
   getOpenBarberCuts(barber)
     .then((res) => {
-      dispatch(recieveAllCuts(res));
+      dispatch(recieveAllOpenBarberCuts(res));
       dispatch(deleteCutError());
     })
     .catch((e) => {
@@ -151,6 +159,8 @@ export const boundUpdateCut = (
       dispatch(recieveCutError(e));
     });
 };
+
+
 
 // boundFbBarberNewCut
 // http://localhost:8080/barber/facebook/3799831360043592/cut/new

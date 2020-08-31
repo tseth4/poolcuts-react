@@ -1,13 +1,25 @@
 @import "../../layout/_variables";
 
 .contact-container {
+  padding-top: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  .contact-inner {
-    padding: 5vw;
-    padding-top: 12vh;
+  align-items: center;
+  * {
+    color: white;
+  }
+  #{&}__row {
     // border-style: solid;
     color: map-get($colors, white);
+  }
+
+  #{&}__row-item{
+    // border: 1px solid white;
+    margin: 10px;
+    a{
+      text-decoration: none;
+
+    }
   }
 }

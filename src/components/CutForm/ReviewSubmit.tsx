@@ -1,5 +1,5 @@
 import React from "react";
-import { NewCut, Cut } from "../../store/types/Cut";
+import { NewCut, Cut, UpdateCut } from "../../store/types/Cut";
 import { User } from "../../store/types/User";
 import { FBUser, FBUserAuthResponse } from "../../store/types/FBUser";
 import { AppState } from "../../store";
@@ -16,7 +16,8 @@ import { format } from "date-fns";
 interface ReviewSubmitProps {
   form: NewCut;
   currentUser: User | FBUser;
-  modalClass: any;
+  // modalClass: any;
+  // editForm: UpdateCut;
 }
 
 interface ReviewSubmitState {}
@@ -29,22 +30,41 @@ type Props = ReviewSubmitProps &
 const ReviewSubmit: React.FC<Props> = ({
   form,
   currentUser,
-  modalClass,
-}: Props) => {
-  console.log(form);
+}: // modalClass,
+// editForm,
+Props) => {
   let buttonDisable = true;
-  let buttonClass: string;
-  let buttonLabel: string = "";
+  let buttonClass: string = "";
+  let buttonLabel: string = "Add";
+  let laterDateMessage: string = "";
+  
+  let nextHour: Date = new Date();
 
-  if (modalClass.type == "add") {
-    buttonLabel = "Add";
-  } else if (modalClass.type == "edit") {
-    buttonLabel = "Update";
+  if (form.appointmentDate != null){
+    let myDate = new Date();
+    myDate.setHours( myDate.getHours() + 1);
+    nextHour = myDate;
   }
+
+  // let formValues = {
+  //   appointmentDate: "",
+  //   location: "",
+  // };
+
+  // // handle data view
+  // formValues.appointmentDate = form.appointmentDate ? form.appointmentDate : "";
+  // formValues.location = form.location ? form.location : "";
 
   // handle date and time
   let dateObj = new Date();
 
+  if (form.appointmentDate != null) {
+    dateObj = new Date(form.appointmentDate);
+  }
+
+  let date = dateObj.toDateString();
+
+  // helpter function to format time
   function formatAMPM(date: Date) {
     var hours = date.getHours();
     var minutes: any = date.getMinutes();
@@ -55,24 +75,31 @@ const ReviewSubmit: React.FC<Props> = ({
     var strTime = hours + ":" + minutes + " " + ampm;
     return strTime;
   }
-
-  if (form.appointmentDate != null) {
-    dateObj = new Date(form.appointmentDate);
-  }
-
-  let date = dateObj.toDateString();
+  // handle button disabled if form is unfilled
 
   if (
     form.appointmentDate == undefined ||
     form.location == undefined ||
-    (form.barberId == undefined && form.fbBarberId == undefined)
+    (form.barberId == undefined && form.fbBarberId == undefined) ||
+    new Date(form.appointmentDate) < nextHour
   ) {
+    console.log(nextHour)
     buttonDisable = true;
     buttonClass = "rs-container__button disabled";
   } else {
     buttonDisable = false;
     buttonClass = "rs-container__button";
   }
+
+  if (
+    form.appointmentDate != undefined &&
+    new Date(form.appointmentDate) < nextHour
+  ) {
+    laterDateMessage = "Please select a later time";
+  } else {
+    laterDateMessage = "";
+  }
+
   return (
     <div className="rs-container">
       <div className="rs-container__item">
@@ -96,6 +123,8 @@ const ReviewSubmit: React.FC<Props> = ({
           {buttonLabel}
         </button>
       </div>
+      <p style={{color: "red", textAlign: "center"}}>{laterDateMessage}</p>
+
     </div>
   );
 };

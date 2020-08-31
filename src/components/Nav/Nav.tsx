@@ -56,7 +56,7 @@ export const Nav: React.FC<Props> = ({
     );
     signUpButton = (
       <li>
-        <a className="signup">Sign up</a>
+        <a href="/signup" className="signup">Sign up</a>
       </li>
     );
   }

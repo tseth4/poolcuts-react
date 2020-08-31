@@ -9,32 +9,44 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-import { NewCut } from "../../store/types/Cut";
+import { NewCut, UpdateCut } from "../../store/types/Cut";
 
 const useStyles = makeStyles({
   root: {
-    background: "linear-gradient(45deg, #3cc8c8 30%, #a1a9a8 90%)",
+    // background: "linear-gradient(45deg, grey 30%, #a1a9a8 90%)",
     borderRadius: 3,
     border: 0,
     height: 48,
     padding: "0 30px",
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
   },
   label: {
     textTransform: "capitalize",
+  },
+  input: {
+    color: "white",
   },
 });
 
 interface AppointmentDateProps {
   handleSetForm: (input: any, value: any) => void;
   form: NewCut;
+  handleSetEditForm: (input: any, value: any) => void;
+  editForm: UpdateCut;
+  modalClass: any;
 }
 
 interface AppointmentDateState {}
 
 type Props = AppointmentDateProps & AppointmentDateState;
 
-const AppointmentDate: React.FC<Props> = ({ handleSetForm, form }: Props) => {
+const AppointmentDate: React.FC<Props> = ({
+  handleSetForm,
+  form,
+  handleSetEditForm,
+  editForm,
+  modalClass,
+}: Props) => {
   const classes = useStyles();
   let timeView: any;
   const [selectedDate, setSelectedDate] = React.useState({
@@ -43,13 +55,10 @@ const AppointmentDate: React.FC<Props> = ({ handleSetForm, form }: Props) => {
   });
 
   const handleDateChange = (input: any) => (e: any) => {
-    const time_regex = /\T(.*)/;
-    const date_regex = /.+?(?=T)/;
     if (input == "date") {
       setSelectedDate({
         ...selectedDate,
         date_str: new Date(e),
-        // date_str: e.toISOString().match(date_regex)[0],
       });
     }
     if (input == "time") {
@@ -65,23 +74,17 @@ const AppointmentDate: React.FC<Props> = ({ handleSetForm, form }: Props) => {
     console.log(selectedDate);
     const time_regex = /\T(.*)/;
     const date_regex = /.+?(?=T)/;
-    console.log(selectedDate.date_str.toISOString().match(date_regex))
-    console.log(selectedDate.time_str.toISOString().match(time_regex))
     if (
-      (selectedDate.date_str.toISOString().match(date_regex)) &&
-      (selectedDate.time_str.toISOString().match(time_regex))
-    ){
+      selectedDate.date_str.toISOString().match(date_regex) &&
+      selectedDate.time_str.toISOString().match(time_regex)
+    ) {
       handleSetForm(
         "appointmentDate",
-        selectedDate.date_str.toISOString().match(date_regex)![0] + selectedDate.time_str.toISOString().match(time_regex)![0]
+        selectedDate.date_str.toISOString().match(date_regex)![0] +
+          selectedDate.time_str.toISOString().match(time_regex)![0]
       );
     }
-
   }, [selectedDate]);
-
-  // setTimeout(() => {
-  //   console.log(selectedDate);
-  // }, 5000);
 
   return (
     <React.Fragment>
@@ -90,28 +93,28 @@ const AppointmentDate: React.FC<Props> = ({ handleSetForm, form }: Props) => {
           className={classes.root}
           margin="normal"
           id="date-picker-dialog"
-          // label="Date picker dialog"
-          // format="MM/dd/yyyy"
-          value={selectedDate.date_str}
+          value={form.appointmentDate}
           onChange={handleDateChange("date")}
           KeyboardButtonProps={{
             "aria-label": "change date",
           }}
+          InputProps={{ className: classes.input }}
+          disablePast={true}
         />
         <React.Fragment>
           <KeyboardTimePicker
             className={classes.root}
             margin="normal"
             id="time-picker"
-            value={selectedDate.time_str}
+            value={form.appointmentDate}
             onChange={handleDateChange("time")}
             KeyboardButtonProps={{
               "aria-label": "change time",
             }}
+            InputProps={{ className: classes.input }}
           />
         </React.Fragment>{" "}
       </MuiPickersUtilsProvider>
-      {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
     </React.Fragment>
   );
 };

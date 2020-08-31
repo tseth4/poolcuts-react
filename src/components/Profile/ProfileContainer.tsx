@@ -13,6 +13,7 @@ import { boundCancelBooking } from "../../store/actions/BookActions";
 import { bindActionCreators } from "redux";
 import { SelectedIds } from "../../store/types/SelectedIds";
 import CutEditFormModal from "./Cuts/CutFormModal";
+import { Cut } from "../../store/types/Cut";
 
 interface ProfileContainerProps {
   user?: User[];
@@ -31,17 +32,11 @@ const ProfileContainer: React.FC<Props> = ({ user, fbUser }: Props) => {
   let userNameView: string = "";
   let userType: string = "";
   // let modalClass = "cutform-modal";
-  const [modalClass, setModalClass] = useState({class: "cutform-modal", type: ""});
+  const [modalClass, setModalClass] = useState({ class: "cutform-modal" });
 
-  //If user role == admin == admin
-  // show open cuts and upcoming bookings
-
-  // if user roles == user
-  // show appointments
-
-  const handleEditCutFormModal = (type: string) => {
-    setModalClass({class: "cutform-modal active", type: type});
-  }
+  const handleAddCutFormModal = () => {
+    setModalClass({ class: "cutform-modal active" });
+  };
 
   if (fbUser.length > 0) {
     userType = fbUser[0].roles;
@@ -54,10 +49,13 @@ const ProfileContainer: React.FC<Props> = ({ user, fbUser }: Props) => {
   if (userType == "ROLE_ADMIN") {
     adminViews = (
       <React.Fragment>
-        <CutEditFormModal modalClass={modalClass} setModalClass={setModalClass}/>
+        <CutEditFormModal
+          modalClass={modalClass}
+          setModalClass={setModalClass}
+        />
         <div className="profile-container__row">
           <div className="profile-container__item">
-            <CutList handleEditCutFormModal={handleEditCutFormModal}/>
+            <CutList handleAddCutFormModal={handleAddCutFormModal} />
           </div>
           <div className="profile-container__item">
             <BookContainer />
@@ -71,7 +69,9 @@ const ProfileContainer: React.FC<Props> = ({ user, fbUser }: Props) => {
 
   return (
     <div className="profile-container">
-      <h1 style={{ color: "white" }}>Welcome {userNameView}</h1>
+      <div>
+        <h4 style={{ color: "white" }}>Welcome {userNameView}</h4>
+      </div>
       {adminViews}
       <div className="profile-container__row">
         <div className="profile-container__item">

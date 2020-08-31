@@ -19,8 +19,7 @@ import { SelectedIds } from "../../../store/types/SelectedIds";
 import { Link } from "react-router-dom";
 
 interface CutListProps {
-  // cuts?: Cut[];
-  handleEditCutFormModal: (type: string) => void;
+  handleAddCutFormModal: () => void;
 }
 
 interface CutListState {}
@@ -34,9 +33,8 @@ const CutList: React.FC<Props> = ({
   fbUser,
   user,
   boundCancelCutsByIdArr,
-  handleEditCutFormModal,
+  handleAddCutFormModal,
 }: Props) => {
-  let editDisabled: boolean = true;
   let deleteDisabled: boolean = true;
   let currentUser: any = undefined;
 
@@ -55,6 +53,11 @@ const CutList: React.FC<Props> = ({
   }, []);
 
   const [selectedCuts, setSelectedCuts] = useState<SelectedIds>({ ids: [] });
+  const [localCuts, setLocalCuts] = useState<Cut[]>([]);
+
+  useEffect(() => {
+    setLocalCuts(cuts);
+  }, [cuts]);
 
   const handleSetSelectedCuts = (id: number): void => {
     if (selectedCuts.ids.indexOf(id) == -1) {
@@ -75,91 +78,60 @@ const CutList: React.FC<Props> = ({
     deleteDisabled = true;
   }
 
-  if (selectedCuts.ids.length === 1) {
-    editDisabled = false;
-  } else {
-    editDisabled = true;
-  }
-
   const handleClick = () => {
     boundCancelCutsByIdArr(selectedCuts, currentUser);
   };
 
-  const handleAdd = () => {
-    // return <Redirect to="/cut/new" />;
-  };
-
-  // select the cuts and add it the array
-  // if array is not empty show the delete button
-  // when pressed boundDeleteCuts
-
-  console.log(cuts);
   return (
     <React.Fragment>
       <div className="cutlist-container">
-        <h1>Your open appointments</h1>
-        <div className="cutlist-table-container">
-          <table className="cutlist-table">
-            <thead className="cutlist-table__head">
-              <tr>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Barber</th>
-                <th>Location</th>
-              </tr>
-            </thead>
-            <tbody className="cutlist-table__body">
-              {cuts.map(
-                ({
-                  cutId,
-                  appointmentDate,
-                  barberId,
-                  location,
-                  fbBarberId,
-                }) => (
-                  <CutComponent
-                    // form={form}
-                    // handleStep={handleStep}
-                    // handleSetForm={handleSetForm}
-                    {...cutListProps}
-                    key={cutId}
-                    cutId={cutId}
-                    appointmentDate={appointmentDate}
-                    barberId={barberId}
-                    fbBarberId={fbBarberId}
-                    location={location}
-                    // handleSelectedCut={handleSelectedCut}
-                  />
-                )
-              )}
-            </tbody>
-          </table>
-          <div className="cutlist-table-container__buttoncontainer">
-            <button
-              disabled={editDisabled}
-              onClick={() => handleEditCutFormModal("edit")}
-              type="submit"
-              className="cutlist-button"
-            >
-              Edit
-            </button>
-            <button
-              disabled={deleteDisabled}
-              onClick={handleClick}
-              type="submit"
-              className="cutlist-button"
-            >
-              Delete
-            </button>
-            <button
-              disabled={false}
-              // onClick={handleAdd}
-              type="submit"
-              className="cutlist-button"
-            >
-              Add
-            </button>
+        <h1>Select open appointment</h1>
+        <div className="cutlist-table">
+          <div className="cutlist-table__row">
+            <div className="cutlist-table__head">Date</div>
+            <div className="cutlist-table__head">Time</div>
+            <div className="cutlist-table__head">Barber</div>
+            <div className="cutlist-table__head">Location</div>
           </div>
+          {cuts
+            .sort(
+              (a: any, b: any) =>
+                +new Date(a.appointmentDate) - +new Date(b.appointmentDate)
+            )
+            .map(
+              ({ cutId, appointmentDate, barberId, location, fbBarberId }) => (
+                <CutComponent
+                  {...cutListProps}
+                  key={cutId}
+                  cutId={cutId}
+                  appointmentDate={appointmentDate}
+                  barberId={barberId}
+                  fbBarberId={fbBarberId}
+                  location={location}
+                  // handleSelectedCut={handleSelectedCut}
+                />
+              )
+            )}
+        </div>
+      </div>
+      <div className="profile-container__item">
+        <div className="cutlist-table-container__buttoncontainer">
+          <button
+            disabled={deleteDisabled}
+            onClick={handleClick}
+            type="submit"
+            className="cutlist-button"
+          >
+            Delete
+          </button>
+          <button
+            disabled={false}
+            onClick={() => handleAddCutFormModal()}
+            type="submit"
+            className="cutlist-button"
+          >
+            Add
+          </button>
         </div>
       </div>
     </React.Fragment>
@@ -182,7 +154,7 @@ const mapStateToProps = (
   state: AppState,
   ownProps: CutListProps
 ): LinkStateProps => ({
-  cuts: state.cut,
+  cuts: state.openBarberCuts,
   user: state.user,
   fbUser: state.fbUser,
 });

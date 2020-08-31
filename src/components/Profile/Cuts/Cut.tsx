@@ -87,12 +87,12 @@ export const CutComponent: React.FC<Props> = ({
 
   return (
     <React.Fragment>
-      <tr onClick={handleClick} className={cutClass}>
-        <td className="cutlist-datarow__td">{date}</td>
-        <td className="cutlist-datarow__td">{formatAMPM(dateObj)}</td>
-        <td className="cutlist-datarow__td">{barberDetails}</td>
-        <td className="cutlist-datarow__td">{location}</td>
-      </tr>
+      <div onClick={handleClick} className={cutClass}>
+        <div className="cutlist-datarow__td">{date}</div>
+        <div className="cutlist-datarow__td">{formatAMPM(dateObj)}</div>
+        <div className="cutlist-datarow__td">{barberDetails}</div>
+        <div className="cutlist-datarow__td">{location}</div>
+      </div>
     </React.Fragment>
     // <div onClick={() => handleClick()} className={cutClass}>
     //   {/* <div>cutid: {cutId}</div> */}

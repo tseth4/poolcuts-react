@@ -7,14 +7,15 @@
   box-shadow: 0 19px 38px map-get($colors, black),
     0 15px 12px map-get($colors, black);
   padding: 25px;
-  margin: 25px;
+  // margin-top: 255px;
   color: map-get($colors, white);
   #{&}__item {
     padding: 8px;
   }
 
   #{&}__property {
-    color: map-get($colors, gold);
+    // color: map-get($colors, gold);
+    color: map-get($colors, sky);
   }
 
   #{&}__button-container {

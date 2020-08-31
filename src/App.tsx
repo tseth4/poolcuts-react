@@ -17,15 +17,15 @@ import './App.scss'
 //react.fc = functional component
 const App: React.FC = () => {
   return (
-    <React.Fragment>
+    <div className="main-container">
       <Provider store={store}>
         <NavContainer />
         <div className="appcontainer">
         <AppRouter />
         </div>
-        {/* <FooterContainer /> */}
+        <FooterContainer />
       </Provider>
-    </React.Fragment>
+    </div>
   );
 };
 

@@ -1,53 +1,67 @@
 @import "../../../layout/_variables.scss";
-$color:#3694d7;
-$timing:.3s;
+$color: #3694d7;
+$timing: 0.3s;
 @mixin mobile {
   @media (max-width: map-get($breakpoints, tablet)) {
     @content;
   }
 }
 
-.bookinglist-table-container{
+.bookinglist-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // margin: 15px;
+  overflow: auto;
+  padding-top: 25px;
+  margin-top: 25px;
+
+  h1 {
+    color: map-get($colors, white);
+    font-size: 25.6px;
+    padding-bottom: 10px;
+  }
+}
+
+.bookinglist-container {
   height: 34vh;
-  overflow-y: auto;
 
   &::-webkit-scrollbar {
     width: 20px;
   }
   /* Track */
   &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
+    box-shadow: inset 0 0 5px red;
     border-radius: 10px;
   }
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background: map-get($colors, black); 
+    background: map-get($colors, black);
     border-radius: 10px;
   }
   /* Handle on hover */
   &::-webkit-scrollbar-thumb:hover {
-    background: #b30000; 
-  }
-
-}
-
-.bookinglist-container{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 15px;
-  h1{
-    color: map-get($colors,white);
-    font-size: 25.6px;
-    padding-bottom: 10px;
-
-    // text-align: center;
+    background: #b30000;
   }
 }
 
-.bookinglist-table{
-  #{&}__head{
+.bookinglist-table {
+  display: table;
+
+  #{&}__head {
+    display: table-cell;
+    padding: 3px 10px;
     color: map-get($colors, white);
   }
+
+  #{&}__row {
+    display: table-row;
+  }
+}
+
+@media (max-width: 48em) {
+  // .bookinglist-table {
+  //   width: 65%;
+  // }
 }
