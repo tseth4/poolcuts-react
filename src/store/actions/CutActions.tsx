@@ -12,7 +12,7 @@ import {
 import { AppState } from "..";
 import { User } from "../types/User";
 import { boundLogoutUser, deleteUser } from "./UserActions";
-import { recieveError, deleteError } from "./AuthErrorActions";
+import { recieveAuthError, deleteAuthError } from "./UserActions";
 import { FBUser, FBUserAuthResponse } from "../types/FBUser";
 import { deleteFBUser } from "./FBUserActions";
 import { IError } from "../types/Error";

@@ -20,6 +20,11 @@ import { AppActions } from "../../store/types";
 import { Redirect } from "react-router";
 import { Modal } from "@material-ui/core";
 
+export interface SelectedDate {
+  date_str?: Date;
+  time_str?: Date;
+}
+
 interface CutFormContainerProps {
   // modalClass: any;
   handleCloseModal: () => void;
@@ -63,7 +68,7 @@ const CutFormContainer: React.FC<Props> = ({
   const [form, setForm] = useState<NewCut>({
     barberId: user.length > 0 ? user[0].id : undefined,
     fbBarberId: fbUser.length > 0 ? fbUser[0].id : undefined,
-    appointmentDate: undefined,
+    appointmentDate: "2015-03-25",
     location: "Shop",
   });
 
@@ -73,6 +78,7 @@ const CutFormContainer: React.FC<Props> = ({
   };
 
   useEffect(() => {
+    console.log("rerender CutFormContainer");
     // boundUnsetSuccessMessage();
     return function cleanup() {
       boundUnsetCutSuccess();
@@ -80,8 +86,8 @@ const CutFormContainer: React.FC<Props> = ({
   }, []);
 
   useEffect(() => {
-    console.log("changing")
-    console.log(form)
+    console.log("update form");
+    console.log(form);
   }, [form]);
 
   const handleSetForm = (input: any, value: any) => {
@@ -90,6 +96,55 @@ const CutFormContainer: React.FC<Props> = ({
       [input]: value,
     });
   };
+
+  // appointment logic
+
+  const [selectedDate, setSelectedDate] = React.useState<SelectedDate>({
+    date_str: undefined,
+    time_str: undefined,
+  });
+
+  const handleDateChange = (input: any) => (e: any) => {
+    if (input == "date") {
+      setSelectedDate({
+        ...selectedDate,
+        date_str: new Date(e),
+      });
+    }
+    if (input == "time") {
+      setSelectedDate({
+        ...selectedDate,
+        time_str: new Date(e),
+        // time_str: e.toISOString().match(time_regex)[0],
+      });
+    }
+  };
+
+  useEffect(() => {
+    const time_regex = /\T(.*)/;
+    const date_regex = /.+?(?=T)/;
+    if (
+      selectedDate.date_str != undefined &&
+      selectedDate.time_str != undefined
+    ) {
+      if (
+        selectedDate.date_str.toISOString().match(date_regex) &&
+        selectedDate.time_str.toISOString().match(time_regex)
+      ) {
+        console.log(
+          "final ISO String:    " +
+            selectedDate.date_str.toISOString().match(date_regex)![0] +
+            selectedDate.time_str.toISOString().match(time_regex)![0]
+        );
+
+        handleSetForm(
+          "appointmentDate",
+          selectedDate.date_str.toISOString().match(date_regex)![0] +
+            selectedDate.time_str.toISOString().match(time_regex)![0]
+        );
+      }
+    }
+  }, [selectedDate]);
 
   // handle props
   let formProps: any;
@@ -114,7 +169,11 @@ const CutFormContainer: React.FC<Props> = ({
   if (step == 0) {
     formContent = (
       <React.Fragment>
-        <AppointmentDate {...formProps} />
+        <AppointmentDate
+          {...formProps}
+          handleDateChange={handleDateChange}
+          selectedDate={selectedDate}
+        />
         {locationSelect}
       </React.Fragment>
     );

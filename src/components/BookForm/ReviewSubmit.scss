@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   border-radius: 15px;
+  font-size: 10pt;
+
   box-shadow: 0 19px 38px map-get($colors, black),
     0 15px 12px map-get($colors, black);
   padding: 25px;
@@ -16,6 +18,7 @@
   #{&}__property {
     // color: map-get($colors, gold);
     color: map-get($colors, sky);
+    font-weight: bold;
   }
 
   #{&}__button-container {

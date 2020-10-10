@@ -11,6 +11,8 @@ import {
 } from "@material-ui/pickers";
 import { NewCut, UpdateCut } from "../../store/types/Cut";
 
+import { SelectedDate } from "./CutFormContainer"
+
 const useStyles = makeStyles({
   root: {
     // background: "linear-gradient(45deg, grey 30%, #a1a9a8 90%)",
@@ -28,12 +30,16 @@ const useStyles = makeStyles({
   },
 });
 
+
+
 interface AppointmentDateProps {
   handleSetForm: (input: any, value: any) => void;
   form: NewCut;
   handleSetEditForm: (input: any, value: any) => void;
   editForm: UpdateCut;
   modalClass: any;
+  handleDateChange: (input: any) => (e: any) => void;
+  selectedDate: SelectedDate
 }
 
 interface AppointmentDateState {}
@@ -41,6 +47,8 @@ interface AppointmentDateState {}
 type Props = AppointmentDateProps & AppointmentDateState;
 
 const AppointmentDate: React.FC<Props> = ({
+  handleDateChange,
+  selectedDate,
   handleSetForm,
   form,
   handleSetEditForm,
@@ -49,42 +57,8 @@ const AppointmentDate: React.FC<Props> = ({
 }: Props) => {
   const classes = useStyles();
   let timeView: any;
-  const [selectedDate, setSelectedDate] = React.useState({
-    date_str: new Date(),
-    time_str: new Date(),
-  });
 
-  const handleDateChange = (input: any) => (e: any) => {
-    if (input == "date") {
-      setSelectedDate({
-        ...selectedDate,
-        date_str: new Date(e),
-      });
-    }
-    if (input == "time") {
-      setSelectedDate({
-        ...selectedDate,
-        time_str: new Date(e),
-        // time_str: e.toISOString().match(time_regex)[0],
-      });
-    }
-  };
 
-  useEffect(() => {
-    console.log(selectedDate);
-    const time_regex = /\T(.*)/;
-    const date_regex = /.+?(?=T)/;
-    if (
-      selectedDate.date_str.toISOString().match(date_regex) &&
-      selectedDate.time_str.toISOString().match(time_regex)
-    ) {
-      handleSetForm(
-        "appointmentDate",
-        selectedDate.date_str.toISOString().match(date_regex)![0] +
-          selectedDate.time_str.toISOString().match(time_regex)![0]
-      );
-    }
-  }, [selectedDate]);
 
   return (
     <React.Fragment>
@@ -93,7 +67,7 @@ const AppointmentDate: React.FC<Props> = ({
           className={classes.root}
           margin="normal"
           id="date-picker-dialog"
-          value={form.appointmentDate}
+          value={selectedDate.date_str}
           onChange={handleDateChange("date")}
           KeyboardButtonProps={{
             "aria-label": "change date",
@@ -106,7 +80,7 @@ const AppointmentDate: React.FC<Props> = ({
             className={classes.root}
             margin="normal"
             id="time-picker"
-            value={form.appointmentDate}
+            value={selectedDate.time_str}
             onChange={handleDateChange("time")}
             KeyboardButtonProps={{
               "aria-label": "change time",

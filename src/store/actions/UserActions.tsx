@@ -1,5 +1,10 @@
 import { AppActions } from "../types";
-import { User, LoginCredentials, RegisterCredentials } from "../types/User";
+import {
+  User,
+  LoginCredentials,
+  SignUpResponse,
+  SignUpCredentials,
+} from "../types/User";
 import { Dispatch } from "redux";
 import {
   authenticateUserService,
@@ -7,10 +12,35 @@ import {
   registerAdminService,
 } from "../services/UserService";
 import { AppState } from "..";
-import { recieveError, deleteError } from "./AuthErrorActions";
+import { IError } from "../types/Error"
+
+export const recieveAuthError = (error: IError): AppActions => {
+  return {
+    type: "SAVE_AUTH_ERROR",
+    authError: error
+  };
+}
+
+export const deleteAuthError = (): AppActions => {
+  return{
+    type: "DELETE_AUTH_ERROR",
+  }
+}
+
+export const recieveSignUpError = (error: IError): AppActions => {
+  return {
+    type: "SAVE_SIGNUP_ERROR",
+    signUpError: error
+  }
+}
+
+export const deleteSignUpError = (): AppActions => {
+  return {
+    type: "DELETE_SIGNUP_ERROR"
+  }
+}
 
 export const recieveUser = (user: User): AppActions => {
-  console.log(user);
   return {
     type: "SAVE_USER",
     user: user,
@@ -18,24 +48,38 @@ export const recieveUser = (user: User): AppActions => {
 };
 
 export const deleteUser = (): AppActions => {
-  console.log("deletinggg");
   return {
     type: "DELETE_USER",
   };
 };
 
+export const recieveSignUpUserResponseSuccess = (
+  user: SignUpResponse
+): AppActions => {
+  return {
+    type: "SAVE_SIGNUPUSERRESPONSE",
+    signUpUserResponse: user
+  };
+};
+
+export const deleteSignUpUserResponseSuccess = (): AppActions => {
+  return {
+    type: "DELETE_SIGNUPUSERRESPONSE"
+  }
+}
+
+
 export const boundLoginUser = (data: LoginCredentials) => (
   dispatch: Dispatch<AppActions>,
   getState: () => AppState
 ) => {
-  console.log("bounding");
   authenticateUserService(data)
     .then((res) => {
       dispatch(recieveUser(res));
-      dispatch(deleteError());
+      dispatch(deleteAuthError());
     })
     .catch((e) => {
-      dispatch(recieveError(e.data));
+      dispatch(recieveAuthError(e.data));
     });
 };
 
@@ -43,18 +87,24 @@ export const boundLogoutUser = () => (
   dispatch: Dispatch<AppActions>,
   getState: () => AppState
 ) => {
-  console.log("boundLogOut");
   dispatch(deleteUser());
 };
 
-export const boundRegisterUser = (data: RegisterCredentials) => (
+export const boundRegisterUser = (data: SignUpCredentials) => (
   dispatch: Dispatch<AppActions>,
   getState: () => AppState
 ) => {
-  registerUserService(data);
+  registerUserService(data)
+    .then((res) => {
+      dispatch(recieveSignUpUserResponseSuccess(res));
+      dispatch(deleteSignUpError());
+    })
+    .catch((e) => {
+      dispatch(recieveSignUpError(e.data));
+    });
 };
 
-export const boundRegisterAdmin = (data: RegisterCredentials) => (
+export const boundRegisterAdmin = (data: SignUpCredentials) => (
   dispatch: Dispatch<AppActions>,
   getState: () => AppState
 ) => {

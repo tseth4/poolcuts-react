@@ -1,8 +1,25 @@
-import { User } from "../types/User";
+import { SignUpResponse, User } from "../types/User";
 import { UserActionTypes } from "../types/User";
 
-const userReducerDefaultState: User[] = [];
+import { IError } from "../types/Error";
 
+const authErrorReducerDefaultState: IError[] = [];
+
+const authErrorReducer = (
+  state = authErrorReducerDefaultState,
+  action: UserActionTypes
+): Error[] | any => {
+  switch (action.type) {
+    case "SAVE_AUTH_ERROR":
+      return action.authError;
+    case "DELETE_AUTH_ERROR":
+      return [];
+    default:
+      return state;
+  }
+};
+
+const userReducerDefaultState: User[] = [];
 const userReducer = (
   state = userReducerDefaultState,
   action: UserActionTypes
@@ -18,4 +35,40 @@ const userReducer = (
   }
 };
 
-export { userReducer };
+const signUpUserResponseSuccessReducerDefaultState: SignUpResponse = {};
+const signUpUserResponseReducer = (
+  state = signUpUserResponseSuccessReducerDefaultState,
+  action: UserActionTypes
+): SignUpResponse | any => {
+  switch (action.type) {
+    case "SAVE_SIGNUPUSERRESPONSE":
+      return action.signUpUserResponse;
+    case "DELETE_SIGNUPUSERRESPONSE":
+      return {};
+    default:
+      return state;
+  }
+};
+
+const signUpErrorReducerDefaultState: IError = {};
+
+const signUpErrorReducer = (
+  state = signUpErrorReducerDefaultState,
+  action: UserActionTypes
+): Error[] | any => {
+  switch (action.type) {
+    case "SAVE_SIGNUP_ERROR":
+      return action.signUpError;
+    case "DELETE_SIGNUP_ERROR":
+      return {};
+    default:
+      return state;
+  }
+};
+
+export {
+  userReducer,
+  signUpUserResponseReducer,
+  signUpErrorReducer,
+  authErrorReducer,
+};

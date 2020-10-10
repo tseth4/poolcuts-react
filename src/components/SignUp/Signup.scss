@@ -1,8 +1,6 @@
 @import "../../layout/_variables";
 
-.login-container {
-  // border-style: solid;
-  // border-color: green;
+.signup-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,12 +9,14 @@
   // border: 1px solid white;
 }
 
-.login-error {
+.signup-error {
   color: red;
   font-size: 12px;
 }
 
-.form-container {
+
+
+.signupform-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -34,7 +34,7 @@
   #{&}__textbox {
     // border: 1px solid pink;
     border-bottom: 1px solid map-get($colors, offGrey);
-    width: 100%;
+    width: 400px;
     // position: relative;
     // margin: 15px 0;
   }
@@ -57,7 +57,7 @@
   // #{&}__input:focus{
   //   color: map-get($colors, white);
   // }
-  #{&}__logbtn {
+  #{&}__sbtn {
     background-color: map-get($colors, lightBlack);
     border: 2px solid map-get($colors, white);
     color: map-get($colors, white);
@@ -72,3 +72,15 @@
     color: map-get($colors, white);
   }
 }
+
+.disabled {
+  background-color: map-get($colors, lightBlack);
+  border: 2px solid map-get($colors, black);
+  color: map-get($colors, black);
+  height: 4vh;
+  margin-top: 24px;
+  border-radius: 8px;
+  cursor: default;
+  // padding: 5px;
+  min-width: 75px;}
+

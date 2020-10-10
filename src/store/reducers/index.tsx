@@ -4,11 +4,10 @@ import {
   cutErrorReducer,
   addCutSuccessReducer,
   updateCutSuccessReducer,
-  openBarberCutsReducer
+  openBarberCutsReducer,
 } from "./CutReducer";
-import { userReducer } from "./UserReducer";
+import { userReducer, signUpUserResponseReducer, signUpErrorReducer, authErrorReducer } from "./UserReducer";
 import { fbUserReducer } from "./FBUsesrReducer";
-import { errorReducer } from "./AuthErrorReducer";
 import {
   bookReducer,
   appointmentReducer,
@@ -21,7 +20,7 @@ const rootReducer = combineReducers({
   cut: cutReducer,
   user: userReducer,
   fbUser: fbUserReducer,
-  authError: errorReducer,
+  authError: authErrorReducer,
   book: bookReducer,
   appt: appointmentReducer,
   bookSuccess: bookSuccessReducer,
@@ -30,7 +29,9 @@ const rootReducer = combineReducers({
   addCutSuccess: addCutSuccessReducer,
   cancelBookResp: cancelBookReducer,
   updateCutSuccess: updateCutSuccessReducer,
-  openBarberCuts: openBarberCutsReducer
+  openBarberCuts: openBarberCutsReducer,
+  signUpUserResponse: signUpUserResponseReducer,
+  signUpError: signUpErrorReducer
 });
 
 export default rootReducer;

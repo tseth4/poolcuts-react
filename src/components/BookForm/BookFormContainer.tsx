@@ -19,6 +19,7 @@ import { AppActions } from "../../store/types";
 import { bindActionCreators } from "redux";
 import { FBUser } from "../../store/types/FBUser";
 import { Redirect } from "react-router";
+import { isEmpty } from "../../utils/Functions"
 
 interface BookFormContainerProps {}
 
@@ -37,12 +38,6 @@ const BookFormContainer: React.FC<Props> = ({
 }: Props) => {
   // Book b = new Book();
 
-  function isEmpty(obj: any) {
-    for (var key in obj) {
-      if (obj.hasOwnProperty(key)) return false;
-    }
-    return true;
-  }
   let currentUser: any = undefined;
 
   let formContent;

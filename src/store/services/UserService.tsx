@@ -1,5 +1,5 @@
 import request from "../request";
-import { LoginCredentials, User, RegisterCredentials } from "../types/User";
+import { LoginCredentials, User, SignUpCredentials } from "../types/User";
 import { FBUser } from "../types/FBUser";
 
 export const authenticateUserService = (data: LoginCredentials) => {
@@ -7,10 +7,9 @@ export const authenticateUserService = (data: LoginCredentials) => {
   return request({
     url: "authenticate",
     method: "POST",
-    data
-  })
-}
-
+    data,
+  });
+};
 
 export const authenticateFBUserService = (data: FBUser) => {
   console.log("authing fb in service");
@@ -22,30 +21,30 @@ export const authenticateFBUserService = (data: FBUser) => {
     url: "authenticate/facebook/user",
     method: "POST",
     headers,
-    data
-  })
-}
+    data,
+  });
+};
 
-export const registerUserService = (data: RegisterCredentials) => {
-  console.log("registering")
+export const registerUserService = (data: SignUpCredentials) => {
+  console.log("registering");
   return request({
     url: "register",
     method: "POST",
-    data
-  })
-}
+    data,
+  });
+};
 
-export const registerAdminService = (data: RegisterCredentials) => {
+export const registerAdminService = (data: SignUpCredentials) => {
   return request({
     url: "register/admin",
     method: "POST",
-    data
-  })
-}
+    data,
+  });
+};
 
 export const getUserService = (email: string) => {
   return request({
     url: `user/${email}`,
-    method: "GET"
-  })
-}
+    method: "GET",
+  });
+};

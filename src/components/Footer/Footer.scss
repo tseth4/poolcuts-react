@@ -6,14 +6,34 @@
   // left: 0;
   bottom: 0;
   width: 100%;
-  background-color: red;
+  height: 65px;
+  background-color: map-get($colors, mediumBlack);
   color: white;
   text-align: center;
+  justify-content: center;
   // bottom: 1%;
-  flex-direction: column;
+  flex-direction: row;
   font-size: 0.7rem;
+  padding: 20px;
+  #{&}__logo {
+    min-width: 200px;
+    position: absolute;
+    left: 10px;
+  }
 
-  #{&}__banner {
+  #{&}__link {
+    min-width: 200px;
+    position: absolute;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+  }
 
+  #{&}__item {
+    min-width: 200px;
+  }
+
+  #{&}__link-element {
+    margin: 10px;
   }
 }
