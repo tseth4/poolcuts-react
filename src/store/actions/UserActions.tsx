@@ -3,40 +3,53 @@ import {
   User,
   LoginCredentials,
   SignUpResponse,
-  SignUpCredentials,
+  SignUpCredentials, ActivationResponse
 } from "../types/User";
 import { Dispatch } from "redux";
 import {
   authenticateUserService,
   registerUserService,
-  registerAdminService,
+  registerAdminService, activateUserService
 } from "../services/UserService";
 import { AppState } from "..";
-import { IError } from "../types/Error"
+import { IError } from "../types/Error";
 
 export const recieveAuthError = (error: IError): AppActions => {
   return {
     type: "SAVE_AUTH_ERROR",
-    authError: error
+    authError: error,
   };
-}
+};
 
 export const deleteAuthError = (): AppActions => {
-  return{
+  return {
     type: "DELETE_AUTH_ERROR",
-  }
-}
+  };
+};
 
 export const recieveSignUpError = (error: IError): AppActions => {
   return {
     type: "SAVE_SIGNUP_ERROR",
-    signUpError: error
-  }
-}
+    signUpError: error,
+  };
+};
 
 export const deleteSignUpError = (): AppActions => {
   return {
-    type: "DELETE_SIGNUP_ERROR"
+    type: "DELETE_SIGNUP_ERROR",
+  };
+};
+
+export const recieveActivateError = (error: IError): AppActions => {
+  return {
+    type: "SAVE_ACTIVATE_ERROR",
+    activateError: error
+  }
+}
+
+export const deleteActivateError = (): AppActions => {
+  return {
+    type: "DELETE_ACTIVATE_ERROR"
   }
 }
 
@@ -58,16 +71,27 @@ export const recieveSignUpUserResponseSuccess = (
 ): AppActions => {
   return {
     type: "SAVE_SIGNUPUSERRESPONSE",
-    signUpUserResponse: user
+    signUpUserResponse: user,
   };
 };
 
 export const deleteSignUpUserResponseSuccess = (): AppActions => {
   return {
-    type: "DELETE_SIGNUPUSERRESPONSE"
+    type: "DELETE_SIGNUPUSERRESPONSE",
+  };
+};
+
+export const recieveActivateUserResponseSuccess = (response: ActivationResponse): AppActions => {
+  return {
+    type: "SAVE_ACTIVATEUSERRESPONSE",
+    activateUserResponse: response
   }
 }
-
+export const deleteActivateUserResponseSuccess = (): AppActions => {
+  return {
+    type: "DELETE_ACTIVATEUSERRESPONSE"
+  }
+}
 
 export const boundLoginUser = (data: LoginCredentials) => (
   dispatch: Dispatch<AppActions>,
@@ -109,4 +133,16 @@ export const boundRegisterAdmin = (data: SignUpCredentials) => (
   getState: () => AppState
 ) => {
   registerAdminService(data);
+};
+
+export const boundActivateUser = (token: string) => (
+  dispatch: Dispatch<AppActions>,
+  getState: () => AppState
+) => {
+  activateUserService(token).then((res) => {
+    dispatch(recieveActivateUserResponseSuccess(res));
+    dispatch(deleteActivateError());
+  }).catch((e) => {
+    dispatch(recieveActivateError(e));
+  })
 };

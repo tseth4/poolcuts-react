@@ -3,7 +3,6 @@ import { LoginCredentials, User, SignUpCredentials } from "../types/User";
 import { FBUser } from "../types/FBUser";
 
 export const authenticateUserService = (data: LoginCredentials) => {
-  console.log("authing in service");
   return request({
     url: "authenticate",
     method: "POST",
@@ -12,7 +11,6 @@ export const authenticateUserService = (data: LoginCredentials) => {
 };
 
 export const authenticateFBUserService = (data: FBUser) => {
-  console.log("authing fb in service");
   let headers: any;
   headers = {
     Authorization: `Token ` + `${data.accessToken}`,
@@ -26,9 +24,8 @@ export const authenticateFBUserService = (data: FBUser) => {
 };
 
 export const registerUserService = (data: SignUpCredentials) => {
-  console.log("registering");
   return request({
-    url: "register",
+    url: "register/user",
     method: "POST",
     data,
   });
@@ -48,3 +45,10 @@ export const getUserService = (email: string) => {
     method: "GET",
   });
 };
+
+export const activateUserService = (token: string) => {
+  return request({
+    url: `activation/user?token=${token}`,
+    method: "GET"
+  })
+}

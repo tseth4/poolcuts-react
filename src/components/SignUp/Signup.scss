@@ -6,7 +6,6 @@
   justify-content: center;
   align-items: center;
   height: 75vh;
-  // border: 1px solid white;
 }
 
 .signup-error {
@@ -14,29 +13,21 @@
   font-size: 12px;
 }
 
-
-
 .signupform-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 40px;
   align-self: center;
-  // border: 1px solid yellow;
   border-radius: 25px;
   background-color: map-get($colors, lightBlack);
   box-shadow: 0 19px 38px map-get($colors, black),
     0 15px 12px map-get($colors, black);
-  // margin: 10em;
-  // padding: 10em;
-  // width: 50%;
+
 
   #{&}__textbox {
-    // border: 1px solid pink;
     border-bottom: 1px solid map-get($colors, offGrey);
     width: 400px;
-    // position: relative;
-    // margin: 15px 0;
   }
   #{&}__inpt {
     border: none;
@@ -54,9 +45,6 @@
     color: map-get($colors, white);
   }
 
-  // #{&}__input:focus{
-  //   color: map-get($colors, white);
-  // }
   #{&}__sbtn {
     background-color: map-get($colors, lightBlack);
     border: 2px solid map-get($colors, white);
@@ -81,6 +69,5 @@
   margin-top: 24px;
   border-radius: 8px;
   cursor: default;
-  // padding: 5px;
   min-width: 75px;}
 

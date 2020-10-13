@@ -16,3 +16,19 @@
 - Appointment
 - Book -> email to both barber and user
 - CancelBook -> email to both barber and user
+
+Need to fix 
+-> accurate dates on the new appointment form
+-> profile dashboard style
+
+
+
+
+service api dns
+
+-> sends email with spa link
+   spa link will call get request to verify email to verification api service-api-dns/verification
+spa url
+
+
+*-> should we store user jwt in react context?

@@ -72,10 +72,20 @@ export interface SignUpResponse {
   cuts?: any
 }
 
+export interface ActivationResponse {
+  activationSuccess?: boolean,
+  email?: string,
+  message?: string
+}
+
 export const SAVE_USER = "SAVE_USER";
 export const DELETE_USER = "DELETE_USER";
 export const SAVE_SIGNUPUSERRESPONSE = "SAVE_SIGNUPUSERRESPONSE"
 export const DELETE_SIGNUPUSERRESPONSE = "DELETE_SIGNUPUSERRESPONSE"
+export const SAVE_ACTIVATEUSERRESPONSE = "SAVE_ACTIVATEUSERRESPONSE"
+export const DELETE_ACTIVATEUSERRESPONSE = "DELETE_ACTIVATEUSERRESPONSE"
+export const SAVE_ACTIVATE_ERROR = "SAVE_ACTIVATE_ERROR"
+export const DELETE_ACTIVATE_ERROR = "DELETE_ACTIVATE_ERROR"
 export const SAVE_SIGNUP_ERROR = "SAVE_SIGNUP_ERROR"
 export const DELETE_SIGNUP_ERROR = "DELETE_SIGNUP_ERROR"
 export const SAVE_AUTH_ERROR = "SAVE_AUTH_ERROR";
@@ -99,6 +109,24 @@ export interface SaveSignUpUserResponse {
 export interface DeleteSignUpUserResponse {
   type: typeof DELETE_SIGNUPUSERRESPONSE;
 }
+
+export interface SaveActivateUserResponse {
+  type: typeof SAVE_ACTIVATEUSERRESPONSE;
+  activateUserResponse: ActivationResponse
+}
+export interface DeleteActivateUserResponse {
+  type: typeof DELETE_ACTIVATEUSERRESPONSE;
+}
+
+export interface SaveActivateError {
+  type: typeof SAVE_ACTIVATE_ERROR
+  activateError: IError
+}
+
+export interface DeleteActivateError {
+  type: typeof DELETE_ACTIVATE_ERROR
+}
+
 export interface SaveSignUpError {
   type: typeof SAVE_SIGNUP_ERROR;
   signUpError: IError
@@ -120,4 +148,4 @@ export interface DeleteAuthErrorAction {
 
 
 
-export type UserActionTypes = SaveUserAction | DeleteUserAction | SaveSignUpUserResponse | DeleteSignUpUserResponse | SaveSignUpError | DeleteSignUpError  | SaveAuthErrorAction | DeleteAuthErrorAction;
+export type UserActionTypes = SaveUserAction | DeleteUserAction | SaveSignUpUserResponse | DeleteSignUpUserResponse | SaveSignUpError | DeleteSignUpError  | SaveAuthErrorAction | DeleteAuthErrorAction | SaveActivateUserResponse | DeleteActivateUserResponse | SaveActivateError | DeleteActivateError;

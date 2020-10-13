@@ -1,4 +1,4 @@
-import { SignUpResponse, User } from "../types/User";
+import { ActivationResponse, SignUpResponse, User } from "../types/User";
 import { UserActionTypes } from "../types/User";
 
 import { IError } from "../types/Error";
@@ -66,9 +66,43 @@ const signUpErrorReducer = (
   }
 };
 
+const activateUserResponseReducerDefaultState: ActivationResponse = {};
+
+const activateUserResponseReducer = (
+  state = activateUserResponseReducerDefaultState,
+  action: UserActionTypes
+): ActivationResponse | any => {
+  switch (action.type) {
+    case "SAVE_ACTIVATEUSERRESPONSE":
+      return action.activateUserResponse;
+    case "DELETE_ACTIVATEUSERRESPONSE":
+      return {};
+    default:
+      return state;
+  }
+};
+
+const activateUserErrorReducerDefaultState: IError = {};
+
+const activateUserErrorReducer = (
+  state = activateUserErrorReducerDefaultState,
+  action: UserActionTypes
+): Error | any => {
+  switch (action.type) {
+    case "SAVE_ACTIVATE_ERROR":
+      return action.activateError;
+    case "DELETE_ACTIVATE_ERROR":
+      return {};
+    default:
+      return state;
+  }
+};
+
 export {
   userReducer,
   signUpUserResponseReducer,
   signUpErrorReducer,
   authErrorReducer,
+  activateUserResponseReducer,
+  activateUserErrorReducer,
 };

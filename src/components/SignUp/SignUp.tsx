@@ -9,20 +9,28 @@ import { AppActions } from "../../store/types";
 import { IError } from "../../store/types/Error";
 import { SignUpCredentials, SignUpResponse } from "../../store/types/User";
 import { isEmpty, validateEmail } from "../../utils/Functions";
+import { Redirect, Route, RouteProps } from "react-router";
+
 import "./Signup.scss";
 
 interface SignUpProps {}
 
 interface SignUpState {}
 
-type Props = SignUpProps & SignUpState;
+type Props = SignUpProps & SignUpState & LinkDispatchToProps & LinkStateProps;
 
 //first name, last name, username, password, email, active
-const SignUp: React.FC<Props> = ({}: Props) => {
+const SignUp: React.FC<Props> = ({
+  signUpError,
+  boundRegisterUser,
+  signUpUserResponse,
+}: Props) => {
   let buttonDisabled: boolean = true;
   let emailErrorMessage: string = "";
   let errorMessage: string = "";
-  let buttonClass: string = "signupform-container__sbtn"
+  let buttonClass: string = "signupform-container__sbtn";
+  let confirmPassError: string = "";
+  let passLengthError: string = "";
 
   const [confirmPass, setConfirmPass] = useState();
 
@@ -37,7 +45,9 @@ const SignUp: React.FC<Props> = ({}: Props) => {
 
   useEffect(() => {
     console.log(buttonDisabled);
-  })
+    console.log(signUpError);
+    console.log(signUpUserResponse);
+  });
 
   const handleInputChange = (input: string) => (event: any) => {
     setValue({ ...value, [input]: event.target.value });
@@ -49,32 +59,48 @@ const SignUp: React.FC<Props> = ({}: Props) => {
 
   const handleSignUp = (event: any) => {
     event.preventDefault();
-    console.log("hello")
-    // boundLoginUser(value);
-    // window.location.reload();
+    console.log("hello");
+    boundRegisterUser(value);
   };
 
-  // if form is filled out undisable button
-
-  // --> email validation
-
-  // --> confirm password matches passwod
   if (
     value.userName.length > 1 &&
-    value.password.length > 7 &&
+    value.password.length >= 7 &&
     value.firstName.length > 1 &&
     value.lastName.length > 1 &&
-    validateEmail(value.email)
+    validateEmail(value.email) &&
+    confirmPass == value.password
   ) {
     console.log("button enabled");
     buttonDisabled = false;
   }
 
-  if(buttonDisabled) {
-    buttonClass = "disabled"
+  if (buttonDisabled) {
+    buttonClass = "disabled";
   } else {
-    buttonClass = "signupform-container__sbtn"
+    buttonClass = "signupform-container__sbtn";
+  }
 
+  if (!validateEmail(value.email) && value.email.length > 0) {
+    emailErrorMessage = "please enter valid email";
+  } else {
+    emailErrorMessage = "";
+  }
+
+  if (confirmPass != value.password && value.password.length > 0) {
+    confirmPassError = "passwords must match";
+  } else {
+    confirmPassError = "";
+  }
+
+  if (value.password.length < 7 && value.password.length > 0) {
+    passLengthError = "password must be at least 7 characters";
+  } else {
+    passLengthError = "";
+  }
+
+  if (!isEmpty(signUpUserResponse)) {
+    return <Redirect to={`signup/${signUpUserResponse.email}`} />;
   }
 
   return (
@@ -115,7 +141,7 @@ const SignUp: React.FC<Props> = ({}: Props) => {
         </div>
         <div className="signupform-container__textbox">
           <input
-            type="text"
+            type="password"
             placeholder="password"
             className="signupform-container__inpt"
             onChange={handleInputChange("password")}
@@ -123,21 +149,19 @@ const SignUp: React.FC<Props> = ({}: Props) => {
         </div>
         <div className="signupform-container__textbox">
           <input
-            type="text"
+            type="password"
             placeholder="confirm password"
             className="signupform-container__inpt"
             onChange={handleConfirmPass("")}
           />
         </div>
-        <button
-          disabled={buttonDisabled}
-          type="submit"
-          className={buttonClass}
-        >
+        <button disabled={buttonDisabled} type="submit" className={buttonClass}>
           Sign up
         </button>
         <p className="signup-error">{errorMessage}</p>
         <p className="signup-error">{emailErrorMessage}</p>
+        <p className="signup-error">{confirmPassError}</p>
+        <p className="signup-error">{passLengthError}</p>
       </form>
     </div>
   );
