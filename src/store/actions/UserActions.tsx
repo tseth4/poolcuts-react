@@ -3,13 +3,15 @@ import {
   User,
   LoginCredentials,
   SignUpResponse,
-  SignUpCredentials, ActivationResponse
+  SignUpCredentials,
+  ActivationResponse,
 } from "../types/User";
 import { Dispatch } from "redux";
 import {
   authenticateUserService,
   registerUserService,
-  registerAdminService, activateUserService
+  registerAdminService,
+  activateUserService,
 } from "../services/UserService";
 import { AppState } from "..";
 import { IError } from "../types/Error";
@@ -43,15 +45,15 @@ export const deleteSignUpError = (): AppActions => {
 export const recieveActivateError = (error: IError): AppActions => {
   return {
     type: "SAVE_ACTIVATE_ERROR",
-    activateError: error
-  }
-}
+    activateError: error,
+  };
+};
 
 export const deleteActivateError = (): AppActions => {
   return {
-    type: "DELETE_ACTIVATE_ERROR"
-  }
-}
+    type: "DELETE_ACTIVATE_ERROR",
+  };
+};
 
 export const recieveUser = (user: User): AppActions => {
   return {
@@ -81,17 +83,19 @@ export const deleteSignUpUserResponseSuccess = (): AppActions => {
   };
 };
 
-export const recieveActivateUserResponseSuccess = (response: ActivationResponse): AppActions => {
+export const recieveActivateUserResponseSuccess = (
+  response: ActivationResponse
+): AppActions => {
   return {
     type: "SAVE_ACTIVATEUSERRESPONSE",
-    activateUserResponse: response
-  }
-}
+    activateUserResponse: response,
+  };
+};
 export const deleteActivateUserResponseSuccess = (): AppActions => {
   return {
-    type: "DELETE_ACTIVATEUSERRESPONSE"
-  }
-}
+    type: "DELETE_ACTIVATEUSERRESPONSE",
+  };
+};
 
 export const boundLoginUser = (data: LoginCredentials) => (
   dispatch: Dispatch<AppActions>,
@@ -125,6 +129,7 @@ export const boundRegisterUser = (data: SignUpCredentials) => (
     })
     .catch((e) => {
       dispatch(recieveSignUpError(e.data));
+      dispatch(deleteSignUpUserResponseSuccess());
     });
 };
 
@@ -139,10 +144,14 @@ export const boundActivateUser = (token: string) => (
   dispatch: Dispatch<AppActions>,
   getState: () => AppState
 ) => {
-  activateUserService(token).then((res) => {
-    dispatch(recieveActivateUserResponseSuccess(res));
-    dispatch(deleteActivateError());
-  }).catch((e) => {
-    dispatch(recieveActivateError(e));
-  })
+  console.log("bound activating");
+  activateUserService(token)
+    .then((res) => {
+      dispatch(recieveActivateUserResponseSuccess(res));
+      dispatch(deleteActivateError());
+    })
+    .catch((e) => {
+      dispatch(recieveActivateError(e.data));
+      dispatch(deleteActivateUserResponseSuccess());
+    });
 };

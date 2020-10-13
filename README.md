@@ -32,3 +32,4 @@ spa url
 
 
 *-> should we store user jwt in react context?
+-> fix footer, mobile view of sign up, and login is too high

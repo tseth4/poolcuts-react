@@ -31,6 +31,7 @@ const SignUp: React.FC<Props> = ({
   let buttonClass: string = "signupform-container__sbtn";
   let confirmPassError: string = "";
   let passLengthError: string = "";
+  let signUpErrorMessage: string = "";
 
   const [confirmPass, setConfirmPass] = useState();
 
@@ -48,6 +49,10 @@ const SignUp: React.FC<Props> = ({
     console.log(signUpError);
     console.log(signUpUserResponse);
   });
+
+  if (signUpError.message) {
+    signUpErrorMessage = signUpError.message;
+  }
 
   const handleInputChange = (input: string) => (event: any) => {
     setValue({ ...value, [input]: event.target.value });
@@ -158,10 +163,13 @@ const SignUp: React.FC<Props> = ({
         <button disabled={buttonDisabled} type="submit" className={buttonClass}>
           Sign up
         </button>
-        <p className="signup-error">{errorMessage}</p>
-        <p className="signup-error">{emailErrorMessage}</p>
-        <p className="signup-error">{confirmPassError}</p>
-        <p className="signup-error">{passLengthError}</p>
+        <p>
+          <div className="signup-error">{errorMessage}</div>
+          <div className="signup-error">{emailErrorMessage}</div>
+          <div className="signup-error">{confirmPassError}</div>
+          <div className="signup-error">{passLengthError}</div>
+          <div className="signup-error">{signUpErrorMessage}</div>
+        </p>
       </form>
     </div>
   );

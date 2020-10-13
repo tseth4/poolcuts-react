@@ -47,8 +47,11 @@ export const getUserService = (email: string) => {
 };
 
 export const activateUserService = (token: string) => {
+  console.log("activating");
   return request({
-    url: `activation/user?token=${token}`,
-    method: "GET"
+    url: `/activation/user?token=${token}`,
+    method: "GET",
   })
+
+
 }
