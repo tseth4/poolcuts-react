@@ -132,7 +132,7 @@ Props) => {
 interface LinkStateProps {
   user: User[];
   fbUser: FBUser[];
-  addCutSuccess: Cut;
+  addCutSuccess: Cut[];
 }
 
 interface LinkDispatchToProps {

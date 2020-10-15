@@ -11,7 +11,7 @@ import { FBUserAuthResponse } from "../../../store/types/FBUser";
 import {
   boundGetFacebookUserAppointments,
   boundGetUserAppointments,
-  boundCancelBooksByIdArr,
+  boundCancelAppointmentsByIdArr,
 } from "../../../store/actions/BookActions";
 import { bindActionCreators } from "redux";
 import { SelectedIds } from "../../../store/types/SelectedIds";
@@ -28,7 +28,7 @@ const AppointmentList: React.FC<Props> = ({
   appts,
   user,
   fbUser,
-  boundCancelBooksByIdArr,
+  boundCancelAppointmentsByIdArr,
 }: Props) => {
   let deleteDisabled: boolean = true;
   let currentUser: any = undefined;
@@ -79,7 +79,7 @@ const AppointmentList: React.FC<Props> = ({
   // handle delete button / click of button
   const handleClick = () => {
     console.log("canceling");
-    boundCancelBooksByIdArr(selectedAppointments, currentUser);
+    boundCancelAppointmentsByIdArr(selectedAppointments, currentUser);
   };
   return (
     <React.Fragment>
@@ -138,7 +138,7 @@ interface LinkStateProps {
 interface LinkDispatchToProps {
   boundGetFacebookUserAppointments: (user: FBUserAuthResponse) => void;
   boundGetUserAppointments: (user: User) => void;
-  boundCancelBooksByIdArr: (ids: SelectedIds, user: any) => void;
+  boundCancelAppointmentsByIdArr: (ids: SelectedIds, user: any) => void;
 }
 
 const mapStateToProps = (
@@ -162,8 +162,8 @@ const mapDispatchToProps = (
     boundGetUserAppointments,
     dispatch
   ),
-  boundCancelBooksByIdArr: bindActionCreators(
-    boundCancelBooksByIdArr,
+  boundCancelAppointmentsByIdArr: bindActionCreators(
+    boundCancelAppointmentsByIdArr,
     dispatch
   ),
 });

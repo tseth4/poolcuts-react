@@ -20,9 +20,8 @@
 Need to fix 
 -> accurate dates on the new appointment form
 -> profile dashboard style
-
-
-
+-> adding book will update without refreshing the page
+-> canceling book will update without refreshing the page
 
 service api dns
 
@@ -33,3 +32,10 @@ spa url
 
 *-> should we store user jwt in react context?
 -> fix footer, mobile view of sign up, and login is too high
+
+
+## REST
+-> Send email when making an appointment
+-> Make the logic for checking user token with their user data resusable inside utils or validation
+-> Write tests using the various methods taught during training
+

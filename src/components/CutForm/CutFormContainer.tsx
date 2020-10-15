@@ -193,7 +193,7 @@ const CutFormContainer: React.FC<Props> = ({
 
   // handle successfull creation
   useEffect(() => {
-    if (!isEmpty(addCutSuccess)) {
+    if (addCutSuccess.length > 1) {
       handleCloseModal();
     }
   }, [addCutSuccess]);
@@ -215,7 +215,7 @@ const CutFormContainer: React.FC<Props> = ({
 interface LinkStateProps {
   user: User[];
   fbUser: FBUser[];
-  addCutSuccess: Cut;
+  addCutSuccess: Cut[];
 }
 
 interface LinkDispatchToProps {

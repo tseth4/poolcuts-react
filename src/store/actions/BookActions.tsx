@@ -182,11 +182,20 @@ export const boundCancelBooking = (id: number, user: any) => (
     });
 };
 
-export const boundCancelBooksByIdArr = (ids: SelectedIds, user: any) => (
+export const boundCancelBookingsByIdArr = (ids: SelectedIds, user: any) => (
   dispatch: Dispatch<AppActions>,
   getState: () => AppState
 ) => {
   cancelBooksByIdsArr(ids, user)
-    .then((res) => console.log(res))
+    .then((res) => dispatch(recieveBooks(res)))
+    .catch((e) => dispatch(recieveBookError(e)));
+};
+
+export const boundCancelAppointmentsByIdArr = (ids: SelectedIds, user: any) => (
+  dispatch: Dispatch<AppActions>,
+  getState: () => AppState
+) => {
+  cancelBooksByIdsArr(ids, user)
+    .then((res) => dispatch(recieveAppointments(res)))
     .catch((e) => dispatch(recieveBookError(e)));
 };

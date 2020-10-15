@@ -29,6 +29,7 @@ export const DELETE_CUT = "DELETE_CUT";
 export const UPDATE_CUT = "UPDATE_CUT";
 
 export const SET_BARBER_CUTS = "SET_BARBER_CUTS";
+export const DELETE_BARBER_CUTS = "DELETE_BARBER_CUTS";
 
 export const SET_CUTS = "SET_CUTS";
 
@@ -48,6 +49,10 @@ export const DELETE_UPDATE_CUT_SUCCESS = "DELETE_UPDATE_CUT_SUCCESS"
 export interface SetBarberCutsAction {
   type: typeof SET_BARBER_CUTS;
   cuts: Cut[]
+}
+
+export interface DeleteBarberCutsAction {
+  type: typeof DELETE_BARBER_CUTS;
 }
 
 export interface AddCutAction {
@@ -82,7 +87,7 @@ export interface DeleteUpdateCutSuccessAction {
 
 export interface AddCutSuccessAction {
   type: typeof ADD_CUT_SUCCESS;
-  cut: Cut
+  cut: Cut[]
 }
 
 export interface DeleteCutSuccessAction {
@@ -107,4 +112,4 @@ export interface DeleteCutToEditAction {
   type: typeof DELETE_CUT_TO_EDIT;
 }
 
-export type CutActionTypes = SetBarberCutsAction | SaveCutToEditAction | DeleteCutToEditAction | DeleteUpdateCutSuccessAction | AddUpdateCutSuccessAction | SetCutsAction | AddCutAction | DeleteCutAction | UpdateCutAction | SetCutErrorAction | DeleteCutErrorAction | AddCutSuccessAction | DeleteCutSuccessAction;
+export type CutActionTypes = SetBarberCutsAction | SaveCutToEditAction | DeleteCutToEditAction | DeleteUpdateCutSuccessAction | AddUpdateCutSuccessAction | SetCutsAction | AddCutAction | DeleteCutAction | UpdateCutAction | SetCutErrorAction | DeleteCutErrorAction | AddCutSuccessAction | DeleteCutSuccessAction | DeleteBarberCutsAction;

@@ -23,12 +23,14 @@ const openBarberCutsReducer = (
   switch (action.type) {
     case "SET_BARBER_CUTS":
       return action.cuts;
+    case "DELETE_BARBER_CUTS":
+      return [];
     default:
       return state;
   }
 };
 
-const cutSuccessReducerDefaultState: Cut = {};
+const cutSuccessReducerDefaultState: Cut[] = [];
 const addCutSuccessReducer = (
   state = cutSuccessReducerDefaultState,
   action: CutActionTypes
@@ -37,7 +39,7 @@ const addCutSuccessReducer = (
     case "ADD_CUT_SUCCESS":
       return action.cut;
     case "DELETE_CUT_SUCCESS":
-      return {};
+      return [];
     default:
       return state;
   }

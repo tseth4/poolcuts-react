@@ -26,6 +26,12 @@ export const recieveAllOpenBarberCuts = (cuts: Cut[]): AppActions => {
   }
 }
 
+export const deleteAllOpenBarberCuts = (): AppActions => {
+  return {
+    type: "DELETE_BARBER_CUTS"
+  }
+}
+
 export const recieveAllCuts = (cuts: Cut[]): AppActions => {
   return {
     type: "SET_CUTS",
@@ -33,7 +39,7 @@ export const recieveAllCuts = (cuts: Cut[]): AppActions => {
   };
 };
 
-export const recieveAddCutSuccess = (cut: Cut): AppActions => {
+export const recieveAddCutSuccess = (cut: Cut[]): AppActions => {
   return {
     type: "ADD_CUT_SUCCESS",
     cut,
@@ -101,6 +107,7 @@ export const boundGetOpenFacebookBarberCuts = (barber: FBUserAuthResponse) => (
     })
     .catch((e) => {
       dispatch(recieveCutError(e));
+      dispatch(deleteAllOpenBarberCuts());
     });
 };
 
@@ -115,6 +122,7 @@ export const boundGetOpenBarberCuts = (barber: User) => (
     })
     .catch((e) => {
       dispatch(recieveCutError(e));
+      dispatch(deleteAllOpenBarberCuts());
     });
 };
 
@@ -123,7 +131,7 @@ export const boundCancelCutsByIdArr = (ids: SelectedIds, user: any) => (
   getState: () => AppState
 ) => {
   deleteCutsByIdsArr(ids, user)
-    .then((res) => console.log(res))
+    .then((res) => dispatch(recieveAllOpenBarberCuts(res)))
     .catch((e) => dispatch(recieveCutError(e)));
 };
 
@@ -134,9 +142,12 @@ export const boundNewOpenCut = (
   newCutService(newCut, user)
     .then((res) => {
       dispatch(recieveAddCutSuccess(res));
+      dispatch(recieveAllOpenBarberCuts(res));
     })
     .catch((e) => {
       dispatch(recieveCutError(e));
+      dispatch(deleteAddCutSuccess());
+      dispatch(deleteAllOpenBarberCuts());
     });
 };
 

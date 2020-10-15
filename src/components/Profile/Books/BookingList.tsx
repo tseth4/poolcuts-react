@@ -3,7 +3,7 @@ import "./BookingList.scss";
 import {
   boundGetBarberBookings,
   boundGetFacebookBarberBookings,
-  boundCancelBooksByIdArr,
+  boundCancelBookingsByIdArr,
 } from "../../../store/actions/BookActions";
 import { connect } from "react-redux";
 import { Book } from "../../../store/types/Book";
@@ -31,7 +31,7 @@ const BookingList: React.FC<Props> = ({
   fbUser,
   boundGetBarberBookings,
   boundGetFacebookBarberBookings,
-  boundCancelBooksByIdArr,
+  boundCancelBookingsByIdArr,
 }: Props) => {
   let deleteDisabled: boolean = true;
   let currentUser: any = undefined;
@@ -43,14 +43,20 @@ const BookingList: React.FC<Props> = ({
     currentUser = fbUser[0];
   }
 
-  // fetch bookings based on user type
-  useEffect(() => {
+  // fetch books method
+  const fetchBooks  = () => {
     if (user.length > 0 && user != null) {
       boundGetBarberBookings(user[0]);
     } else if (fbUser.length > 0 && fbUser != null) {
       boundGetFacebookBarberBookings(fbUser[0]);
     }
+  }
+
+  // fetch bookings based on user type
+  useEffect(() => {
+    fetchBooks();
   }, []);
+
 
   // state for selectedBooks
   const [selectedBooks, setSelectedBooks] = useState<SelectedIds>({ ids: [] });
@@ -78,7 +84,7 @@ const BookingList: React.FC<Props> = ({
 
   // handle delete button / click of button
   const handleClick = () => {
-    boundCancelBooksByIdArr(selectedBooks, currentUser);
+    boundCancelBookingsByIdArr(selectedBooks, currentUser);
   };
 
   return (
@@ -133,7 +139,7 @@ interface LinkStateProps {
 interface LinkDispatchToProps {
   boundGetBarberBookings: (barber: User) => void;
   boundGetFacebookBarberBookings: (barber: FBUserAuthResponse) => void;
-  boundCancelBooksByIdArr: (ids: SelectedIds, user: any) => void;
+  boundCancelBookingsByIdArr: (ids: SelectedIds, user: any) => void;
 }
 
 const mapStateToProps = (
@@ -154,8 +160,8 @@ const mapDispatchToProps = (
     boundGetFacebookBarberBookings,
     dispatch
   ),
-  boundCancelBooksByIdArr: bindActionCreators(
-    boundCancelBooksByIdArr,
+  boundCancelBookingsByIdArr: bindActionCreators(
+    boundCancelBookingsByIdArr,
     dispatch
   ),
 });
