@@ -130,6 +130,8 @@ export const boundCancelCutsByIdArr = (ids: SelectedIds, user: any) => (
   dispatch: Dispatch<AppActions>,
   getState: () => AppState
 ) => {
+  console.log("ids  " + ids.ids);
+  console.log(user);
   deleteCutsByIdsArr(ids, user)
     .then((res) => dispatch(recieveAllOpenBarberCuts(res)))
     .catch((e) => dispatch(recieveCutError(e)));

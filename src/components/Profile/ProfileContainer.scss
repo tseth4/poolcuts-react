@@ -13,9 +13,12 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    // border: 1px solid pink;
   }
 
   #{&}__item {
+    // border: 1px solid green;
+
     // margin: 50px;
     // // border: white 1px solid;
     // // width: 100%;

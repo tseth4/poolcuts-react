@@ -1,5 +1,5 @@
 import request from "../request";
-import { LoginCredentials, User, SignUpCredentials } from "../types/User";
+import { LoginCredentials, User, SignUpCredentials, PasswordRequest } from "../types/User";
 import { FBUser } from "../types/FBUser";
 
 export const authenticateUserService = (data: LoginCredentials) => {
@@ -51,7 +51,21 @@ export const activateUserService = (token: string) => {
   return request({
     url: `/activation/user?token=${token}`,
     method: "GET",
+  });
+};
+
+
+export const sendPasswordResetRequestService = (email: string) => {
+  return request({
+    url: `/reset?email=${email}`,
+    method: "GET"
   })
+}
 
-
+export const sendNewPasswordService = (data: PasswordRequest) => {
+  return request({
+    url: '/reset/password',
+    method: "POST",
+    data
+  })
 }

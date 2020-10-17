@@ -13,6 +13,10 @@ import {
   signUpErrorReducer,
   authErrorReducer,
   activateUserResponseReducer,
+  passwordRequestResponseReducer,
+  passwordResetResponseReducer,
+  passwordRequestErrorReducer,
+  passwordResetErrorReducer
 } from "./UserReducer";
 import { fbUserReducer } from "./FBUsesrReducer";
 import {
@@ -41,6 +45,10 @@ const rootReducer = combineReducers({
   signUpError: signUpErrorReducer,
   activateUserResponse: activateUserResponseReducer,
   activateError: activateUserErrorReducer,
+  passwordRequestResponse: passwordRequestResponseReducer,
+  passwordRequestError: passwordRequestErrorReducer,
+  passwordResetResponse: passwordResetResponseReducer,
+  passwordResetError: passwordResetErrorReducer
 });
 
 export default rootReducer;

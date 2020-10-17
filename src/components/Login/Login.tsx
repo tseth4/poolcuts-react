@@ -80,6 +80,7 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
             onChange={handleInputChange("password")}
           />
         </div>
+        <a href="/forgot-password">forgot password</a>
         <button
           disabled={buttonDisabled}
           type="submit"

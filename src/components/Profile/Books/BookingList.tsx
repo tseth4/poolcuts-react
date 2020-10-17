@@ -114,7 +114,6 @@ const BookingList: React.FC<Props> = ({
         </div>
       </div>
       <div className="profile-container__item">
-        {" "}
         <div className="bookinglist-table-container__buttoncontainer">
           <button
             disabled={deleteDisabled}

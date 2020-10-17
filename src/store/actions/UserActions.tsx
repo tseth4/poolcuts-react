@@ -5,6 +5,7 @@ import {
   SignUpResponse,
   SignUpCredentials,
   ActivationResponse,
+  PasswordRequest, PasswordRequestResponse, PasswordResetResponse
 } from "../types/User";
 import { Dispatch } from "redux";
 import {
@@ -12,6 +13,8 @@ import {
   registerUserService,
   registerAdminService,
   activateUserService,
+  sendPasswordResetRequestService,
+  sendNewPasswordService,
 } from "../services/UserService";
 import { AppState } from "..";
 import { IError } from "../types/Error";
@@ -97,6 +100,58 @@ export const deleteActivateUserResponseSuccess = (): AppActions => {
   };
 };
 
+export const recievePasswordRequestResponse = (response: PasswordRequestResponse): AppActions => {
+  return {
+    type: "SAVE_PASSWORDREQUEST_RESPONSE",
+    passwordRequestResponse: response
+  }
+}
+
+export const deletePasswordRequestResponse = ():AppActions => {
+  return {
+    type: "DELETE_PASSWORDREQUEST_RESPONSE"
+  }
+}
+
+export const recievePasswordRequestError = (error: IError): AppActions => {
+  return {
+    type: "SAVE_PASSWORDREQUEST_ERROR",
+    passwordRequestError: error
+  }
+}
+
+export const deletePasswordRequestError = ():AppActions => {
+  return {
+    type: "DELETE_PASSWORDREQUEST_ERROR"
+  }
+}
+
+export const recievePasswordResetResponse = (response: PasswordResetResponse):AppActions => {
+  return {
+    type: "SAVE_PASSWORDRESET_RESPONSE",
+    passwordResetResponse: response
+  }
+}
+
+export const deletePasswordResetResponse = (): AppActions => {
+  return {
+    type: "DELETE_PASSWORDRESET_RESPONSE"
+  }
+}
+
+export const recievePasswordResetError = (error: IError):AppActions => {
+  return {
+    type: "SAVE_PASSWORDRESET_ERROR",
+    passwordResetError: error
+  }
+}
+
+export const deletePasswordResetError = ():AppActions => {
+  return {
+    type: "DELETE_PASSWORDRESET_ERROR"
+  }
+}
+
 export const boundLoginUser = (data: LoginCredentials) => (
   dispatch: Dispatch<AppActions>,
   getState: () => AppState
@@ -153,5 +208,37 @@ export const boundActivateUser = (token: string) => (
     .catch((e) => {
       dispatch(recieveActivateError(e.data));
       dispatch(deleteActivateUserResponseSuccess());
+    });
+};
+
+// sends the email to reset password
+export const boundSendPasswordResetRequest = (email: string) => (
+  dispatch: Dispatch<AppActions>,
+  getState: () => AppState
+) => {
+  sendPasswordResetRequestService(email)
+    .then((res) => {
+      dispatch(recievePasswordRequestResponse(res));
+      dispatch(deletePasswordRequestError());
+    })
+    .catch((e) => {
+      dispatch(recievePasswordRequestError(e.data))
+      dispatch(deletePasswordRequestResponse())
+    });
+};
+
+// after clicking link in email set new password and submit
+export const boundSubmitNewPassword = (request: PasswordRequest) => (
+  dispatch: Dispatch<AppActions>,
+  getState: () => AppState
+) => {
+  sendNewPasswordService(request)
+    .then((res) => {
+      dispatch(recievePasswordResetResponse(res))
+      dispatch(deletePasswordResetError())
+    })
+    .catch((e) => {
+      dispatch(recievePasswordResetError(e.data))
+      dispatch(deletePasswordResetResponse())
     });
 };

@@ -80,6 +80,7 @@ const CutList: React.FC<Props> = ({
 
   const handleClick = () => {
     boundCancelCutsByIdArr(selectedCuts, currentUser);
+    setSelectedCuts({ids: []});
   };
 
   return (
@@ -108,7 +109,6 @@ const CutList: React.FC<Props> = ({
                   barberId={barberId}
                   fbBarberId={fbBarberId}
                   location={location}
-                  // handleSelectedCut={handleSelectedCut}
                 />
               )
             )}

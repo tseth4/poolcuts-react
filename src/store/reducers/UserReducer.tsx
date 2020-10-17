@@ -1,4 +1,10 @@
-import { ActivationResponse, SignUpResponse, User } from "../types/User";
+import {
+  ActivationResponse,
+  PasswordRequestResponse,
+  PasswordResetResponse,
+  SignUpResponse,
+  User,
+} from "../types/User";
 import { UserActionTypes } from "../types/User";
 
 import { IError } from "../types/Error";
@@ -98,6 +104,63 @@ const activateUserErrorReducer = (
   }
 };
 
+const passwordRequestResponseReducerDefaultState: PasswordRequestResponse = {};
+const passwordRequestResponseReducer = (
+  state = passwordRequestResponseReducerDefaultState,
+  action: UserActionTypes
+): PasswordRequestResponse | any => {
+  switch (action.type) {
+    case "SAVE_PASSWORDREQUEST_RESPONSE":
+      return action.passwordRequestResponse;
+    case "DELETE_PASSWORDREQUEST_RESPONSE":
+      return {};
+    default:
+      return state
+  }
+};
+const passwordResetResponseReducerDefaultState: PasswordResetResponse = {};
+const passwordResetResponseReducer = (
+  state = passwordResetResponseReducerDefaultState,
+  action: UserActionTypes
+): PasswordResetResponse | any => {
+  switch (action.type) {
+    case "SAVE_PASSWORDRESET_RESPONSE":
+      return action.passwordResetResponse;
+    case "DELETE_PASSWORDRESET_RESPONSE":
+      return {};
+    default:
+      return state
+  }
+};
+const passwordRequestErrorReducerDefaultState: IError = {};
+const passwordRequestErrorReducer = (
+  state = passwordRequestErrorReducerDefaultState,
+  action: UserActionTypes
+): IError | any => {
+  switch (action.type) {
+    case "SAVE_PASSWORDREQUEST_ERROR":
+      return action.passwordRequestError;
+    case "DELETE_PASSWORDREQUEST_ERROR":
+      return {};
+    default:
+      return state
+  }
+};
+const passwordResetErrorReducerDefaultState: IError = {};
+const passwordResetErrorReducer = (
+  state = passwordResetErrorReducerDefaultState,
+  action: UserActionTypes
+): IError | any => {
+  switch (action.type) {
+    case "SAVE_PASSWORDRESET_ERROR":
+      return action.passwordResetError;
+    case "DELETE_PASSWORDRESET_ERROR":
+      return {};
+    default:
+      return state
+  }
+};
+
 export {
   userReducer,
   signUpUserResponseReducer,
@@ -105,4 +168,8 @@ export {
   authErrorReducer,
   activateUserResponseReducer,
   activateUserErrorReducer,
+  passwordRequestResponseReducer,
+  passwordResetResponseReducer,
+  passwordRequestErrorReducer,
+  passwordResetErrorReducer
 };
