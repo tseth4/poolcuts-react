@@ -12,27 +12,26 @@ $timing: 0.3s;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  // margin: 15px;
   position: absolute;
   top: $nav-height;
+  bottom: 185px;
+
   border-radius: $border-radius;
   background-color: $background-color;
   box-shadow: $box-shadow;
   overflow: auto;
-  // font-size: 10px;
 
 
-  h1 {
+  h3 {
     color: map-get($colors, white);
     font-size: 25.6px;
-    padding-bottom: 10px;
   }
 }
 
 .cutselect-container {
 
   &::-webkit-scrollbar {
-    width: 20px;
+    width: 10px;
   }
   /* Track */
   &::-webkit-scrollbar-track {
@@ -46,7 +45,7 @@ $timing: 0.3s;
   }
   /* Handle on hover */
   &::-webkit-scrollbar-thumb:hover {
-    background: #b30000;
+    background: black;
   }
 }
 
@@ -61,12 +60,10 @@ $timing: 0.3s;
   }
 
   #{&}__body {
-    border: 1px solid pink;
     overflow-y: auto;
-    border: 1px solid pink;
 
     &::-webkit-scrollbar {
-      width: 20px;
+      width: 10px;
     }
     /* Track */
     &::-webkit-scrollbar-track {
@@ -91,24 +88,13 @@ $timing: 0.3s;
 
 @media (max-width: 48em) {
   .cutselect-container{
-    left: 30px;
-    right: 30px;
+
   }
-  // .cutselect-table {
-  //   width: 65%;
-  // }
 
-  // .cutselect-container{
-  //   width: 75%;
-
-  // }
 }
 
 @include mobile {
-  // padding-top: 200px;
-  // flex-direction: column;
-  // overflow: visible;
-  // border: 1px solid yellow;
+
 }
 
 // change span with expanded on click

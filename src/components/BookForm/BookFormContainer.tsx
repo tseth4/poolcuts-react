@@ -3,7 +3,6 @@ import { ServiceSelect } from "./ServiceSelect";
 import CutSelect from "./CutSelect";
 import ReviewSubmit from "./ReviewSubmit";
 import { connect } from "react-redux";
-// import { Book } from '.'
 import {
   boundBookAppointment,
   boundUnsetSuccessMessage,

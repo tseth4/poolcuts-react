@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Book, NewBooking } from "../../store/types/Book";
 import { Cut } from "../../store/types/Cut";
-import { format } from "path";
 import { AppState } from "../../store";
 import { User } from "../../store/types/User";
 import { ThunkDispatch } from "redux-thunk";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Nav } from "./Nav";
 import { User } from "../../store/types/User";
 import { AppState } from "../../store";
@@ -8,11 +8,8 @@ import { AppActions } from "../../store/types";
 import { bindActionCreators } from "redux";
 import { boundLogoutUser } from "../../store/actions/UserActions";
 import { boundLogoutFBUser } from "../../store/actions/FBUserActions";
-import NavLoading from "./NavLoading";
-import { Redirect } from "react-router";
 
 import { FBUserAuthResponse } from "../../store/types/FBUser";
-// import { profile } from 'console';
 
 interface NavContainerProps {
   user?: User[];
@@ -35,14 +32,11 @@ const NavContainer: React.FC<Props> = ({
     if (user.length > 0) {
       boundLogoutUser(user[0].username);
       window.location.reload();
-      // return <Redirect to="/login" />;
     }
     if (fbUser.length > 0) {
       boundLogoutFBUser();
       window.location.reload();
-      // return <Redirect to="/login" />;
     }
-    // console.log("inisde handle login" + isLoggedIn);
   };
 
   let navProps = {
@@ -53,7 +47,6 @@ const NavContainer: React.FC<Props> = ({
 
   console.log("nav main components");
   return <Nav {...navProps} />;
-
 };
 
 interface LinkStateProps {

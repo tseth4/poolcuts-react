@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ThunkDispatch } from "redux-thunk";
 import { AppState } from "../../store";
 import { AppActions } from "../../store/types";
-import { isEmpty, validateEmail } from "../../utils/Functions";
+import { validateEmail } from "../../utils/Functions";
 import { connect } from "react-redux";
 import { boundSendPasswordResetRequest } from "../../store/actions/UserActions";
 import "./EmailSubmitForm.scss";

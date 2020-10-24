@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Nav.scss";
 import { User } from "../../store/types/User";
-import { connect } from "react-redux";
-import { userInfo } from "os";
-import { AppState } from "../../store";
-import { stringify } from "querystring";
 import { FBUserAuthResponse } from "../../store/types/FBUser";
 
 interface NavProps {
@@ -56,7 +52,9 @@ export const Nav: React.FC<Props> = ({
     );
     signUpButton = (
       <li>
-        <a href="/signup" className="signup">Sign up</a>
+        <a href="/signup" className="signup">
+          Sign up
+        </a>
       </li>
     );
   }
@@ -100,5 +98,3 @@ export const Nav: React.FC<Props> = ({
     </div>
   );
 };
-
-// export { Nav };

@@ -11,7 +11,7 @@
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: $bfce-top;
+  top: $nav-height;
   border-radius: $border-radius;
   background-color: $background-color;
   box-shadow: $box-shadow;
@@ -26,28 +26,22 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    // border: 1px solid pink;
     color: map-get($colors, white);
     width: 350px;
   }
 
   #{&}__label {
-    // border: 1px solid pink;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    // padding-left: 30px;
     text-align: right;
     width: 50px;
     font-size: 12px;
-    // flex: 2;
   }
 
   #{&}__details {
-    // border: 1px solid pink;
     display: flex;
     align-items: center;
-    // border: 1px solid orange;
     justify-content: center;
 
     font-size: 11px;
@@ -55,14 +49,8 @@
   }
 
   #{&}__button {
-    // border: 1px solid pink;
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
     cursor: pointer;
-    // background-color: map-get($colors, sky);
     display: inline-block;
     padding: 0.25em;
-    // flex: 1;
   }
 }

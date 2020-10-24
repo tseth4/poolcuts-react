@@ -1,6 +1,5 @@
-import React, { useEffect, useState, MouseEvent } from "react";
+import React, { useState, MouseEvent } from "react";
 import "./AppointmentDate.scss";
-import { makeStyles } from "@material-ui/core/styles";
 import { NewCut, UpdateCut } from "../../store/types/Cut";
 
 interface AppointmentDateProps {
@@ -18,14 +17,9 @@ type Props = AppointmentDateProps & AppointmentDateState;
 
 const AppointmentDate: React.FC<Props> = ({
   handleDateChange,
-  handleSetForm,
-  form,
-  handleSetEditForm,
-  editForm,
-  modalClass,
 }: Props) => {
   let buttonDisabled = true;
-  let buttonClass = ""
+  let buttonClass = "";
 
   const [val, setVal] = useState({
     time: "",
@@ -45,16 +39,14 @@ const AppointmentDate: React.FC<Props> = ({
   if (val.date.length > 1) {
     if (val.time.length > 1) {
       buttonDisabled = false;
-      buttonClass = "appointmentDate-container__button"
+      buttonClass = "appointmentDate-container__button";
     } else {
       buttonDisabled = true;
-      buttonClass = "appointmentDate-container__button aDdisabled"
-
+      buttonClass = "appointmentDate-container__button aDdisabled";
     }
   } else {
     buttonDisabled = true;
-    buttonClass = "appointmentDate-container__button aDdisabled"
-
+    buttonClass = "appointmentDate-container__button aDdisabled";
   }
 
   return (
@@ -73,7 +65,13 @@ const AppointmentDate: React.FC<Props> = ({
         onChange={(ev) => handleChange("time", ev.target.value)}
         required
       />
-      <button className={buttonClass} disabled={buttonDisabled} onClick={handleClick()}>+</button>
+      <button
+        className={buttonClass}
+        disabled={buttonDisabled}
+        onClick={handleClick()}
+      >
+        +
+      </button>
     </div>
   );
 };

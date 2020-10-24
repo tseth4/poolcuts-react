@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { boundGetAllCuts } from "../../store/actions/CutActions";
 import { Cut } from "../../store/types/Cut";
@@ -52,7 +52,8 @@ const CutSelect: React.FC<Props> = ({
   return (
     <React.Fragment>
       <div className="cutselect-container">
-        <h1>Select open appointment</h1>
+      <h3>Select open appointment</h3>
+
         <div className="cutselect-table">
           <div className="cutselect-table__row">
             <div className="cutselect-table__head">Date</div>

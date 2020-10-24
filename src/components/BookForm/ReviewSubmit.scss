@@ -15,7 +15,6 @@
   }
 
   #{&}__property {
-    // color: map-get($colors, gold);
     color: map-get($colors, sky);
     font-weight: bold;
   }
@@ -35,7 +34,6 @@
     margin-top: 24px;
     border-radius: 8px;
     cursor: pointer;
-    // padding: 5px;
     min-width: 75px;
   }
 
@@ -46,16 +44,8 @@
 
 
   .disabled {
-    // background-color: map-get($colors, lightBlack);
-
     border: 2px solid map-get($colors, black);
     color: map-get($colors, black);
     cursor: default;
-    // height: 4vh;
-    // margin-top: 24px;
-    // border-radius: 8px;
-    // // padding: 5px;
-    // min-width: 75px;
-
   }
 }

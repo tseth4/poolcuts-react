@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { NewCut, Cut, UpdateCut } from "../../store/types/Cut";
+import { NewCut, Cut } from "../../store/types/Cut";
 import AppointmentDate from "./AppointmentDate";
 import LocationSelect from "./LocationSelect";
 import { connect } from "react-redux";
 import ReviewSubmit from "./ReviewSubmit";
-
 import "./CutFormContainer.scss";
 import { User } from "../../store/types/User";
 import { FBUser, FBUserAuthResponse } from "../../store/types/FBUser";
@@ -17,8 +16,6 @@ import {
 } from "../../store/actions/CutActions";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../store/types";
-import { Redirect } from "react-router";
-import { Modal } from "@material-ui/core";
 
 export interface SelectedDate {
   date_str?: Date;
@@ -51,16 +48,6 @@ const CutFormContainer: React.FC<Props> = ({
   let buttonDisabled = true;
   let laterDateMessage: string = "";
   let buttonClass: string = "";
-
-  let nextHour: Date = new Date();
-
-  // helper function - checking if object is empty
-  function isEmpty(obj: any) {
-    for (var key in obj) {
-      if (obj.hasOwnProperty(key)) return false;
-    }
-    return true;
-  }
 
   // handle setting user
   if (user !== undefined && user.length > 0) {
@@ -95,7 +82,7 @@ const CutFormContainer: React.FC<Props> = ({
     });
   };
 
-  // appointment logic
+  // handle Appointment Date
 
   const handleDateChange = (input: string, value: string) => {
     handleSetForm(input, value);
@@ -119,12 +106,18 @@ const CutFormContainer: React.FC<Props> = ({
 
   // handle button disbaled, and style
 
-  if (
+  let currentDate: Date = new Date();
+
+  const formFieldUndefined: boolean =
     form.appointmentDate == undefined ||
     form.location == undefined ||
-    (form.barberId == undefined && form.fbBarberId == undefined) ||
-    new Date(form.appointmentDate) < nextHour
-  ) {
+    (form.barberId == undefined && form.fbBarberId == undefined);
+
+  const appointmentDateWithinTheNextHour: boolean =
+    new Date(form.appointmentDate != undefined ? form.appointmentDate : "") <
+    currentDate;
+
+  if (formFieldUndefined || appointmentDateWithinTheNextHour) {
     buttonDisabled = true;
     buttonClass = "cutform-container__button cFdisabled";
   } else {
@@ -133,10 +126,7 @@ const CutFormContainer: React.FC<Props> = ({
   }
 
   // handle date error message
-  if (
-    form.appointmentDate != undefined &&
-    new Date(form.appointmentDate) < nextHour
-  ) {
+  if (appointmentDateWithinTheNextHour) {
     laterDateMessage = "please select a later date";
   }
 

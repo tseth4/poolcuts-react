@@ -4,12 +4,11 @@ import { bindActionCreators } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { AppState } from "../../store";
 import { boundRegisterUser } from "../../store/actions/UserActions";
-import { signUpErrorReducer } from "../../store/reducers/UserReducer";
 import { AppActions } from "../../store/types";
 import { IError } from "../../store/types/Error";
 import { SignUpCredentials, SignUpResponse } from "../../store/types/User";
 import { isEmpty, validateEmail } from "../../utils/Functions";
-import { Redirect, Route, RouteProps } from "react-router";
+import { Redirect } from "react-router";
 
 import "./Signup.scss";
 

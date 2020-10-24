@@ -42,7 +42,6 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
   const handleLogin = (event: any) => {
     event.preventDefault();
     boundLoginUser(value);
-    // window.location.reload();
   };
 
   if (value.username.length > 1 && value.password.length > 1) {
@@ -60,10 +59,6 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
   return (
     <div className="login-container">
       <form onSubmit={handleLogin} className="form-container">
-        <p>
-          <FacebookLogin />
-        </p>
-        <p>or login with username</p>
         <h3>Login</h3>
         <div className="form-container__textbox">
           <input
@@ -84,7 +79,21 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
             onChange={handleInputChange("password")}
           />
         </div>
-        <a href="/forgot-password">forgot password</a>
+        <a
+          style={{ fontSize: "10px", color: "white", textDecoration: "none" }}
+          href="/forgot-password"
+        >
+          forgot password
+        </a>
+        <a
+          style={{ fontSize: "10px", color: "white", textDecoration: "none" }}
+          href="/forgot-password"
+        >
+          forgot userid
+        </a>
+ 
+
+
         <button
           disabled={buttonDisabled}
           type="submit"
@@ -92,7 +101,18 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
         >
           Login
         </button>
+        <a
+          style={{ fontSize: "10px", color: "white", textDecoration: "none" }}
+          href="/signup"
+        >
+          sign up
+        </a>
         <p className="login-error">{errorMessage}</p>
+        <div>...</div>
+        <p>
+
+          <FacebookLogin />
+        </p>
       </form>
     </div>
   );

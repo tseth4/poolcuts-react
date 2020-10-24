@@ -1,5 +1,5 @@
 import React from "react";
-import { NewCut, Cut, UpdateCut } from "../../store/types/Cut";
+import { NewCut, Cut } from "../../store/types/Cut";
 import { User } from "../../store/types/User";
 import { FBUser, FBUserAuthResponse } from "../../store/types/FBUser";
 import { AppState } from "../../store";
@@ -11,14 +11,11 @@ import {
   boundUnsetCutSuccess,
 } from "../../store/actions/CutActions";
 import { connect } from "react-redux";
-import { format } from "date-fns";
 import "./ReviewSubmit.scss";
 
 interface ReviewSubmitProps {
   form: NewCut;
   currentUser: User | FBUser;
-  // modalClass: any;
-  // editForm: UpdateCut;
 }
 
 interface ReviewSubmitState {}
@@ -28,27 +25,7 @@ type Props = ReviewSubmitProps &
   LinkDispatchToProps &
   LinkStateProps;
 
-const ReviewSubmit: React.FC<Props> = ({
-  form,
-  currentUser,
-}: // modalClass,
-// editForm,
-Props) => {
-  let buttonDisable = true;
-  let buttonClass: string = "";
-  let buttonLabel: string = "Add";
-  
-
-
-  // let formValues = {
-  //   appointmentDate: "",
-  //   location: "",
-  // };
-
-  // // handle data view
-  // formValues.appointmentDate = form.appointmentDate ? form.appointmentDate : "";
-  // formValues.location = form.location ? form.location : "";
-
+const ReviewSubmit: React.FC<Props> = ({ form, currentUser }: Props) => {
   // handle date and time
   let dateObj = new Date();
 
@@ -71,22 +48,6 @@ Props) => {
   }
   // handle button disabled if form is unfilled
 
-  // if (
-  //   form.appointmentDate == undefined ||
-  //   form.location == undefined ||
-  //   (form.barberId == undefined && form.fbBarberId == undefined) ||
-  //   new Date(form.appointmentDate) < nextHour
-  // ) {
-  //   console.log(nextHour)
-  //   buttonDisable = true;
-  //   buttonClass = "rs-container__button disabled";
-  // } else {
-  //   buttonDisable = false;
-  //   buttonClass = "rs-container__button";
-  // }
-
-
-
   return (
     <div className="rsc-container">
       <div className="rsc-container__item">
@@ -105,12 +66,7 @@ Props) => {
         <span className="rsc-container__property">Location: </span>
         {form.location}
       </div>
-      <div className="rsc-container__button-container">
-        {/* <button disabled={buttonDisable} type="submit" className={buttonClass}>
-          {buttonLabel}
-        </button> */}
-      </div>
-
+      <div className="rsc-container__button-container"></div>
     </div>
   );
 };

@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Cut } from "../../store/types/Cut";
 import "./Cut.scss";
-import { Book, NewBooking } from "../../store/types/Book";
+import { NewBooking } from "../../store/types/Book";
 import { Barber, fbBarber } from "../../store/types/User";
-import { FBUserAuthResponse } from "../../store/types/FBUser";
 interface CutProps {
   cutId?: number;
   appointmentDate?: string;

@@ -1,7 +1,6 @@
 import React from "react";
 import CutFormContainer from "../../CutForm/CutFormContainer";
 import "./CutFormModal.scss";
-import { Cut } from "../../../store/types/Cut";
 
 interface CutFormModalProps {
   modalClass: any;

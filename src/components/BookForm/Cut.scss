@@ -4,12 +4,14 @@
   display: table-row;
 
 
+
   #{&}__td {
     display: table-cell;
-    padding: 10px;
-    text-align: left;
+    padding-left: 7px;
+    padding-left: 7px;
+    padding-top: 7px;
     font-weight: map-get($font-weights, medium);
-    font-size: 12px;
+    font-size: 10px;
     color: map-get($colors, white);
     border-bottom: solid 2px rgba(255, 255, 255, 0.1);
   }
@@ -22,4 +24,8 @@
   cursor: pointer;
   background-color: map-get($colors, offGrey);
   color: map-get($colors, black);
+}
+
+@media (max-width: 48em) {
+
 }

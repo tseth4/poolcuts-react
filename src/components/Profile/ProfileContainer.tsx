@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { User } from "../../store/types/User";
-import { FBUser, FBUserAuthResponse } from "../../store/types/FBUser";
+import { FBUserAuthResponse } from "../../store/types/FBUser";
 import { connect } from "react-redux";
 import { AppState } from "../../store";
 import { AppActions } from "../../store/types";
@@ -11,9 +11,7 @@ import BookContainer from "./Books/BookingList";
 import AppointmentList from "./Appointments/AppointmentList";
 import { boundCancelBooking } from "../../store/actions/BookActions";
 import { bindActionCreators } from "redux";
-import { SelectedIds } from "../../store/types/SelectedIds";
 import CutEditFormModal from "./Cuts/CutFormModal";
-import { Cut } from "../../store/types/Cut";
 
 interface ProfileContainerProps {
   user?: User[];

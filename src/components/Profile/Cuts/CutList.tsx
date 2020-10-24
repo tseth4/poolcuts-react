@@ -6,7 +6,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../../store/types";
 import { Cut } from "../../../store/types/Cut";
 import { User } from "../../../store/types/User";
-import { FBUser, FBUserAuthResponse } from "../../../store/types/FBUser";
+import { FBUserAuthResponse } from "../../../store/types/FBUser";
 import {
   boundGetOpenFacebookBarberCuts,
   boundGetOpenBarberCuts,

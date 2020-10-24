@@ -1,10 +1,6 @@
 import React from "react";
 import {
-  // BrowserRouter as Router,
-  // Switch,
-  // Route,
-  // Link,
-  useParams,
+  useParams
 } from "react-router-dom";
 
 interface ParamTypes {
