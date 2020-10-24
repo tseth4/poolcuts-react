@@ -3,11 +3,19 @@
 .login-container {
   // border-style: solid;
   // border-color: green;
+  position: absolute;
+  // margin-left: auto;
+  // margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom: 67px;
+  top: 67px;
+  text-align: center;
+  // width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 75vh;
   // border: 1px solid white;
 }
 

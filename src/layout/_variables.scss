@@ -6,14 +6,6 @@ $breakpoints: (
   "LGdesktop": 1920px,
 );
 
-// $colors: (
-//   ocean: #84A3BA,
-//   white: #FFFFFF,
-//   sand: #DFAC9B,
-//   sky: #3CC8C8,
-//   main: #F3FFF9
-// ) !default;
-
 $colors: (
   lightBlack: #262626,
   white: #ffffff,
@@ -24,6 +16,26 @@ $colors: (
   offGrey: #a1a9a8,
   sky: #3cc8c8,
 ) !default;
+
+$footer-height: 67px;
+$nav-height: 67px;
+$bfce-top: 50px;
+$border-radius: 15px;
+$background-color: map-get($colors, lightBlack);
+$box-shadow: 0 19px 38px map-get($colors, black),
+  0 15px 12px map-get($colors, black);
+
+
+
+// $colors: (
+//   ocean: #84A3BA,
+//   white: #FFFFFF,
+//   sand: #DFAC9B,
+//   sky: #3CC8C8,
+//   main: #F3FFF9
+// ) !default;
+
+
 
 // default are fallback variable names and values
 

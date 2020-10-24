@@ -27,8 +27,8 @@ export const BookComponent: React.FC<Props> = ({
 }: Props) => {
   let barberDetails: string = "";
   let appointmentDateDetails: Date;
-  let dateObj = new Date();
-  let date = dateObj.toDateString();
+  let dateObj = null;
+  let date = null;
   let clientDetails: string = "";
   let location: string = "";
   let bookClass = "bookinglist-container";
@@ -52,6 +52,7 @@ export const BookComponent: React.FC<Props> = ({
     }
     if (cut.appointmentDate != null) {
       dateObj = new Date(cut.appointmentDate);
+      date = dateObj.toDateString();
     }
     if (client != null) {
       clientDetails = client.firstName + " " + client.lastName;
@@ -83,7 +84,7 @@ export const BookComponent: React.FC<Props> = ({
         <div className="bookinglist-datarow__td">{category}</div>
         {/* <div className="bookinglist-datarow__td">{barberDetails}</div> */}
         <div className="bookinglist-datarow__td">{date}</div>
-        <div className="bookinglist-datarow__td">{formatAMPM(dateObj)}</div>
+        <div className="bookinglist-datarow__td">{formatAMPM(dateObj != null ? dateObj : new Date(""))}</div>
         <div className="bookinglist-datarow__td">{clientDetails}</div>
         <div className="bookinglist-datarow__td">{location}</div>
       </div>

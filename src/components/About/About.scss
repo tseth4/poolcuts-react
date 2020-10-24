@@ -5,20 +5,23 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // border: 1px solid pink;
-  padding-top: 100px;  
+  position: absolute;
+  top: $nav-height;
+  left: 0;
+  right: 0;
+  bottom: $footer-height;
   h1 {
     color: white;
   }
-
 }
 
 .about-content {
   max-width: 60%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   color: white;
-
+  position: absolute;
+  top: 50px;
   #{&}__item {
     font-size: 10pt;
   }

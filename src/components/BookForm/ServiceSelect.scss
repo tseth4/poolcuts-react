@@ -10,16 +10,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 15px;
-  // flex-shrink: 2;
-  // height: auto;
-  background-color: map-get($colors, lightBlack);
-  box-shadow: 0 19px 38px map-get($colors, black),
-    0 15px 12px map-get($colors, black);
+  position: absolute;
+  top: $bfce-top;
+  border-radius: $border-radius;
+  background-color: $background-color;
+  box-shadow: $box-shadow;
   padding-top: 25px;
   padding-bottom: 25px;
-  // margin-left: 25px;
-  // margin-right: 25px;
 
   h3 {
     color: map-get($colors, white);
@@ -56,7 +53,6 @@
     font-size: 11px;
     width: 100px;
   }
-
 
   #{&}__button {
     // border: 1px solid pink;

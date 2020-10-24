@@ -12,6 +12,7 @@ import {
 } from "../../store/actions/CutActions";
 import { connect } from "react-redux";
 import { format } from "date-fns";
+import "./ReviewSubmit.scss";
 
 interface ReviewSubmitProps {
   form: NewCut;
@@ -36,15 +37,8 @@ Props) => {
   let buttonDisable = true;
   let buttonClass: string = "";
   let buttonLabel: string = "Add";
-  let laterDateMessage: string = "";
   
-  let nextHour: Date = new Date();
 
-  if (form.appointmentDate != null){
-    let myDate = new Date();
-    myDate.setHours( myDate.getHours() + 1);
-    nextHour = myDate;
-  }
 
   // let formValues = {
   //   appointmentDate: "",
@@ -77,53 +71,45 @@ Props) => {
   }
   // handle button disabled if form is unfilled
 
-  if (
-    form.appointmentDate == undefined ||
-    form.location == undefined ||
-    (form.barberId == undefined && form.fbBarberId == undefined) ||
-    new Date(form.appointmentDate) < nextHour
-  ) {
-    console.log(nextHour)
-    buttonDisable = true;
-    buttonClass = "rs-container__button disabled";
-  } else {
-    buttonDisable = false;
-    buttonClass = "rs-container__button";
-  }
+  // if (
+  //   form.appointmentDate == undefined ||
+  //   form.location == undefined ||
+  //   (form.barberId == undefined && form.fbBarberId == undefined) ||
+  //   new Date(form.appointmentDate) < nextHour
+  // ) {
+  //   console.log(nextHour)
+  //   buttonDisable = true;
+  //   buttonClass = "rs-container__button disabled";
+  // } else {
+  //   buttonDisable = false;
+  //   buttonClass = "rs-container__button";
+  // }
 
-  if (
-    form.appointmentDate != undefined &&
-    new Date(form.appointmentDate) < nextHour
-  ) {
-    laterDateMessage = "Please select a later time";
-  } else {
-    laterDateMessage = "";
-  }
+
 
   return (
-    <div className="rs-container">
-      <div className="rs-container__item">
-        <span className="rs-container__property"> Barber: </span>
+    <div className="rsc-container">
+      <div className="rsc-container__item">
+        <span className="rsc-container__property"> Barber: </span>
         {currentUser.firstName + " " + currentUser.lastName}
       </div>
-      <div className="rs-container__item">
-        <span className="rs-container__property">Appointment Date: </span>
+      <div className="rsc-container__item">
+        <span className="rsc-container__property">Appointment Date: </span>
         {date}
       </div>
-      <div className="rs-container__item">
-        <span className="rs-container__property">Appointment Time: </span>
+      <div className="rsc-container__item">
+        <span className="rsc-container__property">Appointment Time: </span>
         {formatAMPM(dateObj)}
       </div>
-      <div className="rs-container__item">
-        <span className="rs-container__property">Location: </span>
+      <div className="rsc-container__item">
+        <span className="rsc-container__property">Location: </span>
         {form.location}
       </div>
-      <div className="rs-container__button-container">
-        <button disabled={buttonDisable} type="submit" className={buttonClass}>
+      <div className="rsc-container__button-container">
+        {/* <button disabled={buttonDisable} type="submit" className={buttonClass}>
           {buttonLabel}
-        </button>
+        </button> */}
       </div>
-      <p style={{color: "red", textAlign: "center"}}>{laterDateMessage}</p>
 
     </div>
   );

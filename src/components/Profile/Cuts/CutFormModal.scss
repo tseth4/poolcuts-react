@@ -5,10 +5,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  // border: 1px solid black;
-  border-radius: 10px;
+  border-radius: $border-radius;
   z-index: 10;
-  background-color: map-get($colors, lightBlack);
+  background-color: $background-color;
+  box-shadow: $box-shadow;
   width: 500px;
   max-width: 80%;
   transition: 200ms ease-in-out;
@@ -19,13 +19,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    // border-bottom: 1px solid black;
   }
 
   #{&}__header #{&}__header-title {
     font-size: 1.25rem;
-    font-weight: bold;
+    font-weight: light;
   }
 
   #{&}__header #{&}__close-button {

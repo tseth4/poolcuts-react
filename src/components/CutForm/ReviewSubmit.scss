@@ -1,15 +1,14 @@
 @import "../../layout/variables";
 
-.rs-container {
+@import "../../layout/variables";
+
+.rsc-container {
   display: flex;
   flex-direction: column;
-  border-radius: $border-radius;
   font-size: 10pt;
-  box-shadow: $box-shadow;
   padding: 25px;
-  position: absolute;
-  top: $bfce-top;
   color: map-get($colors, white);
+  // border: 1px solid white;
   #{&}__item {
     padding: 8px;
   }
@@ -28,8 +27,8 @@
   }
   
   #{&}__button {
-    background-color: map-get($colors, lightBlack);
-    border: 2px solid map-get($colors, white);
+    // background-color: map-get($colors, lightBlack);
+    // border: 2px solid map-get($colors, white);
     color: map-get($colors, white);
     height: 4vh;
     margin-top: 24px;

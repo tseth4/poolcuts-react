@@ -1,3 +1,27 @@
-.calendar {
-  width: 25vw;
+@import "../../layout/variables";
+
+.appointmentDate-container{
+  display:flex;
+  align-items: flex-start;
+  flex-direction: column;
+  // border: 1px solid white;
+
+  input{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  #{&}__button {
+    border: 2px solid map-get($colors, white);
+    color: map-get($colors, white);
+    cursor: pointer;
+  }
+
+  .disabled {
+    border: 2px solid map-get($colors, black);
+    color: map-get($colors, black);
+    cursor: default;
+  }
+
+  // border: 7px solid green;
 }

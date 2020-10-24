@@ -60,6 +60,10 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
   return (
     <div className="login-container">
       <form onSubmit={handleLogin} className="form-container">
+        <p>
+          <FacebookLogin />
+        </p>
+        <p>or login with username</p>
         <h3>Login</h3>
         <div className="form-container__textbox">
           <input
@@ -89,9 +93,6 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
           Login
         </button>
         <p className="login-error">{errorMessage}</p>
-        <p>
-          <FacebookLogin />
-        </p>
       </form>
     </div>
   );

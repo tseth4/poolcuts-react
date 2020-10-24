@@ -1,9 +1,12 @@
-
+@import "../../layout/_variables";
 
 .home-parent-container {
-  // padding: vh;
-  // border-style: solid;
-  // border-color: white;
+  position: absolute;
+  top: $nav-height;
+  bottom: $footer-height;
+  left: 0;
+  right: 0;
+  // border: 1px solid white;
 }
 
 .home-container {

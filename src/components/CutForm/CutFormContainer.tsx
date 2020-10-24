@@ -48,6 +48,11 @@ const CutFormContainer: React.FC<Props> = ({
   let locationSelect: any;
   let formContent;
   let currentUser: any = undefined;
+  let buttonDisabled = true;
+  let laterDateMessage: string = "";
+  let buttonClass: string = "";
+
+  let nextHour: Date = new Date();
 
   // helper function - checking if object is empty
   function isEmpty(obj: any) {
@@ -68,8 +73,8 @@ const CutFormContainer: React.FC<Props> = ({
   const [form, setForm] = useState<NewCut>({
     barberId: user.length > 0 ? user[0].id : undefined,
     fbBarberId: fbUser.length > 0 ? fbUser[0].id : undefined,
-    appointmentDate: "2015-03-25",
-    location: "Shop",
+    appointmentDate: undefined,
+    location: undefined,
   });
 
   const handleNewCutSubmit = (event: any) => {
@@ -78,17 +83,10 @@ const CutFormContainer: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    console.log("rerender CutFormContainer");
-    // boundUnsetSuccessMessage();
     return function cleanup() {
       boundUnsetCutSuccess();
     };
   }, []);
-
-  useEffect(() => {
-    console.log("update form");
-    console.log(form);
-  }, [form]);
 
   const handleSetForm = (input: any, value: any) => {
     setForm({
@@ -99,52 +97,11 @@ const CutFormContainer: React.FC<Props> = ({
 
   // appointment logic
 
-  const [selectedDate, setSelectedDate] = React.useState<SelectedDate>({
-    date_str: undefined,
-    time_str: undefined,
-  });
-
-  const handleDateChange = (input: any) => (e: any) => {
-    if (input == "date") {
-      setSelectedDate({
-        ...selectedDate,
-        date_str: new Date(e),
-      });
-    }
-    if (input == "time") {
-      setSelectedDate({
-        ...selectedDate,
-        time_str: new Date(e),
-        // time_str: e.toISOString().match(time_regex)[0],
-      });
-    }
+  const handleDateChange = (input: string, value: string) => {
+    handleSetForm(input, value);
   };
 
-  useEffect(() => {
-    const time_regex = /\T(.*)/;
-    const date_regex = /.+?(?=T)/;
-    if (
-      selectedDate.date_str != undefined &&
-      selectedDate.time_str != undefined
-    ) {
-      if (
-        selectedDate.date_str.toISOString().match(date_regex) &&
-        selectedDate.time_str.toISOString().match(time_regex)
-      ) {
-        console.log(
-          "final ISO String:    " +
-            selectedDate.date_str.toISOString().match(date_regex)![0] +
-            selectedDate.time_str.toISOString().match(time_regex)![0]
-        );
-
-        handleSetForm(
-          "appointmentDate",
-          selectedDate.date_str.toISOString().match(date_regex)![0] +
-            selectedDate.time_str.toISOString().match(time_regex)![0]
-        );
-      }
-    }
-  }, [selectedDate]);
+  console.log(form);
 
   // handle props
   let formProps: any;
@@ -153,44 +110,6 @@ const CutFormContainer: React.FC<Props> = ({
     form: form,
   };
 
-  // Handle steps and form rendering
-
-  if (form.appointmentDate != undefined) {
-    locationSelect = (
-      <React.Fragment>
-        <LocationSelect {...formProps} />
-      </React.Fragment>
-    );
-  }
-
-  let stepClass1 = "cutform-container__dot";
-  let stepClass2 = "cutform-container__dot";
-  const [step, setStep] = useState(0);
-  if (step == 0) {
-    formContent = (
-      <React.Fragment>
-        <AppointmentDate
-          {...formProps}
-          handleDateChange={handleDateChange}
-          selectedDate={selectedDate}
-        />
-        {locationSelect}
-      </React.Fragment>
-    );
-  } else if (step == 1) {
-    formContent = (
-      <React.Fragment>
-        <ReviewSubmit form={form} currentUser={currentUser} />
-      </React.Fragment>
-    );
-  }
-
-  if (form.appointmentDate != null && form.location != null) {
-    stepClass1 = "cutform-container__dot filled";
-  } else {
-    stepClass1 = "cutform-container__dot";
-  }
-
   // handle successfull creation
   useEffect(() => {
     if (addCutSuccess.length > 1) {
@@ -198,16 +117,49 @@ const CutFormContainer: React.FC<Props> = ({
     }
   }, [addCutSuccess]);
 
+  // handle button disbaled, and style
+
+  if (
+    form.appointmentDate == undefined ||
+    form.location == undefined ||
+    (form.barberId == undefined && form.fbBarberId == undefined) ||
+    new Date(form.appointmentDate) < nextHour
+  ) {
+    buttonDisabled = true;
+    buttonClass = "cutform-container__button disabled";
+  } else {
+    buttonDisabled = false;
+    buttonClass = "cutform-container__button";
+  }
+
+  // handle date error message
+  if (
+    form.appointmentDate != undefined &&
+    new Date(form.appointmentDate) < nextHour
+  ) {
+    laterDateMessage = "please select a later date";
+  }
+
   return (
     <div className="cutform-container">
       <form onSubmit={handleNewCutSubmit} className="cutform-container__form">
-        {formContent}
+        <div className="cutform-container__form-group">
+          <div className="cutform-container__form-group-item">
+            <AppointmentDate
+              {...formProps}
+              handleDateChange={handleDateChange}
+            />
+            <LocationSelect {...formProps} />
+          </div>
+          <ReviewSubmit form={form} currentUser={currentUser} />
+        </div>
+
+        <p style={{ color: "red", textAlign: "center" }}>{laterDateMessage}</p>
+        <button disabled={buttonDisabled} type="submit" className={buttonClass}>
+          Add
+        </button>
       </form>
-      <div className="cutform-container__pselect">
-        <div>hello</div>
-        <span className={stepClass1} onClick={() => setStep(0)}></span>
-        <span className={stepClass2} onClick={() => setStep(1)}></span>
-      </div>
+      <div className="cutform-container__pselect"></div>
     </div>
   );
 };

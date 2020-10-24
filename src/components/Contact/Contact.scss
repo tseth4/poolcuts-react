@@ -1,10 +1,16 @@
 @import "../../layout/_variables";
 
 .contact-container {
-  padding-top: 100px;
+  // padding-top: 100px;
+  position: absolute;
+  top: $nav-height;
+  right: 0;
+  left: 0;
+  bottom: $footer-height;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding-top: 100px;
+  // justify-content: center;
   align-items: center;
   * {
     color: white;

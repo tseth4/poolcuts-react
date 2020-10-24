@@ -40,3 +40,5 @@ spa url
 
 "http://localhost:3000/passwordreset/" + token
 "http://localhost:3000/confirmation/" + token
+
+- theres an art to asserting in testing, finding things that should be true

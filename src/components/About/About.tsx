@@ -3,8 +3,10 @@ import "./About.scss";
 export default function About() {
   return (
     <div className="about-container">
-      <h1>About: </h1>
       <div className="about-content">
+        <div className="about-content__item">
+          <h1>About: </h1>
+        </div>
         <div className="about-content__item">
           <div className="about-content__pic"></div>
         </div>

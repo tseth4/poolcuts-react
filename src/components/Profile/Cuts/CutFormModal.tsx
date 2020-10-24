@@ -17,7 +17,7 @@ const CutEditFormModal: React.FC<Props> = ({
   setModalClass
 }: Props) => {
   let overlayId = "overlay";
-  let title = "New cut form";
+  let title = "create cut";
 
   const handleCloseModal = () => {
     setModalClass({ class: "cutform-modal"});
