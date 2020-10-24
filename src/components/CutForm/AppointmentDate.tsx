@@ -48,12 +48,12 @@ const AppointmentDate: React.FC<Props> = ({
       buttonClass = "appointmentDate-container__button"
     } else {
       buttonDisabled = true;
-      buttonClass = "appointmentDate-container__button disabled"
+      buttonClass = "appointmentDate-container__button aDdisabled"
 
     }
   } else {
     buttonDisabled = true;
-    buttonClass = "appointmentDate-container__button disabled"
+    buttonClass = "appointmentDate-container__button aDdisabled"
 
   }
 
@@ -73,7 +73,7 @@ const AppointmentDate: React.FC<Props> = ({
         onChange={(ev) => handleChange("time", ev.target.value)}
         required
       />
-      <button disabled={buttonDisabled} onClick={handleClick()}>+</button>
+      <button className={buttonClass} disabled={buttonDisabled} onClick={handleClick()}>+</button>
     </div>
   );
 };

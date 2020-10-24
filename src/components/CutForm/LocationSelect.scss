@@ -1,12 +1,32 @@
+@import "../../layout/variables";
+
 .locationSelect-container {
   align-items: flex-start;
   // justify-content: center;
   flex-direction: column;
   // border: 1px solid white;
+  position: relative;
+  height: 50px;
 
 
-  input{
+  input:nth-child(2){
     margin-top: 10px;
-    margin-bottom: 10px;
+
+  }
+
+
+  #{&}__button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: 2px solid map-get($colors, white);
+    color: map-get($colors, black);
+    cursor: pointer;
+  }
+
+  .lDisabled {
+    border: 2px solid map-get($colors, black);
+    color: map-get($colors, black);
+    cursor: default;
   }
 }

@@ -12,7 +12,7 @@ $timing: 0.3s;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  // margin: 15px;
+  margin: 15px;
   overflow: auto;
   padding-top: 28px;
   margin-top: 25px;
@@ -45,6 +45,11 @@ $timing: 0.3s;
   &::-webkit-scrollbar-thumb:hover {
     background: #b30000;
   }
+}
+
+.bookinglist-table-container__buttoncontainer{
+  margin: 22px;
+
 }
 
 .appointmentlist-table {

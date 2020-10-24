@@ -84,22 +84,18 @@ $timing: 0.3s;
   }
 }
 
+.cutlist-table-container__buttoncontainer{
+  // position: absolute;
+  margin: 22px;
+
+
+}
+
 @media (max-width: 48em) {
-  // .cutlist-table {
-  //   width: 65%;
-  // }
 
-  // .cutlist-container{
-  //   width: 75%;
-
-  // }
 }
 
 @include mobile {
-  // padding-top: 200px;
-  // flex-direction: column;
-  // overflow: visible;
-  // border: 1px solid yellow;
+
 }
 
-// change span with expanded on click

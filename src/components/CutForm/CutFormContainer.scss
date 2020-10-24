@@ -48,7 +48,7 @@
   #{&}__form-group-item {
     display: flex;
     flex-direction: column;
-
+// border: 10px solid yellow;
     padding: 18px;
   }
 
@@ -68,9 +68,21 @@
     min-width: 75px;
   }
 
-  .disabled {
+  .cFdisabled {
     border: 2px solid map-get($colors, black);
     color: map-get($colors, black);
     cursor: default;
   }
+
+  @media (max-width: 48em) {
+    #{&}__form-group  {
+      flex-direction: column;
+      // width: 100%;
+      // height: 100%;
+    }
+  }
+
+
 }
+
+

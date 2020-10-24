@@ -4,7 +4,12 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
-  padding: 1vh;
+  // border: 10px solid purple;
+  position: absolute;
+  top: $nav-height;
+  bottom: $footer-height;
+  left: 0;
+  right: 0;
 
   #{&}__row {
     display: flex;
@@ -17,8 +22,8 @@
   }
 
   #{&}__item {
-    // border: 1px solid green;
-
+    // border: 1px solid red;
+    position: relative;
     // margin: 50px;
     // // border: white 1px solid;
     // // width: 100%;

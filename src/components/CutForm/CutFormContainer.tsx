@@ -126,7 +126,7 @@ const CutFormContainer: React.FC<Props> = ({
     new Date(form.appointmentDate) < nextHour
   ) {
     buttonDisabled = true;
-    buttonClass = "cutform-container__button disabled";
+    buttonClass = "cutform-container__button cFdisabled";
   } else {
     buttonDisabled = false;
     buttonClass = "cutform-container__button";

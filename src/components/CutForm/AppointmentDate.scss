@@ -4,20 +4,24 @@
   display:flex;
   align-items: flex-start;
   flex-direction: column;
+  position: relative;
   // border: 1px solid white;
 
-  input{
+
+  input:nth-child(2){
     margin-top: 10px;
-    margin-bottom: 10px;
   }
 
   #{&}__button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
     border: 2px solid map-get($colors, white);
-    color: map-get($colors, white);
+    color: map-get($colors, black);
     cursor: pointer;
   }
 
-  .disabled {
+  .aDdisabled {
     border: 2px solid map-get($colors, black);
     color: map-get($colors, black);
     cursor: default;

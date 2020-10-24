@@ -24,8 +24,13 @@
   }
 
   #{&}__pselect{
-    margin-top: 10px;
+    margin-top: 100px;
     text-align: center;
+    position: absolute;
+    // top: 0;
+    left: 0;
+    right: 0;
+    bottom: 1;
     // border: 1px solid white;
 
     span{

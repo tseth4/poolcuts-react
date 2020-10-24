@@ -14,14 +14,13 @@ $timing: 0.3s;
   justify-content: center;
   // margin: 15px;
   position: absolute;
-  top: $bfce-top;
+  top: $nav-height;
   border-radius: $border-radius;
   background-color: $background-color;
   box-shadow: $box-shadow;
   overflow: auto;
-  padding-left: 25px;
-  padding-right: 25px;
-  // border: 1px solid white;
+  // font-size: 10px;
+
 
   h1 {
     color: map-get($colors, white);
@@ -31,7 +30,6 @@ $timing: 0.3s;
 }
 
 .cutselect-container {
-  height: 34vh;
 
   &::-webkit-scrollbar {
     width: 20px;
@@ -92,6 +90,10 @@ $timing: 0.3s;
 }
 
 @media (max-width: 48em) {
+  .cutselect-container{
+    left: 30px;
+    right: 30px;
+  }
   // .cutselect-table {
   //   width: 65%;
   // }
