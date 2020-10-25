@@ -1,12 +1,7 @@
 ## PoolCuts React TypeScript
 
-- Fix Review and submit \*
-- Fix new cut form \*
-
-- Email verification token \*
-
-- Sign up form -> submit -> send verification
-- Sign up form -> submit -> user (success) || error code with "USER EXISTS"
+- forgot user id logic
+- render appointment booking time
 
 - login -> please verify email
 - login -> invalid user or password

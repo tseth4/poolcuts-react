@@ -5,9 +5,9 @@ import { AppState } from "../../store";
 import { boundActivateUser } from "../../store/actions/UserActions";
 import { AppActions } from "../../store/types";
 import { IError } from "../../store/types/Error";
-import { ActivationResponse } from "../../store/types/User";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
+import { ActivationResponse } from "../../store/types/UserSignUp";
 
 interface ParamTypes {
   token: string;

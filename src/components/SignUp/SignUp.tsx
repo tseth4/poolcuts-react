@@ -6,11 +6,11 @@ import { AppState } from "../../store";
 import { boundRegisterUser } from "../../store/actions/UserActions";
 import { AppActions } from "../../store/types";
 import { IError } from "../../store/types/Error";
-import { SignUpCredentials, SignUpResponse } from "../../store/types/User";
 import { isEmpty, validateEmail } from "../../utils/Functions";
 import { Redirect } from "react-router";
 
 import "./Signup.scss";
+import { SignUpCredentials, SignUpResponse } from "../../store/types/UserSignUp";
 
 interface SignUpProps {}
 

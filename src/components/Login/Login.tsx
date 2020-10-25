@@ -79,20 +79,12 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
             onChange={handleInputChange("password")}
           />
         </div>
-        <a
-          style={{ fontSize: "10px", color: "white", textDecoration: "none" }}
-          href="/forgot-password"
-        >
+        <a className="form-container__btnlink" href="/forgot-password">
           forgot password
         </a>
-        <a
-          style={{ fontSize: "10px", color: "white", textDecoration: "none" }}
-          href="/forgot-password"
-        >
+        <a className="form-container__btnlink" href="/info/username">
           forgot userid
         </a>
- 
-
 
         <button
           disabled={buttonDisabled}
@@ -101,16 +93,12 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
         >
           Login
         </button>
-        <a
-          style={{ fontSize: "10px", color: "white", textDecoration: "none" }}
-          href="/signup"
-        >
+        <a className="form-container__btnlink" href="/signup">
           sign up
         </a>
         <p className="login-error">{errorMessage}</p>
         <div>...</div>
         <p>
-
           <FacebookLogin />
         </p>
       </form>

@@ -1,19 +1,17 @@
 @import "../../layout/_variables";
 
-.emailsubmitform-container {
+.useridemailsubmitform-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 75vh;
+
+
 }
 
-.emailsubmitform-error {
-  color: red;
-  font-size: 12px;
-}
 
-.emailsubmitformform-container {
+.useridemailsubmitformform-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -68,6 +66,7 @@
     width: 75px;
 
     cursor: default;
+
   }
 
   #{&}__message{
@@ -77,8 +76,15 @@
     width: 65%;
     // border: 1px solid white;
   }
-
 }
 
-
+// .disabled {
+//   background-color: map-get($colors, lightBlack);
+//   border: 2px solid map-get($colors, black);
+//   color: map-get($colors, black);
+//   height: 4vh;
+//   margin-top: 24px;
+//   border-radius: 8px;
+//   cursor: default;
+//   min-width: 75px;}
 

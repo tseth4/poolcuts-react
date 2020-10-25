@@ -51,8 +51,9 @@ const CutSelect: React.FC<Props> = ({
 
   return (
     <React.Fragment>
+
       <div className="cutselect-container">
-      <h3>Select open appointment</h3>
+      <h5 className="cutselect-container__header">Select open appointment</h5>
 
         <div className="cutselect-table">
           <div className="cutselect-table__row">

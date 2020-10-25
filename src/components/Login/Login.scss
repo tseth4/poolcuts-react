@@ -79,4 +79,11 @@
   h3 {
     color: map-get($colors, white);
   }
+
+  #{&}__btnlink{
+    font-size: 10px;
+    text-decoration: none;
+    color: white;
+    margin-top: 12px;
+  }
 }

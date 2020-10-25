@@ -1,11 +1,7 @@
 import { AppActions } from "../types";
 import {
   User,
-  LoginCredentials,
-  SignUpResponse,
-  SignUpCredentials,
-  ActivationResponse,
-  PasswordRequest, PasswordRequestResponse, PasswordResetResponse
+  LoginCredentials
 } from "../types/User";
 import { Dispatch } from "redux";
 import {
@@ -14,10 +10,12 @@ import {
   registerAdminService,
   activateUserService,
   sendPasswordResetRequestService,
-  sendNewPasswordService,
+  sendNewPasswordService
 } from "../services/UserService";
 import { AppState } from "..";
 import { IError } from "../types/Error";
+import { PasswordRequest, PasswordRequestResponse, PasswordResetResponse } from "../types/UserPasswordReset";
+import { ActivationResponse, SignUpCredentials, SignUpResponse } from "../types/UserSignUp";
 
 export const recieveAuthError = (error: IError): AppActions => {
   return {
@@ -242,3 +240,4 @@ export const boundSubmitNewPassword = (request: PasswordRequest) => (
       dispatch(deletePasswordResetResponse())
     });
 };
+

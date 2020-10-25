@@ -16,7 +16,11 @@ import {
   passwordRequestResponseReducer,
   passwordResetResponseReducer,
   passwordRequestErrorReducer,
-  passwordResetErrorReducer
+  passwordResetErrorReducer,
+  userIdInfoRequestResponseReducer,
+  userIdInfoRequestErrorReducer,
+  userIdInfoRequestWithTokenResponseReducer,
+  userIdInfoRequestWithTokenErrorReducer
 } from "./UserReducer";
 import { fbUserReducer } from "./FBUsesrReducer";
 import {
@@ -48,7 +52,11 @@ const rootReducer = combineReducers({
   passwordRequestResponse: passwordRequestResponseReducer,
   passwordRequestError: passwordRequestErrorReducer,
   passwordResetResponse: passwordResetResponseReducer,
-  passwordResetError: passwordResetErrorReducer
+  passwordResetError: passwordResetErrorReducer,
+  userIdInfoRequestResponse: userIdInfoRequestResponseReducer,
+  userIdInfoRequestError: userIdInfoRequestErrorReducer,
+  userIdInfoRequestWithTokenResponse: userIdInfoRequestWithTokenResponseReducer,
+  userIdInfoRequestWithTokenError: userIdInfoRequestWithTokenErrorReducer
 });
 
 export default rootReducer;

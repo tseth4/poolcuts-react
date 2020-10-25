@@ -13,57 +13,57 @@ $timing: 0.3s;
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: $nav-height;
-  bottom: 185px;
-
-  border-radius: $border-radius;
-  background-color: $background-color;
-  box-shadow: $box-shadow;
+  top: $bfce-top;
+  width: 100%;
+  margin-bottom: 25px;
+  height: 75vh;
   overflow: auto;
 
-
-  h3 {
+  #{&}__header {
+    position: relative;
     color: map-get($colors, white);
-    font-size: 25.6px;
+    font-size: 10px;
   }
 }
 
 .cutselect-container {
 
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-  /* Track */
-  &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 10px;
-  }
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background: map-get($colors, black);
-    border-radius: 10px;
-  }
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background: black;
-  }
+  // &::-webkit-scrollbar {
+  //   width: 10px;
+  // }
+  // /* Track */
+  // &::-webkit-scrollbar-track {
+  //   box-shadow: inset 0 0 5px grey;
+  //   border-radius: 10px;
+  // }
+  // /* Handle */
+  // &::-webkit-scrollbar-thumb {
+  //   background: map-get($colors, black);
+  //   border-radius: 10px;
+  // }
+  // /* Handle on hover */
+  // &::-webkit-scrollbar-thumb:hover {
+  //   background: black;
+  // }
 }
 
 .cutselect-table {
+
   // border: 1px solid purple;
   display: table;
+  padding: 10px;
 
   #{&}__head {
     display: table-cell;
-    padding: 3px 10px;
+    // padding: 3px 10px;
     color: map-get($colors, white);
   }
 
   #{&}__body {
-    overflow-y: auto;
+    // overflow-y: auto;
 
     &::-webkit-scrollbar {
-      width: 10px;
+      // width: 10px;
     }
     /* Track */
     &::-webkit-scrollbar-track {

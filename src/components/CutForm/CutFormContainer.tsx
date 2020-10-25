@@ -100,7 +100,7 @@ const CutFormContainer: React.FC<Props> = ({
   // handle successfull creation
   useEffect(() => {
     if (addCutSuccess.length > 1) {
-      handleCloseModal();
+      // handleCloseModal();
     }
   }, [addCutSuccess]);
 

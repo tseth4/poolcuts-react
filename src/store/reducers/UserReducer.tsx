@@ -1,11 +1,17 @@
+import { User } from "../types/User";
+import { ActivationResponse, SignUpResponse } from "../types/UserSignUp";
 import {
-  ActivationResponse,
   PasswordRequestResponse,
   PasswordResetResponse,
-  SignUpResponse,
-  User,
-} from "../types/User";
+} from "../types/UserPasswordReset";
 import { UserActionTypes } from "../types/User";
+import {
+  UserIdInfoActionTypes,
+  UserIdInfoRequestResponse,
+  UserIdInfoWithTokenRequestResponse,
+} from "../types/UserIdInfo";
+import { UserPasswordResetActionTypes } from "../types/UserPasswordReset";
+import { UserSignUpActionTypes } from "../types/UserSignUp";
 
 import { IError } from "../types/Error";
 
@@ -44,7 +50,7 @@ const userReducer = (
 const signUpUserResponseSuccessReducerDefaultState: SignUpResponse = {};
 const signUpUserResponseReducer = (
   state = signUpUserResponseSuccessReducerDefaultState,
-  action: UserActionTypes
+  action: UserSignUpActionTypes
 ): SignUpResponse | any => {
   switch (action.type) {
     case "SAVE_SIGNUPUSERRESPONSE":
@@ -60,7 +66,7 @@ const signUpErrorReducerDefaultState: IError = {};
 
 const signUpErrorReducer = (
   state = signUpErrorReducerDefaultState,
-  action: UserActionTypes
+  action: UserSignUpActionTypes
 ): Error[] | any => {
   switch (action.type) {
     case "SAVE_SIGNUP_ERROR":
@@ -76,7 +82,7 @@ const activateUserResponseReducerDefaultState: ActivationResponse = {};
 
 const activateUserResponseReducer = (
   state = activateUserResponseReducerDefaultState,
-  action: UserActionTypes
+  action: UserSignUpActionTypes
 ): ActivationResponse | any => {
   switch (action.type) {
     case "SAVE_ACTIVATEUSERRESPONSE":
@@ -92,7 +98,7 @@ const activateUserErrorReducerDefaultState: IError = {};
 
 const activateUserErrorReducer = (
   state = activateUserErrorReducerDefaultState,
-  action: UserActionTypes
+  action: UserSignUpActionTypes
 ): Error | any => {
   switch (action.type) {
     case "SAVE_ACTIVATE_ERROR":
@@ -107,7 +113,7 @@ const activateUserErrorReducer = (
 const passwordRequestResponseReducerDefaultState: PasswordRequestResponse = {};
 const passwordRequestResponseReducer = (
   state = passwordRequestResponseReducerDefaultState,
-  action: UserActionTypes
+  action: UserPasswordResetActionTypes
 ): PasswordRequestResponse | any => {
   switch (action.type) {
     case "SAVE_PASSWORDREQUEST_RESPONSE":
@@ -115,13 +121,13 @@ const passwordRequestResponseReducer = (
     case "DELETE_PASSWORDREQUEST_RESPONSE":
       return {};
     default:
-      return state
+      return state;
   }
 };
 const passwordResetResponseReducerDefaultState: PasswordResetResponse = {};
 const passwordResetResponseReducer = (
   state = passwordResetResponseReducerDefaultState,
-  action: UserActionTypes
+  action: UserPasswordResetActionTypes
 ): PasswordResetResponse | any => {
   switch (action.type) {
     case "SAVE_PASSWORDRESET_RESPONSE":
@@ -129,13 +135,13 @@ const passwordResetResponseReducer = (
     case "DELETE_PASSWORDRESET_RESPONSE":
       return {};
     default:
-      return state
+      return state;
   }
 };
 const passwordRequestErrorReducerDefaultState: IError = {};
 const passwordRequestErrorReducer = (
   state = passwordRequestErrorReducerDefaultState,
-  action: UserActionTypes
+  action: UserPasswordResetActionTypes
 ): IError | any => {
   switch (action.type) {
     case "SAVE_PASSWORDREQUEST_ERROR":
@@ -143,13 +149,13 @@ const passwordRequestErrorReducer = (
     case "DELETE_PASSWORDREQUEST_ERROR":
       return {};
     default:
-      return state
+      return state;
   }
 };
 const passwordResetErrorReducerDefaultState: IError = {};
 const passwordResetErrorReducer = (
   state = passwordResetErrorReducerDefaultState,
-  action: UserActionTypes
+  action: UserPasswordResetActionTypes
 ): IError | any => {
   switch (action.type) {
     case "SAVE_PASSWORDRESET_ERROR":
@@ -157,7 +163,67 @@ const passwordResetErrorReducer = (
     case "DELETE_PASSWORDRESET_ERROR":
       return {};
     default:
-      return state
+      return state;
+  }
+};
+
+const userIdInfoRequestResponseReducerDefaultState: UserIdInfoRequestResponse = {};
+const userIdInfoRequestResponseReducer = (
+  state = userIdInfoRequestResponseReducerDefaultState,
+  action: UserIdInfoActionTypes
+): UserIdInfoRequestResponse | any => {
+  switch (action.type) {
+    case "SAVE_USERIDINFOREQUEST_RESPONSE":
+      return action.userIdInfoRequestResponse;
+    case "DELETE_USERIDINFOREQUEST_RESPONSE":
+      return {};
+    default:
+      return state;
+  }
+};
+
+const userIdInfoRequestErrorReducerDefaultState: IError = {};
+const userIdInfoRequestErrorReducer = (
+  state = userIdInfoRequestErrorReducerDefaultState,
+  action: UserIdInfoActionTypes
+): IError | any => {
+  switch (action.type) {
+    case "SAVE_USERIDINFOREQUEST_ERROR":
+      return action.userIdInfoRequestError;
+    case "DELETE_USERIDINFOREQUEST_ERROR":
+      return {};
+    default:
+      return state;
+  }
+};
+
+const userIdInfoRequestWithTokenResponseReducerDefaultState: UserIdInfoWithTokenRequestResponse = {};
+const userIdInfoRequestWithTokenResponseReducer = (
+  state = userIdInfoRequestWithTokenResponseReducerDefaultState,
+  action: UserIdInfoActionTypes
+): UserIdInfoWithTokenRequestResponse | any => {
+  switch (action.type) {
+    case "SAVE_USERIDINFOWITHTOKENREQUEST_RESPONSE":
+      return action.userIdInfoWithTokenRequestResponse;
+    case "DELETE_USERIDINFOWITHTOKENREQUEST_RESPONSE":
+      return {};
+    default:
+      return state;
+  }
+};
+
+const userIdInfoRequestWithTokenErrorReducerDefaultState: IError = {};
+const userIdInfoRequestWithTokenErrorReducer = (
+  state = userIdInfoRequestWithTokenErrorReducerDefaultState,
+  action: UserIdInfoActionTypes
+): IError | any => {
+  switch (action.type) {
+    case "SAVE_USERIDINFOWITHTOKENREQUEST_ERROR":
+      return action.userIdInfoWithTokenRequestError;
+    case "DELETE_USERIDINFOWITHTOKENREQUEST_ERROR":
+      return {};
+    default:
+      return state;
   }
 };
 
@@ -171,5 +237,9 @@ export {
   passwordRequestResponseReducer,
   passwordResetResponseReducer,
   passwordRequestErrorReducer,
-  passwordResetErrorReducer
+  passwordResetErrorReducer,
+  userIdInfoRequestResponseReducer,
+  userIdInfoRequestErrorReducer,
+  userIdInfoRequestWithTokenResponseReducer,
+  userIdInfoRequestWithTokenErrorReducer,
 };

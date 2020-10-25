@@ -7,14 +7,15 @@
     font-weight: map-get($font-weights, bolder);
     // border: 1px solid orange;
     // border-radius: 12px;
-    // background-color: orange;
     color: map-get($colors, sky);
   }
   // display: block;
   // background-color: #fff;
-  background-color: map-get($colors, lightBlack);
+  // background-color: orange;
 
-  // box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
+  // background-color: map-get($colors, lightBlack);
+
+  box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
   position: absolute;
   width: 100%;
   height: $nav-height;

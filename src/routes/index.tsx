@@ -1,8 +1,7 @@
 import React from "react";
-import { Router, Route, Switch, Link, NavLink } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
 import HomeContainer from "../components/Home/HomeContainer";
-import ServiceContainer from "../components/Services/ServicesContainer";
 import About from "../components/About/About";
 import Contact from "../components/Contact/Contact";
 import Login from "../components/Login/Login";
@@ -17,6 +16,8 @@ import ConfirmationSent from "../components/SignUp/ConfirmationSent";
 import ConfirmationLink from "../components/SignUp/ConfirmationLink";
 import NewPasswordForm from "../components/PasswordReset/NewPasswordForm";
 import EmailSubmitForm from "../components/PasswordReset/EmailSubmitForm";
+import UserIdInfo from "../components/UseridInfo/UserIdInfo";
+import UserIdEmailSubmitForm from "../components/UseridInfo/UserIdEmailSubmitForm";
 // import './App.css';
 
 export const history = createHistory();
@@ -37,6 +38,8 @@ const AppRouter = () => (
         <Route exact path="/signup/:sent" component={ConfirmationSent}/>
         <Route exact path="/confirmation/:token" component={ConfirmationLink}/>
         <Route exact path="/passwordreset/:token" component={NewPasswordForm}/>
+        <Route exact path="/info/username" component={UserIdEmailSubmitForm}/>
+        <Route exact path="/info/username/:email/:token" component={UserIdInfo}/>
         <Route exact path="/forgot-password" component={EmailSubmitForm}/>
         <PrivateRoute path="/profile" component={ProfileContainer}/>
         <AdminRoute path="/cut/new" component={CutFormContainer}/>
