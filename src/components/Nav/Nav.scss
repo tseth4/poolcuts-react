@@ -1,25 +1,18 @@
 @import "../../layout/_variables";
 
 /* header */
-
 .header {
   .menu li .signup {
     font-weight: map-get($font-weights, bolder);
-    // border: 1px solid orange;
-    // border-radius: 12px;
     color: map-get($colors, sky);
   }
-  // display: block;
-  // background-color: #fff;
-  // background-color: orange;
-
-  // background-color: map-get($colors, lightBlack);
 
   box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
   position: absolute;
   width: 100%;
   height: $nav-height;
   z-index: 3;
+
   ul {
     margin: 0;
     padding: 0;
@@ -27,22 +20,24 @@
     overflow: hidden;
     background-color: map-get($colors, lightBlack);
   }
+
   li a {
     cursor: pointer;
     display: block;
     color: map-get($colors, white);
     padding: 20px 20px;
-    // border-right: 1px solid white;
     text-decoration: none;
     font-weight: map-get($font-weights, bolder);
     font-size: 0.75em;
   }
+
   li a:hover,
   .menu-btn:hover {
     transition: transform 0.2s; /* Animation */
     transform: scale(
       0.99
-    ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    ); 
+    /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
     // background-color: rgba(255, 255, 255, 1);
   }
   .logo {
