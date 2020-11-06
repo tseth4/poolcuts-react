@@ -1,39 +1,16 @@
 ## PoolCuts React TypeScript
 
-- forgot user id logic
-- render appointment booking time
+### Rest service is not deployed
 
-- login -> please verify email
-- login -> invalid user or password
+## User Stories
+* User login | username and password | user is stored in db
+* User login | facebook | fb_user stored in db
+* User forgot password | email with token | new password with token
+* User sign up | email link verification | verify with email and token
+* User sign up as admin...
+* Admin | create and delete open appointments, bookings and appointments | Admin dashboard with open appoinments, bookings, and appointments
+* Admin | book an appointment 
+* User | book or cancel an appointment | User dashboard with appointments
 
-- Api call to resend verification token
-
-- Appointment
-- Book -> email to both barber and user
-- CancelBook -> email to both barber and user
-
-Need to fix
--> accurate dates on the new appointment form
--> profile dashboard style
-
-service api dns
-
--> sends email with spa link
-spa link will call get request to verify email to verification api service-api-dns/verification
-spa url
-
-\*-> should we store user jwt in react context?
--> fix footer, mobile view of sign up, and login is too high
-
-## REST
-
--> Send email when making an appointment
--> Make the logic for checking user token with their user data resusable inside utils or validation
--> Write tests using the various methods taught during training
-
--> UserEntity - last login, created on
-
-"http://localhost:3000/passwordreset/" + token
-"http://localhost:3000/confirmation/" + token
-
-- theres an art to asserting in testing, finding things that should be true
+## Tools
+TypeScript, React, Redux, Sass, Java, Spring Boot, Spring Rest, Spring Security, Spring Mail, Log4j, JUnit
