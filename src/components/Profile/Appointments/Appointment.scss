@@ -1,7 +1,8 @@
 @import "../../../layout/_variables.scss";
 .appointmentlist-datarow {
-  color: map-get($colors, white);
+  color: map-get($colors, mainText);
   display: table-row;
+
 
   #{&}__td {
     display: table-cell;
@@ -9,7 +10,7 @@
     text-align: left;
     font-weight: map-get($font-weights, medium);
     font-size: 12px;
-    color: map-get($colors, white);
+    color: map-get($colors, mainText);
     border-bottom: solid 2px rgba(255, 255, 255, 0.1);
     width: 1rem;
   }

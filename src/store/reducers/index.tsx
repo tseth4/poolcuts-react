@@ -30,6 +30,7 @@ import {
   bookErrorReducer,
   cancelBookReducer,
 } from "./BookReducer";
+import { splashPageReducer } from "./SplashPageReducer";
 
 const rootReducer = combineReducers({
   cut: cutReducer,
@@ -56,7 +57,8 @@ const rootReducer = combineReducers({
   userIdInfoRequestResponse: userIdInfoRequestResponseReducer,
   userIdInfoRequestError: userIdInfoRequestErrorReducer,
   userIdInfoRequestWithTokenResponse: userIdInfoRequestWithTokenResponseReducer,
-  userIdInfoRequestWithTokenError: userIdInfoRequestWithTokenErrorReducer
+  userIdInfoRequestWithTokenError: userIdInfoRequestWithTokenErrorReducer,
+  loadPage: splashPageReducer
 });
 
 export default rootReducer;

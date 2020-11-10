@@ -6,6 +6,7 @@ import { BookActionTypes } from "./Book";
 import { UserIdInfoActionTypes } from "./UserIdInfo";
 import { UserPasswordResetActionTypes } from "./UserPasswordReset";
 import { UserSignUpActionTypes } from "./UserSignUp";
+import { SplashPageTypes } from "./SplashPageTypes";
 
 export type AppActions =
   | CutActionTypes
@@ -14,4 +15,5 @@ export type AppActions =
   | BookActionTypes
   | UserIdInfoActionTypes
   | UserPasswordResetActionTypes
-  | UserSignUpActionTypes;
+  | UserSignUpActionTypes
+  | SplashPageTypes;

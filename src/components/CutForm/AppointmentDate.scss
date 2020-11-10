@@ -16,14 +16,14 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    border: 2px solid map-get($colors, white);
-    color: map-get($colors, black);
+    border: 2px solid map-get($colors, mainText);
+    color: map-get($colors, mainText);
     cursor: pointer;
   }
 
   .aDdisabled {
-    border: 2px solid map-get($colors, black);
-    color: map-get($colors, black);
+    border: 2px solid map-get($colors, offGrey);
+    color: map-get($colors, offGrey);
     cursor: default;
   }
 

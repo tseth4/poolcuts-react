@@ -2,12 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import { Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store";
+
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <App />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -55,11 +55,11 @@ const ReviewSubmit: React.FC<Props> = ({ form, currentUser }: Props) => {
         {currentUser.firstName + " " + currentUser.lastName}
       </div>
       <div className="rsc-container__item">
-        <span className="rsc-container__property">Appointment Date: </span>
+        <span className="rsc-container__property">Date: </span>
         {date}
       </div>
       <div className="rsc-container__item">
-        <span className="rsc-container__property">Appointment Time: </span>
+        <span className="rsc-container__property">Time: </span>
         {formatAMPM(dateObj)}
       </div>
       <div className="rsc-container__item">

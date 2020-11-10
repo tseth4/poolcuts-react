@@ -7,7 +7,7 @@
   flex-direction: column;
   font-size: 10pt;
   padding: 25px;
-  color: map-get($colors, white);
+  color: map-get($colors, mainText);
   // border: 1px solid white;
   #{&}__item {
     padding: 8px;

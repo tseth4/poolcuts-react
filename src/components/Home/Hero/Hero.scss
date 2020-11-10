@@ -1,52 +1,53 @@
 @import "../../../layout/variables";
 
 .hero-container {
-  // position: relative;
   display: flex;
-  min-height: 85vh;
+  height: 100%;
+  flex-direction: row;
   justify-content: center;
-  background-size: cover; 
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-image: linear-gradient(to right, rgba(255, 0, 0, 0), black),
-    url("../../../assets/pic2.jpeg");
-
-  h1 {
-    color: white;
+  #{&}__element {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   #{&}__desc {
-    color: white;
+    h1 {
+      color: map-get($colors, mainText);
+    }
   }
 
-  #{&}__content {
-    // border: 1px solid pink;
-    // min-width: 100%;
+  #{&}__details {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+    font-weight: bold;
+    font-size: 14px;
+    div{
+      margin-left: 10px;
 
+    }
+  }
   #{&}__button {
-    background-color: map-get($colors, white);
-    border: 2px solid map-get($colors, white);
-    color: map-get($colors, black);
+    // background-color: map-get($colors, white);
+    background-color: map-get($colors, mainText);
+    color: map-get($colors, main);
+    // color: orange;
     font-weight: bolder;
-    height: 4vh;
-    margin-top: 24px;
-    border-radius: 20px;
+    height: 50px;
+    width: 200px;
+    // margin-top: 24px;
+    border-radius: 30px;
     cursor: pointer;
     min-width: 75px;
+    // position: absolute;
   }
 
-  @media (max-width: 48em) {
-    #{&}__content {
-      color: white;
-      padding: 22px;
-      // border: 4px solid white;
-      align-items: center;
-      justify-content: center;
-    }
+  #{&}__image {
+    height: 400px;
+    opacity: 0;
+    animation-delay: 1s;
+    -webkit-animation: fadeIn 8s linear forwards;
+    animation: fadeIn 8s linear forwards;
   }
 }

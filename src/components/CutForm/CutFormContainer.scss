@@ -14,11 +14,11 @@
       width: 25px;
       border-radius: 50%;
       display: inline-block;
-      border: 5px solid map-get($colors, lightBlack);
+      border: 5px solid map-get($colors, main);
       margin: 10px;
       cursor: pointer;
-      box-shadow: 0 19px 38px map-get($colors, black),
-        0 15px 12px map-get($colors, black);
+      box-shadow: 0 19px 38px map-get($colors, offGrey),
+        0 15px 12px map-get($colors, offGrey);
     }
     span:hover {
       background-color: map-get($colors, black);
@@ -53,14 +53,13 @@
   }
 
   #{&}__button {
-    background-color: map-get($colors, lightBlack);
-    border: 2px solid map-get($colors, white);
-    color: map-get($colors, white);
+    background-color: map-get($colors, main);
+    // border: 2px solid map-get($colors, mainText);
+    color: map-get($colors, mainText);
     cursor: pointer;
     position: absolute;
     bottom: 50px;
     right: 50px;
-
     height: 4vh;
     margin-top: 24px;
     border-radius: 8px;

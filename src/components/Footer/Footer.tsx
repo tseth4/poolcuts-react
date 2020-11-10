@@ -8,12 +8,12 @@ import "./Footer.scss";
 export default function Footer() {
   return (
     <div className="footer-container">
-      <div className="footer-container__logo">Logo</div>
+      <div className="footer-container__logo">TS</div>
       <div className="footer-container__item">Poolcuts © 2020</div>
-      <div className="footer-container__link">
+      <div className="footer-container__link-container">
         <div className="footer-container__link-element">
           <a href="https://www.instagram.com/seanycutz/">
-            <IconContext.Provider value={{ color: "white", size: "18px" }}>
+            <IconContext.Provider value={{ color: "black", size: "18px" }}>
               <div>
                 <FaInstagram />
               </div>
@@ -22,7 +22,7 @@ export default function Footer() {
         </div>
         <div className="footer-container__link-element">
           <a href="mailto:chaneysince88@gmail.com">
-            <IconContext.Provider value={{ color: "white", size: "18px" }}>
+            <IconContext.Provider value={{ color: "black", size: "18px" }}>
               <div>
                 <FaEnvelope />
               </div>
@@ -31,7 +31,7 @@ export default function Footer() {
         </div>
         <div className="footer-container__link-element">
           <a href="https://twitter.com/kanyewest">
-            <IconContext.Provider value={{ color: "white", size: "18px" }}>
+            <IconContext.Provider value={{ color: "black", size: "18px" }}>
               <div>
                 <FaTwitter />
               </div>

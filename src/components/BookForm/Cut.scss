@@ -1,6 +1,6 @@
 @import "../../layout/_variables.scss";
 .cutselect-datarow {
-  color: map-get($colors, white);
+  // color: map-get($colors, mainText);
   display: table-row;
 
 
@@ -13,7 +13,7 @@
     padding-bottom: 7px;
     font-weight: map-get($font-weights, medium);
     font-size: 10px;
-    color: map-get($colors, white);
+    color: map-get($colors, mainText);
     border-bottom: solid 2px rgba(255, 255, 255, 0.1);
   }
 }

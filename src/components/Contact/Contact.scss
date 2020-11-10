@@ -2,22 +2,23 @@
 
 .contact-container {
   // padding-top: 100px;
-  position: absolute;
-  top: $nav-height;
-  right: 0;
-  left: 0;
-  bottom: $footer-height;
+  // position: absolute;
+  margin-top: $nav-height;
+  // right: 0;
+  // left: 0;
+  // bottom: $footer-height;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   padding-top: 100px;
   // justify-content: center;
   align-items: center;
   * {
-    color: white;
+    color: map-get($colors, mainText);
   }
   #{&}__row {
     // border-style: solid;
-    color: map-get($colors, white);
+    color: map-get($colors, mainText);
   }
 
   #{&}__row-item{
@@ -27,5 +28,18 @@
       text-decoration: none;
 
     }
+  }
+  #{&}__link-container{
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  #{&}__link-element{
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

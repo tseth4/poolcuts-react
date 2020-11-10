@@ -1,0 +1,110 @@
+@import "../../../layout/variables";
+
+.hero-container {
+  display: grid;
+  min-height: 85vh;
+  grid-template-columns: repeat(2, 1fr);
+  position: relative;
+  border: 10px solid pink;
+
+  // media queries position static
+  #{&}__desc {
+    color: white;
+    padding: 33px;
+  }
+
+  #{&}__info {
+    text-align: left;
+    padding: 80px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    h1 {
+      color: black;
+      -webkit-text-stroke: 1px white;
+    }
+  }
+
+  #{&}__image {
+    height: 55vw;
+    opacity: 0;
+    animation-delay: 1s;
+    -webkit-animation: fadeIn 8s linear forwards;
+    animation: fadeIn 8s linear forwards;
+  }
+
+  #{&}__title {
+    // border: 5px solid pink;
+  }
+
+  .hero-box {
+    // border: 5px solid pink;
+  }
+
+  #{&}__button {
+    background-color: map-get($colors, white);
+    border: 2px solid map-get($colors, white);
+    color: map-get($colors, black);
+    font-weight: bolder;
+    height: 4vh;
+    margin-top: 24px;
+    border-radius: 20px;
+    cursor: pointer;
+    min-width: 75px;
+  }
+
+  @media (max-width: 48em) {
+    #{&}__content {
+    }
+    #{&}__info {
+      padding: 20px;
+    }
+
+    #{&}__image {
+      height: 37vh;
+    }
+    #{&}__desc {
+      color: white;
+      padding: 20px;
+    }
+  }
+}
+
+@media (max-width: 48em) {
+  .hero-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+// @keyframes fadeIn {
+//   0% {
+//     opacity: 0;
+//   }
+//   50% {
+//     opacity: 1;
+//   }
+//   100% {
+//     opacity: 0;
+//   }
+// }
+
+@-webkit-keyframes fadeIn {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  30%,
+  80% {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  30%,
+  80% {
+    opacity: 1;
+  }
+}

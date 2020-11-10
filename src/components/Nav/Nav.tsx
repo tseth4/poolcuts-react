@@ -18,8 +18,6 @@ export const Nav: React.FC<Props> = ({
 }: Props) => {
   let activeUser: any;
   let signUpButton: any;
-  let dashboardLink: any;
-  let temp_role: string;
   let userType: string = "";
   let profileView: any;
 
@@ -62,7 +60,7 @@ export const Nav: React.FC<Props> = ({
   return (
     <div className="header">
       <a href="/" className="logo">
-        <b>logo.</b>
+        <a>*</a>
         <div id="bars">
           <div className="bar"></div>
           <div className="bar"></div>

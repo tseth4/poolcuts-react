@@ -18,7 +18,7 @@ import { AppActions } from "../../store/types";
 import { bindActionCreators } from "redux";
 import { FBUser } from "../../store/types/FBUser";
 import { Redirect } from "react-router";
-import { isEmpty } from "../../utils/Functions"
+import { isEmpty } from "../../utils/Functions";
 
 interface BookFormContainerProps {}
 
@@ -35,8 +35,6 @@ const BookFormContainer: React.FC<Props> = ({
   boundBookAppointment,
   bookSuccess,
 }: Props) => {
-  // Book b = new Book();
-
   let currentUser: any = undefined;
 
   let formContent;
@@ -88,7 +86,6 @@ const BookFormContainer: React.FC<Props> = ({
     formContent = (
       <React.Fragment>
         <ServiceSelect {...formProps} />
-        {/* <CutSelect {...formProps} /> */}
       </React.Fragment>
     );
   } else if (step == 1) {
@@ -132,7 +129,6 @@ const BookFormContainer: React.FC<Props> = ({
   }
 
   useEffect(() => {
-    // boundUnsetSuccessMessage();
     return function cleanup() {
       boundUnsetSuccessMessage();
     };

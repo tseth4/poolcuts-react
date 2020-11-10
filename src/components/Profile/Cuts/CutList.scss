@@ -14,11 +14,12 @@ $timing: 0.3s;
   justify-content: center;
   margin: 15px;
   overflow: hidden;
+
   // border: 1px solid white;
 
 
   h1 {
-    color: map-get($colors, white);
+    color: map-get($colors, mainText);
     font-size: 25.6px;
     padding-bottom: 10px;
   }
@@ -52,7 +53,7 @@ $timing: 0.3s;
   #{&}__head {
     display: table-cell;
     padding: 3px 10px;
-    color: map-get($colors, white);
+    color: map-get($colors, mainText);
   }
 
   #{&}__body {

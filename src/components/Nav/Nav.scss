@@ -2,13 +2,15 @@
 
 /* header */
 .header {
+  background-color: map-get($colors, main);
   .menu li .signup {
     font-weight: map-get($font-weights, bolder);
     color: map-get($colors, sky);
   }
 
-  box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
+  // box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
   position: absolute;
+  top: 0;
   width: 100%;
   height: $nav-height;
   z-index: 3;
@@ -18,13 +20,13 @@
     padding: 0;
     list-style: none;
     overflow: hidden;
-    background-color: map-get($colors, lightBlack);
+    background-color: map-get($colors, main);
   }
 
   li a {
     cursor: pointer;
     display: block;
-    color: map-get($colors, white);
+    color: map-get($colors, mainText);
     padding: 20px 20px;
     text-decoration: none;
     font-weight: map-get($font-weights, bolder);
@@ -46,7 +48,7 @@
     font-size: 2em;
     padding: 10px 20px;
     text-decoration: none;
-    color: map-get($colors, white);
+    color: map-get($colors, mainText);
   }
 
   /* menu */
@@ -69,7 +71,7 @@
   }
   // hamburger
   .menu-icon .navicon {
-    background: map-get($colors, white);
+    background: map-get($colors, mainText);
     display: block;
     height: 2px;
     position: relative;
@@ -78,7 +80,7 @@
   }
   .menu-icon .navicon:before,
   .menu-icon .navicon:after {
-    background: map-get($colors, white);
+    background: map-get($colors, mainText);
     content: "";
     display: block;
     height: 100%;

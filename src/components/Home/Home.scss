@@ -1,25 +1,28 @@
 @import "../../layout/_variables";
 
-.home-parent-container {
-  position: absolute;
-  top: $nav-height;
-  bottom: $footer-height;
-  left: 0;
-  right: 0;
-  // border: 1px solid white;
-}
-
 .home-container {
-  display: grid;
-  grid-template-columns: 1fr 10fr 1fr;
-  grid-auto-rows: 40vh 40vh;
+  display: flex;
+  flex-direction: column;
+  margin-top: $nav-height;
+  width: 100vw;
+  height: 90vh;
 
-  div {
-    // color: purple;
-    border: 1px solid gray;
-    // border-color: $borderColor;
-    &:hover{
-      background: lightgray;
+
+  #{&}__link-container {
+    display: none;
+  }
+
+  #{&}__link-element {
+    margin: 22px;
+  }
+
+  @media (max-width: 48em) {
+    #{&}__link-container {
+      display: flex;
+    }
+
+    #{&}__link-element {
+      margin: 22px;
     }
   }
 }

@@ -1,22 +1,13 @@
 @import "../../layout/_variables";
 
 .login-container {
-  // border-style: solid;
-  // border-color: green;
-  position: absolute;
-  // margin-left: auto;
-  // margin-right: auto;
-  left: 0;
-  right: 0;
-  bottom: 67px;
-  top: 67px;
+  margin-top: $nav-height;
+  height: 100vh;
   text-align: center;
-  // width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
-  // border: 1px solid white;
 }
 
 .login-error {
@@ -32,9 +23,9 @@
   align-self: center;
   // border: 1px solid yellow;
   border-radius: 25px;
-  background-color: map-get($colors, lightBlack);
-  box-shadow: 0 19px 38px map-get($colors, black),
-    0 15px 12px map-get($colors, black);
+  background-color: map-get($colors, main);
+  // box-shadow: 0 19px 38px map-get($colors, offGrey),
+  //   0 15px 12px map-get($colors, offGrey);
   // margin: 10em;
   // padding: 10em;
   // width: 50%;
@@ -55,20 +46,20 @@
     margin-top: 24px;
     // height: 40px;
     box-sizing: border-box;
-    color: map-get($colors, white);
+    color: map-get($colors, mainText);
   }
 
   #{&}__inpt::placeholder {
-    color: map-get($colors, white);
+    color: map-get($colors, mainText);
   }
 
   // #{&}__input:focus{
   //   color: map-get($colors, white);
   // }
   #{&}__logbtn {
-    background-color: map-get($colors, lightBlack);
-    border: 2px solid map-get($colors, white);
-    color: map-get($colors, white);
+    background-color: map-get($colors, main);
+    border: 2px solid map-get($colors, black);
+    color: map-get($colors, mainText);
     height: 4vh;
     margin-top: 24px;
     border-radius: 8px;
@@ -77,13 +68,24 @@
     min-width: 75px;
   }
   h3 {
-    color: map-get($colors, white);
+    color: map-get($colors, mainText);
+  }
+  #{&}__btn-container{
+    margin-top: 12px;
   }
 
-  #{&}__btnlink{
-    font-size: 10px;
+  #{&}__btnlink {
+    font-size: 12px;
     text-decoration: none;
-    color: white;
+    color: map-get($colors , mainText);
     margin-top: 12px;
+    margin-right: 10px;
+  }
+  #{&}__signuplink{
+    font-size: 15px;
+    text-decoration: none;
+    color: map-get($colors , mainText);
+    margin-top: 18px;
+    margin-right: 12px;
   }
 }

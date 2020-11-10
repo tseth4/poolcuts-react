@@ -79,12 +79,6 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
             onChange={handleInputChange("password")}
           />
         </div>
-        <a className="form-container__btnlink" href="/forgot-password">
-          forgot password
-        </a>
-        <a className="form-container__btnlink" href="/info/username">
-          forgot userid
-        </a>
 
         <button
           disabled={buttonDisabled}
@@ -93,9 +87,17 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
         >
           Login
         </button>
-        <a className="form-container__btnlink" href="/signup">
-          sign up
+        <a className="form-container__signuplink" href="/signup">
+          Sign up
         </a>
+        <div className="form-container__btn-container">
+          <a className="form-container__btnlink" href="/forgot-password">
+            Forgot Password
+          </a>
+          <a className="form-container__btnlink" href="/info/username">
+            Forgot Username
+          </a>
+        </div>
         <p className="login-error">{errorMessage}</p>
         <div>...</div>
         <p>
