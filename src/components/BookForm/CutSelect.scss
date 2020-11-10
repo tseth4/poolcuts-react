@@ -26,26 +26,7 @@ $timing: 0.3s;
   }
 }
 
-.cutselect-container {
 
-  // &::-webkit-scrollbar {
-  //   width: 10px;
-  // }
-  // /* Track */
-  // &::-webkit-scrollbar-track {
-  //   box-shadow: inset 0 0 5px grey;
-  //   border-radius: 10px;
-  // }
-  // /* Handle */
-  // &::-webkit-scrollbar-thumb {
-  //   background: map-get($colors, black);
-  //   border-radius: 10px;
-  // }
-  // /* Handle on hover */
-  // &::-webkit-scrollbar-thumb:hover {
-  //   background: black;
-  // }
-}
 
 .cutselect-table {
 
@@ -87,9 +68,9 @@ $timing: 0.3s;
 }
 
 @media (max-width: 48em) {
-  .cutselect-container{
+  // .cutselect-container{
 
-  }
+  // }
 
 }
 

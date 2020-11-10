@@ -25,7 +25,7 @@
     left: 0;
     right: 0;
     bottom: 100px;
-    border: 10px solid pink;
+    // border: 10px solid pink;
 
     span{
       height: 25px;
@@ -48,12 +48,21 @@
     }
   }
 
+  #{&}__form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // border: 10px solid brown;
+    height: 40vh;
+    width: 100vw;
+  }
+
 
   #{&}__form {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 10px solid pink;
+    // border: 10px solid pink;
   }
 
 }

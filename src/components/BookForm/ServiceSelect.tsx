@@ -17,7 +17,7 @@ export const ServiceSelect: React.FC<Props> = ({
   const handleChange = (e: any) => {
     console.log("hiii");
     handleSetForm("category", e.target.name);
-    // handleStep();
+    handleStep();
   };
   return (
     <React.Fragment>

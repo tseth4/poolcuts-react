@@ -56,7 +56,7 @@ export const CutComponent: React.FC<Props> = ({
       location: location,
       fbBarberId: fbBarberId
     });
-    // handleStep();
+    handleStep();
   };
 
   if (form.cutId == cutId) {

@@ -64,6 +64,8 @@ const BookFormContainer: React.FC<Props> = ({
 
   const [step, setStep] = useState(0);
 
+  // const [passedThrough, setPassedThrough] = useState()
+
   const handleStep = () => {
     setStep(step + 1);
   };
@@ -140,12 +142,15 @@ const BookFormContainer: React.FC<Props> = ({
 
   return (
     <div className="bookform-container">
-      <form
-        onSubmit={handleBookAppointment}
-        className="bookform-container__form"
-      >
-        {formContent}
-      </form>
+      <div className="bookform-container__form-container">
+        <form
+          onSubmit={handleBookAppointment}
+          className="bookform-container__form"
+        >
+          {formContent}
+        </form>
+      </div>
+
       <div className="bookform-container__pselect">
         <span className={stepClass1} onClick={() => setStep(0)}></span>
         <span className={stepClass2} onClick={() => setStep(1)}></span>
