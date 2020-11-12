@@ -10,6 +10,7 @@ import { bindActionCreators } from "redux";
 import { AppState } from "../../store";
 import { Redirect, Route, RouteProps } from "react-router";
 import FacebookLogin from "../Login/FacebookLogin";
+import { isEmpty } from "../../utils/Functions";
 
 interface LoginProps {
   user?: User[];
@@ -24,7 +25,10 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
   let loginError: boolean;
   let errorMessage: string = "";
 
-  if (authError.length > 0 || authError[0] != undefined) {
+  // console.log(authError)
+
+  if (!isEmpty(authError)) {
+    console.log("bad credentials")
     errorMessage = "Invalid username and/or password";
   } else {
     errorMessage = "";

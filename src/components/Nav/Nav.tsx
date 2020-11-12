@@ -39,7 +39,7 @@ export const Nav: React.FC<Props> = ({
     );
     profileView = (
       <li>
-        <a href="/profile">profile</a>
+        <a href="/profile">Profile</a>
       </li>
     );
   } else {
@@ -80,6 +80,9 @@ export const Nav: React.FC<Props> = ({
         <span className="navicon"></span>
       </label>
       <ul className="menu">
+        <li>
+          <a href="/blog">Blog</a>
+        </li>
         {profileView}
         <li>
           <a href="/services">Services</a>

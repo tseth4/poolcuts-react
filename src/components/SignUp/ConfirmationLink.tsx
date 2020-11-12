@@ -47,7 +47,7 @@ const ConfirmationLink: React.FC<Props> = ({
     activateUserResponseMessagae = activateUserResponse.message;
   }
 
-return <div style={{padding: "300px", color: "white"}}>{activateErrorMessage}{activateUserResponseMessagae}</div>;
+return <div style={{padding: "300px", color: "black"}}>{activateErrorMessage}{activateUserResponseMessagae}</div>;
 };
 
 interface LinkStateProps {

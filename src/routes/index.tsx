@@ -18,6 +18,7 @@ import NewPasswordForm from "../components/PasswordReset/NewPasswordForm";
 import EmailSubmitForm from "../components/PasswordReset/EmailSubmitForm";
 import UserIdInfo from "../components/UseridInfo/UserIdInfo";
 import UserIdEmailSubmitForm from "../components/UseridInfo/UserIdEmailSubmitForm";
+import Blog from "../components/Blog/Blog";
 // import './App.css';
 
 export const history = createHistory();
@@ -31,6 +32,7 @@ const AppRouter = () => (
       <PrivateRoute path="/services" component={BookFormContainer} />
       <Route exact path="/about" component={About} />
       <Route exact path="/contact" component={Contact} />
+      <Route exact path="/blog" component={Blog}/>
       <Route exact path="/login" component={Login} />
       <Route exact path="/error" component={ErrorRoute} />
       <Route exact path="/signup" component={SignUp} />
