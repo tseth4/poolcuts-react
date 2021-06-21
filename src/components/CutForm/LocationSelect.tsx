@@ -14,7 +14,7 @@ type Props = LocationSelectProps & LocationSelectState;
 const LocationSelect: React.FC<Props> = ({ handleSetForm, form }: Props) => {
   let buttonView;
   let buttonDisabled = true;
-  let buttonClass = ""
+  let buttonClass = "";
 
   const [val, setVal] = useState({ location: "" });
 
@@ -22,18 +22,21 @@ const LocationSelect: React.FC<Props> = ({ handleSetForm, form }: Props) => {
     setVal({ ...val, location: value });
   };
 
-  const handleClick = () => (event: MouseEvent) => {
-    event.preventDefault();
-    handleSetForm("location", val.location);
-  };
+  // const handleClick = () => (event: MouseEvent) => {
+  //   event.preventDefault();
+  //   handleSetForm("location", val.location);
+  // };
+
+  React.useEffect(() => {
+    handleSetForm("location", val.location)
+  }, [val]);
 
   if (val.location.length > 1) {
     buttonDisabled = false;
-    buttonClass= "locationSelect-container__button"
+    buttonClass = "locationSelect-container__button";
   } else {
     buttonDisabled = true;
-    buttonClass= "locationSelect-container__button lDisabled"
-
+    buttonClass = "locationSelect-container__button lDisabled";
   }
 
   return (
@@ -45,9 +48,13 @@ const LocationSelect: React.FC<Props> = ({ handleSetForm, form }: Props) => {
         value={val.location}
         onChange={(e) => handleOnChange(e.target.value)}
       />
-      <button className={buttonClass} disabled={buttonDisabled} onClick={handleClick()}>
+      {/* <button
+        className={buttonClass}
+        disabled={buttonDisabled}
+        onClick={handleClick()}
+      >
         +
-      </button>
+      </button> */}
     </div>
   );
 };

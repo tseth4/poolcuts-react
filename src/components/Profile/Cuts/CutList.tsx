@@ -1,63 +1,73 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import "./CutList.scss";
-import { bindActionCreators } from "redux";
-import { ThunkDispatch } from "redux-thunk";
-import { AppActions } from "../../../store/types";
-import { Cut } from "../../../store/types/Cut";
-import { User } from "../../../store/types/User";
-import { FBUserAuthResponse } from "../../../store/types/FBUser";
+
+// selectors for geting the state
+import { useSelector } from "react-redux";
+import { getAuth, getCuts } from "../../../store/selectors/index";
+
+// dispatches for setting the state
+import { useAppDispatch } from "../../../store";
+import { cutError, setOpenCuts } from "../../../store/slices/cutSlice";
+
+// services for fetching data
 import {
-  boundGetOpenFacebookBarberCuts,
-  boundGetOpenBarberCuts,
-  boundCancelCutsByIdArr,
-} from "../../../store/actions/CutActions";
-import { AppState } from "../../../store";
+  getOpenBarberCuts,
+  deleteCutsByIdsArr,
+} from "../../../store/services/CutService";
+
+import "./CutList.scss";
+
 import { CutComponent } from "./Cut";
 import { SelectedIds } from "../../../store/types/SelectedIds";
+import { Cut } from "../../../store/types/Cut";
+import { User } from "../../../store/types/Auth";
+import { IError } from "../../../store/types/Error";
 
-import { Link } from "react-router-dom";
+// parent: profile container
 
 interface CutListProps {
-  handleAddCutFormModal: () => void;
+  handleAddCutFormModal: (active: boolean) => void;
+  currentUser: User;
 }
 
 interface CutListState {}
 
-type Props = CutListProps & LinkDispatchToProps & LinkStateProps & CutListProps;
+type Props = CutListProps & CutListProps;
 
 const CutList: React.FC<Props> = ({
-  cuts,
-  boundGetOpenFacebookBarberCuts,
-  boundGetOpenBarberCuts,
-  fbUser,
-  user,
-  boundCancelCutsByIdArr,
   handleAddCutFormModal,
+  currentUser,
 }: Props) => {
   let deleteDisabled: boolean = true;
-  let currentUser: any = undefined;
 
-  if (user !== undefined && user.length > 0) {
-    currentUser = user[0];
-  } else if (fbUser !== undefined && fbUser.length > 0) {
-    currentUser = fbUser[0];
-  }
+  // ===========================================================================
+  // Selectors
+  // ===========================================================================
 
-  useEffect(() => {
-    if (fbUser.length > 0 && fbUser != null) {
-      boundGetOpenFacebookBarberCuts(fbUser[0]);
-    } else if (user.length > 0 && user != null) {
-      boundGetOpenBarberCuts(user[0]);
-    }
-  }, []);
+  const { cuts, error, loading } = useSelector(getCuts);
+  let cutsForSort = [...cuts];
+
+  // ===========================================================================
+  // Dispatch
+  // ===========================================================================
+
+  const dispatch = useAppDispatch();
+  const _setOpenCuts = (payload: Cut[]) => dispatch(setOpenCuts(payload));
+  const _cutError = (payload: IError) => dispatch(cutError(payload));
 
   const [selectedCuts, setSelectedCuts] = useState<SelectedIds>({ ids: [] });
   const [localCuts, setLocalCuts] = useState<Cut[]>([]);
 
   useEffect(() => {
-    setLocalCuts(cuts);
-  }, [cuts]);
+    if (currentUser)
+      getOpenBarberCuts(currentUser)
+        .then((res) => {
+          console.log(res);
+          _setOpenCuts(res);
+        })
+        .catch((err) => {
+          _cutError(err);
+        });
+  }, []);
 
   const handleSetSelectedCuts = (id: number): void => {
     if (selectedCuts.ids.indexOf(id) == -1) {
@@ -78,9 +88,19 @@ const CutList: React.FC<Props> = ({
     deleteDisabled = true;
   }
 
+  console.log(selectedCuts);
+
   const handleClick = () => {
-    boundCancelCutsByIdArr(selectedCuts, currentUser);
-    setSelectedCuts({ids: []});
+    // Delete cuts if
+    deleteCutsByIdsArr(selectedCuts)
+      .then((res) => {
+        window.location.reload()
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    setSelectedCuts({ ids: [] });
   };
 
   return (
@@ -94,24 +114,21 @@ const CutList: React.FC<Props> = ({
             <div className="cutlist-table__head">Barber</div>
             <div className="cutlist-table__head">Location</div>
           </div>
-          {cuts
+          {cutsForSort
             .sort(
               (a: any, b: any) =>
                 +new Date(a.appointmentDate) - +new Date(b.appointmentDate)
             )
-            .map(
-              ({ cutId, appointmentDate, barberId, location, fbBarberId }) => (
-                <CutComponent
-                  {...cutListProps}
-                  key={cutId}
-                  cutId={cutId}
-                  appointmentDate={appointmentDate}
-                  barberId={barberId}
-                  fbBarberId={fbBarberId}
-                  location={location}
-                />
-              )
-            )}
+            .map(({ cutId, appointmentDate, barberId, location }) => (
+              <CutComponent
+                {...cutListProps}
+                key={cutId}
+                cutId={cutId}
+                appointmentDate={appointmentDate}
+                barberId={barberId}
+                location={location}
+              />
+            ))}
         </div>
       </div>
       <div className="profile-container__item">
@@ -126,7 +143,7 @@ const CutList: React.FC<Props> = ({
           </button>
           <button
             disabled={false}
-            onClick={() => handleAddCutFormModal()}
+            onClick={() => handleAddCutFormModal(true)}
             type="submit"
             className="cutlist-button"
           >
@@ -138,37 +155,4 @@ const CutList: React.FC<Props> = ({
   );
 };
 
-interface LinkStateProps {
-  cuts: Cut[];
-  user: User[];
-  fbUser: FBUserAuthResponse[];
-}
-
-interface LinkDispatchToProps {
-  boundGetOpenFacebookBarberCuts: (fbUser: FBUserAuthResponse) => void;
-  boundGetOpenBarberCuts: (user: User) => void;
-  boundCancelCutsByIdArr: (ids: SelectedIds, user: any) => void;
-}
-
-const mapStateToProps = (
-  state: AppState,
-  ownProps: CutListProps
-): LinkStateProps => ({
-  cuts: state.openBarberCuts,
-  user: state.user,
-  fbUser: state.fbUser,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: CutListProps
-): LinkDispatchToProps => ({
-  boundGetOpenFacebookBarberCuts: bindActionCreators(
-    boundGetOpenFacebookBarberCuts,
-    dispatch
-  ),
-  boundGetOpenBarberCuts: bindActionCreators(boundGetOpenBarberCuts, dispatch),
-  boundCancelCutsByIdArr: bindActionCreators(boundCancelCutsByIdArr, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CutList);
+export default CutList;

@@ -4,7 +4,7 @@ import "./CutFormModal.scss";
 
 interface CutFormModalProps {
   modalClass: any;
-  setModalClass: any;
+  handleAddCutFormModal: (active: boolean) => void;
 }
 
 interface CutFormModalState {}
@@ -13,14 +13,10 @@ type Props = CutFormModalProps & CutFormModalState;
 
 const CutEditFormModal: React.FC<Props> = ({
   modalClass,
-  setModalClass
+  handleAddCutFormModal,
 }: Props) => {
   let overlayId = "overlay";
   let title = "create cut";
-
-  const handleCloseModal = () => {
-    setModalClass({ class: "cutform-modal"});
-  };
 
   if (modalClass.class == "cutform-modal active") {
     overlayId = "overlay-active";
@@ -32,16 +28,16 @@ const CutEditFormModal: React.FC<Props> = ({
         <div className="cutform-modal__header">
           <div className="cutform-modal__header-title">{title}</div>
           <button
-            onClick={handleCloseModal}
+            onClick={() => handleAddCutFormModal(false)}
             className="cutform-modal__close-button"
           >
             &times;
           </button>
         </div>
         <div className="cutform-modal__body">
-          <CutFormContainer  
-            handleCloseModal={handleCloseModal}
-          // modalClass={modalClass} 
+          <CutFormContainer
+            handleAddCutFormModal={handleAddCutFormModal}
+            // modalClass={modalClass}
           />
         </div>
       </div>

@@ -21,6 +21,7 @@
 
   h3 {
     color: map-get($colors, mainText);
+    font-size: $title-font-size;
   }
 
   #{&}__item {

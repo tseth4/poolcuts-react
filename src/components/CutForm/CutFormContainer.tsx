@@ -5,18 +5,15 @@ import LocationSelect from "./LocationSelect";
 import { connect } from "react-redux";
 import ReviewSubmit from "./ReviewSubmit";
 import "./CutFormContainer.scss";
-import { User } from "../../store/types/User";
-import { FBUser, FBUserAuthResponse } from "../../store/types/FBUser";
-import { AppState } from "../../store";
-import { bindActionCreators } from "redux";
-import {
-  boundNewOpenCut,
-  boundUnsetCutSuccess,
-  boundUpdateCut,
-} from "../../store/actions/CutActions";
-import { ThunkDispatch } from "redux-thunk";
-import { AppActions } from "../../store/types";
 
+// selectors for getting state
+import { useSelector } from "react-redux";
+import { getAuth } from "../../store/selectors";
+
+// dispatches for setting state
+import { useAppDispatch } from "../../store";
+
+import { newCutService } from "../../store/services/CutService";
 export interface SelectedDate {
   date_str?: Date;
   time_str?: Date;
@@ -24,56 +21,57 @@ export interface SelectedDate {
 
 interface CutFormContainerProps {
   // modalClass: any;
-  handleCloseModal: () => void;
+  handleAddCutFormModal: (active: boolean) => void;
 }
 
 interface CutFormContainerState {}
 
-type Props = CutFormContainerProps &
-  CutFormContainerState &
-  LinkDispatchToProps &
-  LinkStateProps;
+type Props = CutFormContainerProps & CutFormContainerState;
 
 const CutFormContainer: React.FC<Props> = ({
-  user,
-  fbUser,
-  addCutSuccess,
-  boundUnsetCutSuccess,
-  boundNewOpenCut,
-  handleCloseModal,
+  handleAddCutFormModal,
 }: Props) => {
   let locationSelect: any;
   let formContent;
-  let currentUser: any = undefined;
   let buttonDisabled = true;
   let laterDateMessage: string = "";
   let buttonClass: string = "";
 
-  // handle setting user
-  if (user !== undefined && user.length > 0) {
-    currentUser = user[0];
-  } else if (fbUser !== undefined && fbUser.length > 0) {
-    currentUser = fbUser[0];
-  }
+  // ===========================================================================
+  // Selectors
+  // ===========================================================================
+
+  const { currentUser } = useSelector(getAuth);
 
   // handle form setting and submission
   const [form, setForm] = useState<NewCut>({
-    barberId: user.length > 0 ? user[0].id : undefined,
-    fbBarberId: fbUser.length > 0 ? fbUser[0].id : undefined,
+    barberId: currentUser != null ? currentUser.id : undefined,
     appointmentDate: undefined,
     location: undefined,
   });
 
   const handleNewCutSubmit = (event: any) => {
     event.preventDefault();
-    boundNewOpenCut(form, currentUser);
+    if (currentUser) {
+      newCutService(form, currentUser)
+        .then((res) => {
+          console.log(res);
+          handleAddCutFormModal(false);
+          window.location.reload()
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
-  useEffect(() => {
-    return function cleanup() {
-      boundUnsetCutSuccess();
-    };
-  }, []);
+  console.log(form);
+
+  // useEffect(() => {
+  //   return function cleanup() {
+  //     // boundUnsetCutSuccess();
+  //   };
+  // }, []);
 
   const handleSetForm = (input: any, value: any) => {
     setForm({
@@ -88,8 +86,6 @@ const CutFormContainer: React.FC<Props> = ({
     handleSetForm(input, value);
   };
 
-  console.log(form);
-
   // handle props
   let formProps: any;
   formProps = {
@@ -98,11 +94,11 @@ const CutFormContainer: React.FC<Props> = ({
   };
 
   // handle successfull creation
-  useEffect(() => {
-    if (addCutSuccess.length > 1) {
-      // handleCloseModal();
-    }
-  }, [addCutSuccess]);
+  // useEffect(() => {
+  //   if (addCutSuccess.length > 1) {
+  //     // handleCloseModal();
+  //   }
+  // }, [addCutSuccess]);
 
   // handle button disbaled, and style
 
@@ -111,7 +107,7 @@ const CutFormContainer: React.FC<Props> = ({
   const formFieldUndefined: boolean =
     form.appointmentDate == undefined ||
     form.location == undefined ||
-    (form.barberId == undefined && form.fbBarberId == undefined);
+    form.barberId == undefined;
 
   const appointmentDateWithinTheNextHour: boolean =
     new Date(form.appointmentDate != undefined ? form.appointmentDate : "") <
@@ -146,7 +142,7 @@ const CutFormContainer: React.FC<Props> = ({
 
         <p style={{ color: "red", textAlign: "center" }}>{laterDateMessage}</p>
         <button disabled={buttonDisabled} type="submit" className={buttonClass}>
-          Add
+          Add open cut
         </button>
       </form>
       <div className="cutform-container__pselect"></div>
@@ -154,34 +150,4 @@ const CutFormContainer: React.FC<Props> = ({
   );
 };
 
-interface LinkStateProps {
-  user: User[];
-  fbUser: FBUser[];
-  addCutSuccess: Cut[];
-}
-
-interface LinkDispatchToProps {
-  boundNewOpenCut: (newCut: NewCut, user: FBUserAuthResponse | User) => void;
-  boundUnsetCutSuccess: () => void;
-  boundUpdateCut: (newCut: NewCut, user: FBUserAuthResponse | User) => void;
-}
-
-const mapStateToProps = (
-  state: AppState,
-  ownProps: CutFormContainerProps
-): LinkStateProps => ({
-  user: state.user,
-  fbUser: state.fbUser,
-  addCutSuccess: state.addCutSuccess,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: CutFormContainerProps
-): LinkDispatchToProps => ({
-  boundNewOpenCut: bindActionCreators(boundNewOpenCut, dispatch),
-  boundUnsetCutSuccess: bindActionCreators(boundUnsetCutSuccess, dispatch),
-  boundUpdateCut: bindActionCreators(boundUpdateCut, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CutFormContainer);
+export default CutFormContainer;

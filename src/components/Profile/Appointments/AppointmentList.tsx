@@ -1,57 +1,92 @@
 import React, { useEffect, useState } from "react";
 import "./AppointmentList.scss";
-import { connect } from "react-redux";
-import { AppState } from "../../../store";
-import { ThunkDispatch } from "redux-thunk";
-import { AppActions } from "../../../store/types";
-import { Appointment } from "./Appointment";
+
+// selectors for getting the state
+import { useSelector } from "react-redux";
+import { getBooks } from "../../../store/selectors/index";
+
+// dispatches
+import { bookError, setAppointments } from "../../../store/slices/bookSlice";
+
+// services for fetching data
+import { getClientAppointmentsService, cancelBooksByIdsArr } from "../../../store/services/BookService";
+import { useAppDispatch } from "../../../store";
+
+// types
 import { Book } from "../../../store/types/Book";
-import { User } from "../../../store/types/User";
-import { FBUserAuthResponse } from "../../../store/types/FBUser";
-import {
-  boundGetFacebookUserAppointments,
-  boundGetUserAppointments,
-  boundCancelAppointmentsByIdArr,
-} from "../../../store/actions/BookActions";
-import { bindActionCreators } from "redux";
+import { IError } from "../../../store/types/Error";
+import { User } from "../../../store/types/Auth";
 import { SelectedIds } from "../../../store/types/SelectedIds";
 
-interface AppointmentListProps {}
+import { Appointment } from "./Appointment";
 
-interface AppointmentListState {}
+interface AppointmentListProps {
+  currentUser?: User;
+}
 
-type Props = AppointmentListProps & LinkDispatchToProps & LinkStateProps;
+type Props = AppointmentListProps;
 
 const AppointmentList: React.FC<Props> = ({
-  boundGetFacebookUserAppointments,
-  boundGetUserAppointments,
-  appts,
-  user,
-  fbUser,
-  boundCancelAppointmentsByIdArr,
-}: Props) => {
+  currentUser,
+}: // boundGetFacebookUserAppointments,
+// boundGetUserAppointments,
+// appts,
+// user,
+// fbUser,
+// boundCancelAppointmentsByIdArr,
+Props) => {
   let deleteDisabled: boolean = true;
-  let currentUser: any = undefined;
 
-  // Setting currentUser
-  if (user !== undefined && user.length > 0) {
-    currentUser = user[0];
-  } else if (fbUser !== undefined && fbUser.length > 0) {
-    currentUser = fbUser[0];
-  }
+  // ===========================================================================
+  // Selectors
+  // ===========================================================================
+
+  const { appointments } = useSelector(getBooks);
+  let appointmentsForSort = [...appointments];
+  // ===========================================================================
+  // Dispatch
+  // ===========================================================================
+
+  const dispatch = useAppDispatch();
+  const _setAppointmentList = (payload: Book[]) =>
+    dispatch(setAppointments(payload));
+  const _bookError = (payload: IError) => dispatch(bookError(payload));
 
   useEffect(() => {
-    if (user.length > 0 && user != null) {
-      boundGetUserAppointments(user[0]);
-    } else if (fbUser.length > 0 && fbUser != null) {
-      boundGetFacebookUserAppointments(fbUser[0]);
-    }
+    if (currentUser)
+      getClientAppointmentsService(currentUser)
+        .then((res) => {
+          console.log(res);
+          _setAppointmentList(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          _bookError(err);
+        });
   }, []);
+
+  // Setting currentUser
+  // if (user !== undefined && user.length > 0) {
+  //   currentUser = user[0];
+  // } else if (fbUser !== undefined && fbUser.length > 0) {
+  //   currentUser = fbUser[0];
+  // }
+
+  // useEffect(() => {
+  //   if (user.length > 0 && user != null) {
+  //     boundGetUserAppointments(user[0]);
+  //   } else if (fbUser.length > 0 && fbUser != null) {
+  //     boundGetFacebookUserAppointments(fbUser[0]);
+  //   }
+  // }, []);
 
   // state for selectedBooks
   const [selectedAppointments, setSelectedAppointments] = useState<SelectedIds>(
     { ids: [] }
   );
+
+
+  console.log(selectedAppointments);
 
   const handleSetSelectedAppointments = (id: number): void => {
     if (selectedAppointments.ids.indexOf(id) == -1) {
@@ -79,7 +114,13 @@ const AppointmentList: React.FC<Props> = ({
   // handle delete button / click of button
   const handleClick = () => {
     console.log("canceling");
-    boundCancelAppointmentsByIdArr(selectedAppointments, currentUser);
+    cancelBooksByIdsArr(selectedAppointments).then((res) => {
+      window.location.reload()
+      console.log(res)
+    }).catch((err) => {
+      console.log(err)
+    })
+    // boundCancelAppointmentsByIdArr(selectedAppointments, currentUser);
   };
   return (
     <React.Fragment>
@@ -94,13 +135,13 @@ const AppointmentList: React.FC<Props> = ({
             {/* <div className="appointmentlist-table__head">Client</div> */}
             <div className="appointmentlist-table__head">Location</div>
           </div>
-          {appts
+          {appointmentsForSort
             .sort(
               (a: any, b: any) =>
                 +new Date(a.cut?.appointmentDate) -
                 +new Date(b.cut?.appointmentDate)
             )
-            .map(({ bookId, category, cut, fbClient, client }) => (
+            .map(({ bookId, category, cut, client }) => (
               <Appointment
                 {...appointmentListProps}
                 key={bookId}
@@ -108,7 +149,6 @@ const AppointmentList: React.FC<Props> = ({
                 category={category}
                 cut={cut}
                 client={client}
-                fbClient={fbClient}
               />
             ))}
         </div>
@@ -129,43 +169,4 @@ const AppointmentList: React.FC<Props> = ({
   );
 };
 
-interface LinkStateProps {
-  appts: Book[];
-  user: User[];
-  fbUser: FBUserAuthResponse[];
-}
-
-interface LinkDispatchToProps {
-  boundGetFacebookUserAppointments: (user: FBUserAuthResponse) => void;
-  boundGetUserAppointments: (user: User) => void;
-  boundCancelAppointmentsByIdArr: (ids: SelectedIds, user: any) => void;
-}
-
-const mapStateToProps = (
-  state: AppState,
-  ownProps: AppointmentListProps
-): LinkStateProps => ({
-  user: state.user,
-  fbUser: state.fbUser,
-  appts: state.appt,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: AppointmentListProps
-): LinkDispatchToProps => ({
-  boundGetFacebookUserAppointments: bindActionCreators(
-    boundGetFacebookUserAppointments,
-    dispatch
-  ),
-  boundGetUserAppointments: bindActionCreators(
-    boundGetUserAppointments,
-    dispatch
-  ),
-  boundCancelAppointmentsByIdArr: bindActionCreators(
-    boundCancelAppointmentsByIdArr,
-    dispatch
-  ),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppointmentList);
+export default AppointmentList;

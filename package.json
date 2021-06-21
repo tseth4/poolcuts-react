@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -17,6 +18,8 @@
     "@types/react-redux": "^7.1.9",
     "@types/react-router": "^5.1.7",
     "@types/react-router-dom": "^5.1.5",
+    "@types/redux-logger": "^3.0.8",
+    "@types/redux-persist": "^4.3.1",
     "axios": "^0.19.2",
     "date-fns": "^2.15.0",
     "js-cookie": "^2.2.1",
@@ -30,8 +33,10 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
-    "sass": "^1.26.8",
+    "sass": "^1.32.13",
     "typescript": "~3.7.2"
   },
   "scripts": {
@@ -56,5 +61,5 @@
     ]
   },
   "devDependencies": {},
-  "proxy": "3.80.112.126:8080"
+  "proxy": "http://localhost:8080"
 }

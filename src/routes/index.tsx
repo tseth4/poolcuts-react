@@ -8,18 +8,16 @@ import Login from "../components/Login/Login";
 import BookFormContainer from "../components/BookForm/BookFormContainer";
 import PrivateRoute from "./PrivateRoute";
 import ProfileContainer from "../components/Profile/ProfileContainer";
-import ErrorRoute from "./ErrorRoute";
-import AdminRoute from "./AdminRoute";
-import CutFormContainer from "../components/CutForm/CutFormContainer";
-import SignUp from "../components/SignUp/SignUp";
-import ConfirmationSent from "../components/SignUp/ConfirmationSent";
-import ConfirmationLink from "../components/SignUp/ConfirmationLink";
-import NewPasswordForm from "../components/PasswordReset/NewPasswordForm";
-import EmailSubmitForm from "../components/PasswordReset/EmailSubmitForm";
-import UserIdInfo from "../components/UseridInfo/UserIdInfo";
-import UserIdEmailSubmitForm from "../components/UseridInfo/UserIdEmailSubmitForm";
-import Blog from "../components/Blog/Blog";
-// import './App.css';
+// import ErrorRoute from "./ErrorRoute";
+// import AdminRoute from "./AdminRoute";
+// import CutFormContainer from "../components/CutForm/CutFormContainer";
+// import SignUp from "../components/SignUp/SignUp";
+// import ConfirmationSent from "../components/SignUp/ConfirmationSent";
+// import ConfirmationLink from "../components/SignUp/ConfirmationLink";
+// import NewPasswordForm from "../components/PasswordReset/NewPasswordForm";
+// import EmailSubmitForm from "../components/PasswordReset/EmailSubmitForm";
+// import UserIdInfo from "../components/UseridInfo/UserIdInfo";
+// import UserIdEmailSubmitForm from "../components/UseridInfo/UserIdEmailSubmitForm";
 
 export const history = createHistory();
 
@@ -32,9 +30,10 @@ const AppRouter = () => (
       <PrivateRoute path="/services" component={BookFormContainer} />
       <Route exact path="/about" component={About} />
       <Route exact path="/contact" component={Contact} />
-      <Route exact path="/blog" component={Blog}/>
       <Route exact path="/login" component={Login} />
-      <Route exact path="/error" component={ErrorRoute} />
+      <PrivateRoute path="/profile" component={ProfileContainer} />
+
+      {/* <Route exact path="/error" component={ErrorRoute} />
       <Route exact path="/signup" component={SignUp} />
       <Route exact path="/signup/:sent" component={ConfirmationSent} />
       <Route exact path="/confirmation/:token" component={ConfirmationLink} />
@@ -43,7 +42,7 @@ const AppRouter = () => (
       <Route exact path="/info/username/:email/:token" component={UserIdInfo} />
       <Route exact path="/forgot-password" component={EmailSubmitForm} />
       <PrivateRoute path="/profile" component={ProfileContainer} />
-      <AdminRoute path="/cut/new" component={CutFormContainer} />
+      <AdminRoute path="/cut/new" component={CutFormContainer} /> */}
     </Switch>
   </Router>
 );

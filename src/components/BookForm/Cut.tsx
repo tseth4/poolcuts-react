@@ -2,17 +2,15 @@ import React from "react";
 import { Cut } from "../../store/types/Cut";
 import "./Cut.scss";
 import { NewBooking } from "../../store/types/Book";
-import { Barber, fbBarber } from "../../store/types/User";
+import { Barber, fbBarber } from "../../store/types/Auth";
 interface CutProps {
   cutId?: number;
   appointmentDate?: string;
   barberId?: Barber;
-  fbBarberId?: fbBarber;
   location?: string;
   seatLeft?: number;
-  handleSetForm: (key: string, value: any) => void;
-  handleStep: () => void;
-  form: NewBooking;
+  bookForm: NewBooking;
+  handleSetBookForm: (key: string, value: any) => void;
   handleSelectedCut: (cut: Cut) => void;
 }
 
@@ -21,11 +19,9 @@ export const CutComponent: React.FC<Props> = ({
   cutId,
   appointmentDate,
   barberId,
-  fbBarberId,
   location,
-  handleSetForm,
-  handleStep,
-  form,
+  bookForm,
+  handleSetBookForm,
   handleSelectedCut,
 }: Props) => {
   let barberDetails: string = "N/A";
@@ -48,30 +44,26 @@ export const CutComponent: React.FC<Props> = ({
   }
 
   const handleClick = () => {
-    handleSetForm("cutId", cutId);
+    handleSetBookForm("cutId", cutId);
     handleSelectedCut({
       cutId: cutId,
       barberId: barberId,
       appointmentDate: appointmentDate,
       location: location,
-      fbBarberId: fbBarberId
     });
-    handleStep();
+    // handleStep();
   };
 
-  if (form.cutId == cutId) {
+  if (bookForm.cutId == cutId) {
     console.log("class changed");
     cutClass = "cutselect-datarow selected";
   } else {
     cutClass = "cutselect-datarow ";
   }
 
-
   if (typeof barberId != "number" && barberId != null) {
     barberDetails = barberId.firstName + " " + barberId.lastName;
-  } else if (typeof fbBarberId != "number" && fbBarberId != null){
-    barberDetails = fbBarberId.firstName + " " + fbBarberId.lastName;
-  }
+  } 
 
   return (
     <React.Fragment>
@@ -82,11 +74,5 @@ export const CutComponent: React.FC<Props> = ({
         <div className="cutselect-datarow__td">{location}</div>
       </div>
     </React.Fragment>
-    // <div onClick={() => handleClick()} className={cutClass}>
-    //   {/* <div>cutid: {cutId}</div> */}
-    //   <div>{date}</div>
-    //   <p>{formatAMPM(dateObj)}</p>
-    //   <p>{location}</p>
-    // </div>
   );
 };

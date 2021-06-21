@@ -1,42 +1,33 @@
 @import "../../layout/_variables";
 
 .contact-container {
-  // padding-top: 100px;
-  // position: absolute;
   margin-top: $nav-height;
-  // right: 0;
-  // left: 0;
-  // bottom: $footer-height;
   height: 100vh;
   display: flex;
   flex-direction: column;
   padding-top: 100px;
-  // justify-content: center;
   align-items: center;
   * {
     color: map-get($colors, mainText);
   }
   #{&}__row {
-    // border-style: solid;
     color: map-get($colors, mainText);
   }
 
-  #{&}__row-item{
-    // border: 1px solid white;
+  #{&}__row-item {
     margin: 10px;
-    a{
+    a {
       text-decoration: none;
-
     }
   }
-  #{&}__link-container{
+  #{&}__link-container {
     margin: 10px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
   }
-  #{&}__link-element{
+  #{&}__link-element {
     margin: 10px;
     display: flex;
     justify-content: center;

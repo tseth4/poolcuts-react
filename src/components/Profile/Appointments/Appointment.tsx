@@ -1,14 +1,13 @@
 import React from "react";
 import { Cut } from "../../../store/types/Cut";
 import "./Appointment.scss";
-import { Client, fbClient } from "../../../store/types/User";
+import { Client } from "../../../store/types/Auth";
 
 interface AppointmentProps {
   bookId?: number;
   category?: string;
   cut?: Cut;
   client?: Client;
-  fbClient?: fbClient;
   handleSetSelectedAppointments: (id: number) => void;
   selectedAppointmentsArr: number[];
 }
@@ -22,7 +21,6 @@ export const Appointment: React.FC<Props> = ({
   category,
   cut,
   client,
-  fbClient,
   handleSetSelectedAppointments,
   selectedAppointmentsArr,
 }: Props) => {
@@ -49,9 +47,7 @@ export const Appointment: React.FC<Props> = ({
   if (cut) {
     if (cut.barberId != null) {
       barberDetails = cut.barberId.firstName + " " + cut.barberId.lastName;
-    } else if (cut.fbBarberId != null) {
-      barberDetails = cut.fbBarberId.firstName + " " + cut.fbBarberId.lastName;
-    }
+    } 
     if (cut.appointmentDate != null) {
       dateObj = new Date(cut.appointmentDate);
       date = dateObj.toDateString();
@@ -59,9 +55,7 @@ export const Appointment: React.FC<Props> = ({
     }
     if (client != null) {
       clientDetails = client.firstName + " " + client.lastName;
-    } else if (fbClient != null) {
-      clientDetails = fbClient.firstName + " " + fbClient.lastName;
-    }
+    } 
     if (cut.location != null) {
       location = cut.location;
     }

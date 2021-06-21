@@ -1,143 +1,140 @@
 import React, { useState, useEffect } from "react";
-import { ServiceSelect } from "./ServiceSelect";
+import { useSelector } from "react-redux";
+import { getAuth } from "../../store/selectors/index";
+import { createHashHistory } from "history";
+
+// import { getBooks } from "../../store/selectors/index";
+import ServiceSelect from "./ServiceSelect";
 import CutSelect from "./CutSelect";
 import ReviewSubmit from "./ReviewSubmit";
-import { connect } from "react-redux";
-import {
-  boundBookAppointment,
-  boundUnsetSuccessMessage,
-} from "../../store/actions/BookActions";
-
 import "./BookForm.scss";
-import { Book, NewBooking } from "../../store/types/Book";
+import { NewBooking } from "../../store/types/Book";
 import { Cut } from "../../store/types/Cut";
-import { User } from "../../store/types/User";
-import { AppState } from "../../store";
-import { ThunkDispatch } from "redux-thunk";
-import { AppActions } from "../../store/types";
-import { bindActionCreators } from "redux";
-import { FBUser } from "../../store/types/FBUser";
-import { Redirect } from "react-router";
-import { isEmpty } from "../../utils/Functions";
+import { bookAppointmentService } from "../../store/services/BookService";
+import { IError } from "../../store/types/Error";
+import { Redirect } from "react-router-dom";
+
+// import { useAppDispatch } from "../../store";
+// import { setBooks } from "../../store/slices/bookSlice";
+// import { IError } from "../../store/types/Error";
+// import { isEmpty } from "../../utils/Functions";
 
 interface BookFormContainerProps {}
 
 interface BookFormContainerState {}
 
-type Props = BookFormContainerProps &
-  BookFormContainerState &
-  LinkDispatchToProps &
-  LinkStateProps;
+type Props = BookFormContainerProps & BookFormContainerState;
 
-const BookFormContainer: React.FC<Props> = ({
-  user,
-  fbUser,
-  boundBookAppointment,
-  bookSuccess,
-}: Props) => {
-  let currentUser: any = undefined;
-
-  let formContent;
-  let stepClass1 = "bookform-container__dot";
-  let stepClass2 = "bookform-container__dot";
-  let stepClass3 = "bookform-container__dot";
-
-  const [form, setForm] = useState<NewBooking>({
-    category: undefined,
-    cutId: undefined,
-    clientId: user.length > 0 ? user[0].id : undefined,
-    fbClientId: fbUser.length > 0 ? fbUser[0].id : undefined,
-  });
-
-  if (user !== undefined && user.length > 0) {
-    currentUser = user[0];
-  } else if (fbUser !== undefined && fbUser.length > 0) {
-    currentUser = fbUser[0];
+const BookFormContainer: React.FC<Props> = ({}: Props) => {
+  interface BookStatus {
+    success?: boolean;
+    error?: IError;
   }
 
-  const [selectedCut, setSelectedCut] = useState<Cut>({
-    cutId: undefined,
-    barberId: undefined,
-    appointmentDate: undefined,
-    location: undefined,
+
+
+  // ===========================================================================
+  // Selectors
+  // ===========================================================================
+
+  const { currentUser } = useSelector(getAuth);
+
+  // ===========================================================================
+  // States
+  // ===========================================================================
+
+  const [selectedCut, setSelectedCut] = useState<Cut>({});
+  const [bookForm, setBookForm] = useState<NewBooking>({});
+  const [bookStatus, setBookStatus] = useState<BookStatus>({
+    success: undefined,
+    error: undefined,
   });
 
-  const [step, setStep] = useState(0);
+  // ===========================================================================
+  // Handelers
+  // ===========================================================================
 
-  // const [passedThrough, setPassedThrough] = useState()
-
-  const handleStep = () => {
-    setStep(step + 1);
-  };
-
-  const handleSetForm = (key: string, value: any) => {
-    setForm({ ...form, [key]: value });
-  };
+  // When a cut is selected the cut component is setting selected cut and cutId in bookForm
+  // these handle methods are handling selecting and unSelecting cut
 
   const handleSelectedCut = (cut: Cut) => {
-    setSelectedCut(cut);
+    if (cut.cutId == selectedCut.cutId) {
+      setSelectedCut({});
+    } else {
+      setSelectedCut(cut);
+    }
   };
 
-  let formProps = {
-    handleSetForm: handleSetForm,
-    handleStep: handleStep,
-    form: form,
+  const handleSetBookForm = (key: string, value: any) => {
+    if (key == "cutId" && bookForm[key] == value) {
+      setBookForm({ ...bookForm, [key]: undefined });
+    } else {
+      setBookForm({ ...bookForm, [key]: value });
+    }
   };
 
-  if (step == 0) {
-    formContent = (
-      <React.Fragment>
-        <ServiceSelect {...formProps} />
-      </React.Fragment>
-    );
-  } else if (step == 1) {
-    formContent = (
-      <React.Fragment>
-        <CutSelect {...formProps} handleSelectedCut={handleSelectedCut} />
-      </React.Fragment>
-    );
-  } else if (step == 2) {
-    formContent = (
-      <React.Fragment>
-        <ReviewSubmit
-          {...formProps}
-          selectedCut={selectedCut}
-          currentUser={currentUser}
-        />
-      </React.Fragment>
-    );
+  // handle setting clientId in bookForm of type NewBooking
+
+  useEffect(() => {
+    setBookForm({ ...bookForm, clientId: currentUser?.id });
+  }, [currentUser]);
+
+  useEffect(() => {
+    console.log(bookForm);
+  }, [bookForm]);
+
+  let bookFormProps = {
+    bookForm: bookForm,
+    handleSetBookForm: handleSetBookForm,
+  };
+
+  // handle button
+  let buttonDisable: boolean = true;
+  let buttonClass: string = "bookform-container__button";
+
+  if (
+    bookForm.category == undefined ||
+    (bookForm.clientId == undefined && bookForm.fbClientId == undefined) ||
+    bookForm.cutId == undefined
+  ) {
+    buttonDisable = true;
+    buttonClass = "bookform-container__button disabled";
+  } else {
+    buttonDisable = false;
+    buttonClass = "bookform-container__button";
   }
 
-  if (form.category != null) {
-    stepClass1 = "bookform-container__dot filled";
-  } else {
-    stepClass1 = "bookform-container__dot";
-  }
-
-  if (form.cutId != null) {
-    console.log("form.cuttt");
-    stepClass2 = "bookform-container__dot filled";
-  } else {
-    stepClass2 = "bookform-container__dot";
-  }
+  // handle appointment booking
 
   const handleBookAppointment = (event: any) => {
     event.preventDefault();
-    boundBookAppointment(form, currentUser);
+    console.log("handle booking");
+    if (currentUser != undefined) {
+      bookAppointmentService(bookForm, currentUser)
+        .then((res) => {
+          setBookStatus({ ...bookStatus, success: true });
+        })
+        .catch((e) => {
+          console.log(e.data);
+          setBookStatus({
+            ...bookStatus,
+            success: false,
+            error: e.data,
+          });
+        });
+    }
   };
 
-  if (form) {
-    console.log(form);
-  }
+  // handle success message
+  // the bookError starts empty
+  // when we submit and theres an error its not empty
+  // when we submit with no error it clears and its empty
+  // boolean to know when we submit and therest no error
+  // we can create state with bookSuccess boolean\ which starts at false
+  // on unmount it clears it
 
-  useEffect(() => {
-    return function cleanup() {
-      boundUnsetSuccessMessage();
-    };
-  }, []);
-
-  if (!isEmpty(bookSuccess)) {
-    return <Redirect to="/profile" />;
+  if (bookStatus.success){
+    return <Redirect to='/profile'/>
   }
 
   return (
@@ -147,48 +144,34 @@ const BookFormContainer: React.FC<Props> = ({
           onSubmit={handleBookAppointment}
           className="bookform-container__form"
         >
-          {formContent}
+          <ServiceSelect {...bookFormProps} />
+          <CutSelect handleSelectedCut={handleSelectedCut} {...bookFormProps} />
+          <ReviewSubmit selectedCut={selectedCut} {...bookFormProps} />
+          <div className="bookform-container__submit-container">
+            <button
+              disabled={buttonDisable}
+              type="submit"
+              className={buttonClass}
+            >
+              Book
+            </button>
+          </div>
+          <div>
+            {bookStatus.error != undefined &&
+            bookStatus.error.message != undefined &&
+            bookStatus.success != undefined
+              ? bookStatus.error.message
+              : bookStatus.error != undefined &&
+                bookStatus.error.message == undefined &&
+                bookStatus.success != undefined
+              ? "booking error"
+              : ""}
+          </div>
         </form>
       </div>
-
-      <div className="bookform-container__pselect">
-        <span className={stepClass1} onClick={() => setStep(0)}></span>
-        <span className={stepClass2} onClick={() => setStep(1)}></span>
-        <span className={stepClass3} onClick={() => setStep(2)}></span>
-      </div>
+      <div className="bookform-container__pselect"></div>
     </div>
   );
 };
 
-interface LinkStateProps {
-  user: User[];
-  fbUser: FBUser[];
-  bookSuccess: Book;
-}
-
-interface LinkDispatchToProps {
-  boundBookAppointment: (book: Book, user: User) => void;
-  boundUnsetSuccessMessage: () => void;
-}
-
-const mapStateToProps = (
-  state: AppState,
-  ownProps: BookFormContainerProps
-): LinkStateProps => ({
-  user: state.user,
-  fbUser: state.fbUser,
-  bookSuccess: state.bookSuccess,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: BookFormContainerProps
-): LinkDispatchToProps => ({
-  boundBookAppointment: bindActionCreators(boundBookAppointment, dispatch),
-  boundUnsetSuccessMessage: bindActionCreators(
-    boundUnsetSuccessMessage,
-    dispatch
-  ),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(BookFormContainer);
+export default BookFormContainer;

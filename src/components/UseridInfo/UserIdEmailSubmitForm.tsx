@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { ThunkDispatch } from "redux-thunk";
 import { AppState } from "../../store";
-import { AppActions } from "../../store/types";
+// import { AppActions } from "../../store/types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { boundSendUserInfoRequest } from "../../store/actions/UserIdInfoActions"
+// import { boundSendUserInfoRequest } from "../../store/actions/UserIdInfoActions"
 import { UserIdInfoRequestResponse } from "../../store/types/UserIdInfo";
 import { IError } from "../../store/types/Error";
 import { validateEmail } from "../../utils/Functions";
@@ -15,14 +15,12 @@ interface UserIdEmailSubmitFormProps {}
 interface UserIdEmailSubmitFormState {}
 
 type Props = UserIdEmailSubmitFormProps &
-  UserIdEmailSubmitFormState &
-  LinkDispatchToProps &
-  LinkStateProps;
+  UserIdEmailSubmitFormState;
 
 const UserIdEmailSubmitForm: React.FC<Props> = ({
-  userIdInfoRequestError,
-  userIdInfoRequestResponse,
-  boundSendUserInfoRequest
+  // userIdInfoRequestError,
+  // userIdInfoRequestResponse,
+  // boundSendUserInfoRequest
 }: Props) => {
   let buttonDisabled: boolean = true;
   let buttonClass: string = "";
@@ -48,30 +46,32 @@ const UserIdEmailSubmitForm: React.FC<Props> = ({
     console.log(emailForm);
   };
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    // boundSendReq
-    boundSendUserInfoRequest(emailForm.email);
-  };
+  // const handleSubmit = (event: any) => {
+  //   event.preventDefault();
+  //   // boundSendReq
+  //   boundSendUserInfoRequest(emailForm.email);
+  // };
 
-  if (userIdInfoRequestError.message) {
-    console.log(userIdInfoRequestError);
-    errorMessage = userIdInfoRequestError.message;
-  } else {
-    errorMessage = "";
-  }
+  // if (userIdInfoRequestError.message) {
+  //   console.log(userIdInfoRequestError);
+  //   errorMessage = userIdInfoRequestError.message;
+  // } else {
+  //   errorMessage = "";
+  // }
 
-  if (userIdInfoRequestResponse.message) {
-    successMessage = userIdInfoRequestResponse.message;
-  } else {
-    successMessage = "";
-  }
+  // if (userIdInfoRequestResponse.message) {
+  //   successMessage = userIdInfoRequestResponse.message;
+  // } else {
+  //   successMessage = "";
+  // }
 
   return (
     <div className="useridemailsubmitform-container"> 
           <h2 style={{"color": "white"}}>User lookup</h2>
 
-      <form onSubmit={handleSubmit} className="useridemailsubmitformform-container">
+      <form 
+      // onSubmit={handleSubmit} 
+      className="useridemailsubmitformform-container">
         <div className="useridemailsubmitformform-container__textbox">
           <input
             type="text"
@@ -88,30 +88,30 @@ const UserIdEmailSubmitForm: React.FC<Props> = ({
   );
 };
 
-interface LinkStateProps {
-  userIdInfoRequestResponse: UserIdInfoRequestResponse,
-  userIdInfoRequestError: IError
-}
+// interface LinkStateProps {
+//   userIdInfoRequestResponse: UserIdInfoRequestResponse,
+//   userIdInfoRequestError: IError
+// }
 
-interface LinkDispatchToProps {
-  boundSendUserInfoRequest: (email: string) => void;
-}
+// interface LinkDispatchToProps {
+//   boundSendUserInfoRequest: (email: string) => void;
+// }
 
-const mapStateToProps = (
-  state: AppState,
-  ownProps: UserIdEmailSubmitFormProps
-): LinkStateProps => ({
-  userIdInfoRequestResponse: state.userIdInfoRequestResponse,
-  userIdInfoRequestError: state.userIdInfoRequestError
-})
+// const mapStateToProps = (
+//   state: AppState,
+//   ownProps: UserIdEmailSubmitFormProps
+// ): LinkStateProps => ({
+//   userIdInfoRequestResponse: state.userIdInfoRequestResponse,
+//   userIdInfoRequestError: state.userIdInfoRequestError
+// })
 
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: UserIdEmailSubmitFormProps
-): LinkDispatchToProps => ({
-  boundSendUserInfoRequest: bindActionCreators(
-    boundSendUserInfoRequest, dispatch
-  )
-})
+// const mapDispatchToProps = (
+//   dispatch: ThunkDispatch<any, any, AppActions>,
+//   ownProps: UserIdEmailSubmitFormProps
+// ): LinkDispatchToProps => ({
+//   boundSendUserInfoRequest: bindActionCreators(
+//     boundSendUserInfoRequest, dispatch
+//   )
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserIdEmailSubmitForm);
+export default UserIdEmailSubmitForm;

@@ -1,40 +1,51 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import "./Login.scss";
-import { User, LoginCredentials } from "../../store/types/User";
-import { IError } from "../../store/types/Error";
-import { ThunkDispatch } from "redux-thunk";
-import { AppActions } from "../../store/types";
-import { boundLoginUser } from "../../store/actions/UserActions";
-import { bindActionCreators } from "redux";
-import { AppState } from "../../store";
-import { Redirect, Route, RouteProps } from "react-router";
-import FacebookLogin from "../Login/FacebookLogin";
-import { isEmpty } from "../../utils/Functions";
+import React, { useState, useEffect, useContext } from "react";
+import { useSelector } from "react-redux";
+import { getAuth } from "../../store/selectors/index";
+import { useAppDispatch } from "../../store";
+import { login, loginSuccess, loginError } from "../../store/slices/authSlice";
+import { authenticateUserService } from "../../store/services/UserService";
+// import { MessageContext } from "../../store/contexts/testContext";
 
-interface LoginProps {
-  user?: User[];
-}
+import "./Login.scss";
+import { User, LoginCredentials } from "../../store/types/Auth";
+import { IError } from "../../store/types/Error";
+import { Redirect } from "react-router";
+import FacebookLogin from "../Login/FacebookLogin";
+
+interface LoginProps {}
 
 interface LoginState {}
 
-type Props = LoginProps & LinkDispatchToProps & LinkStateProps & LoginState;
+type Props = LoginProps & LoginState;
 
-const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
+const Login: React.FC<Props> = () => {
+  // const { exampleValue, setExampleValue } = useContext(MessageContext);
+
+  // ===========================================================================
+  // Selectors
+  // ===========================================================================
+
+  const {
+    // currentUser,
+    isAuthenticated,
+    // error,
+    // loading
+  } = useSelector(getAuth);
+
+  // ===========================================================================
+  // Dispatch
+  // ===========================================================================
+
+  const dispatch = useAppDispatch();
+
+  const _login = () => dispatch(login());
+  const _loginSuccess = (payload: User) => dispatch(loginSuccess(payload));
+  const _loginError = (payload: IError) => dispatch(loginError(payload));
+
   let buttonDisabled: boolean = true;
-  let loginError: boolean;
   let errorMessage: string = "";
 
-  // console.log(authError)
-
-  if (!isEmpty(authError)) {
-    console.log("bad credentials")
-    errorMessage = "Invalid username and/or password";
-  } else {
-    errorMessage = "";
-  }
-
-  const [value, setValue] = useState({
+  const [value, setValue] = useState<LoginCredentials>({
     username: "",
     password: "",
   });
@@ -45,14 +56,24 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
 
   const handleLogin = (event: any) => {
     event.preventDefault();
-    boundLoginUser(value);
+    _login();
+    authenticateUserService(value)
+      .then((res) => {
+        console.log(res);
+        _loginSuccess(res);
+        // setExampleValue("example value from login")
+      })
+      .catch((err) => {
+        console.log(err);
+        _loginError(err);
+      });
   };
 
   if (value.username.length > 1 && value.password.length > 1) {
     buttonDisabled = false;
   }
 
-  if (user.length > 0) {
+  if (isAuthenticated) {
     return (
       <React.Fragment>
         <Redirect to="/services" />
@@ -108,32 +129,9 @@ const Login: React.FC<Props> = ({ user, boundLoginUser, authError }: Props) => {
           <FacebookLogin />
         </p>
       </form>
+      {/* <button onClick={() => handleGetAllCuts()}>get all cuts</button> */}
     </div>
   );
 };
 
-interface LinkStateProps {
-  user: User[];
-  authError: IError[];
-}
-
-interface LinkDispatchToProps {
-  boundLoginUser: (value: LoginCredentials) => void;
-}
-
-const mapStateToProps = (
-  state: AppState,
-  ownProps: LoginProps
-): LinkStateProps => ({
-  user: state.user,
-  authError: state.authError,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: LoginProps
-): LinkDispatchToProps => ({
-  boundLoginUser: bindActionCreators(boundLoginUser, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;
