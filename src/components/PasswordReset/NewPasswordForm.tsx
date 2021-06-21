@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { ThunkDispatch } from "redux-thunk";
 import { AppState } from "../../store";
-import { AppActions } from "../../store/types";
-import { boundSubmitNewPassword } from "../../store/actions/UserActions"
+// import { AppActions } from "../../store/types";
+// import { boundSubmitNewPassword } from "../../store/actions/UserActions"
 import { connect } from "react-redux";
 import "./NewPasswordForm.scss";
 import { IError } from "../../store/types/Error";
 import { bindActionCreators } from "redux";
 import { useParams } from "react-router-dom";
-import { PasswordRequest, PasswordResetResponse } from "../../store/types/UserPasswordReset";
-
+import {
+  PasswordRequest,
+  PasswordResetResponse,
+} from "../../store/types/UserPasswordReset";
 
 interface ParamTypes {
   token: string;
@@ -18,59 +20,62 @@ interface NewPasswordFormProps {}
 
 interface NewPasswordFormState {}
 
-type Props = NewPasswordFormProps & NewPasswordFormState & LinkDispatchToProps & LinkStateProps;
-const NewPasswordForm: React.FC<Props> = ({  passwordResetResponse ,passwordResetError ,boundSubmitNewPassword }: Props) => {
+type Props = NewPasswordFormProps & NewPasswordFormState;
+const NewPasswordForm: React.FC<Props> = ({
+  // passwordResetResponse,
+  // passwordResetError,
+  // boundSubmitNewPassword,
+}: Props) => {
   let { token } = useParams<ParamTypes>();
   let successMessage: string = "";
   let errorMessage: string = "";
 
   const [confirmPassword, setConfirmPassword] = useState({
-    password: ""
+    password: "",
   });
 
   const [newPasswordForm, setNewPasswordForm] = useState<PasswordRequest>({
     password: "",
-    token: ""
+    token: "",
   });
 
   const handleChange = (input: string) => (event: any) => {
-    setNewPasswordForm({...newPasswordForm, [input]: event.target.value});
-  }
+    setNewPasswordForm({ ...newPasswordForm, [input]: event.target.value });
+  };
 
   const handleConfirmPassword = (input: string) => (event: any) => {
-    setConfirmPassword({...confirmPassword, [input]: event.target.value})
-  }
+    setConfirmPassword({ ...confirmPassword, [input]: event.target.value });
+  };
 
   React.useEffect(() => {
-    if (token){
-      setNewPasswordForm({...newPasswordForm, token: token})
+    if (token) {
+      setNewPasswordForm({ ...newPasswordForm, token: token });
     }
-
   }, []);
 
-  if (newPasswordForm) console.log(newPasswordForm)
+  if (newPasswordForm) console.log(newPasswordForm);
 
   let buttonDisabled: boolean = true;
   let buttonClass: string = "newpasswordform-container__sbtn";
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    boundSubmitNewPassword(newPasswordForm);
-  }
+    // boundSubmitNewPassword(newPasswordForm);
+  };
 
-  if (confirmPassword.password == newPasswordForm.password){
+  if (confirmPassword.password == newPasswordForm.password) {
     buttonDisabled = false;
   } else {
     buttonDisabled = true;
   }
 
-  if (passwordResetError.message){
-    errorMessage = passwordResetError.message
-  }
+  // if (passwordResetError.message) {
+  //   errorMessage = passwordResetError.message;
+  // }
 
-  if (passwordResetResponse.message){
-    successMessage = passwordResetResponse.message
-  }
+  // if (passwordResetResponse.message) {
+  //   successMessage = passwordResetResponse.message;
+  // }
 
   // if (!isEmpty(passwordResetResponse)) {
   //   return <Redirect to="/login" />;
@@ -95,11 +100,7 @@ const NewPasswordForm: React.FC<Props> = ({  passwordResetResponse ,passwordRese
             onChange={handleConfirmPassword("password")}
           />
         </div>
-        <button
-          disabled={buttonDisabled}
-          type="submit"
-          className={buttonClass}
-        >
+        <button disabled={buttonDisabled} type="submit" className={buttonClass}>
           Update password
         </button>
         <div>{errorMessage}</div>
@@ -109,31 +110,30 @@ const NewPasswordForm: React.FC<Props> = ({  passwordResetResponse ,passwordRese
   );
 };
 
-interface LinkStateProps {
-  passwordResetResponse: PasswordResetResponse,
-  passwordResetError: IError
-}
+// interface LinkStateProps {
+//   passwordResetResponse: PasswordResetResponse,
+//   passwordResetError: IError
+// }
 
-interface LinkDispatchToProps {
-  boundSubmitNewPassword: (request: PasswordRequest) => void;
-}
+// interface LinkDispatchToProps {
+//   boundSubmitNewPassword: (request: PasswordRequest) => void;
+// }
 
-const mapStateToProps = (
-  state: AppState,
-  ownProps: NewPasswordFormProps
-):LinkStateProps => ({
-  passwordResetResponse: state.passwordResetResponse,
-  passwordResetError: state.passwordResetError
-})
+// const mapStateToProps = (
+//   state: AppState,
+//   ownProps: NewPasswordFormProps
+// ):LinkStateProps => ({
+//   passwordResetResponse: state.passwordResetResponse,
+//   passwordResetError: state.passwordResetError
+// })
 
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: NewPasswordFormProps
-): LinkDispatchToProps => ({
-  boundSubmitNewPassword: bindActionCreators(boundSubmitNewPassword, dispatch)
-})
+// const mapDispatchToProps = (
+//   dispatch: ThunkDispatch<any, any, AppActions>,
+//   ownProps: NewPasswordFormProps
+// ): LinkDispatchToProps => ({
+//   boundSubmitNewPassword: bindActionCreators(boundSubmitNewPassword, dispatch)
+// })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewPasswordForm);
+export default connect()(NewPasswordForm);
+// mapStateToProps,
+// mapDispatchToProps

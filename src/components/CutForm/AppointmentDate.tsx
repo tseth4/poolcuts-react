@@ -15,9 +15,7 @@ interface AppointmentDateState {}
 
 type Props = AppointmentDateProps & AppointmentDateState;
 
-const AppointmentDate: React.FC<Props> = ({
-  handleDateChange,
-}: Props) => {
+const AppointmentDate: React.FC<Props> = ({ handleDateChange }: Props) => {
   let buttonDisabled = true;
   let buttonClass = "";
 
@@ -28,13 +26,22 @@ const AppointmentDate: React.FC<Props> = ({
 
   const handleChange = (input: string, value: string) => {
     setVal({ ...val, [input]: value });
+    console.log(val);
   };
 
-  const handleClick = () => (event: MouseEvent) => {
-    event.preventDefault();
-    let dateISOString = new Date(val.date + "T" + val.time).toISOString();
-    handleDateChange("appointmentDate", dateISOString);
-  };
+  // const handleClick = () => (event: MouseEvent) => {
+  //   event.preventDefault();
+  //   let dateISOString = new Date(val.date + "T" + val.time).toISOString();
+  //   handleDateChange("appointmentDate", dateISOString);
+  // };
+
+  // if the val is in correct format -> handleDateChange
+  React.useEffect(() => {
+    if (val.time.length > 0 && val.date.length > 0) {
+      let dateISOString = new Date(val.date + "T" + val.time).toISOString();
+      handleDateChange("appointmentDate", dateISOString);
+    }
+  }, [val]);
 
   if (val.date.length > 1) {
     if (val.time.length > 1) {
@@ -65,13 +72,13 @@ const AppointmentDate: React.FC<Props> = ({
         onChange={(ev) => handleChange("time", ev.target.value)}
         required
       />
-      <button
+      {/* <button
         className={buttonClass}
         disabled={buttonDisabled}
         onClick={handleClick()}
       >
         +
-      </button>
+      </button> */}
     </div>
   );
 };

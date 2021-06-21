@@ -1,37 +1,25 @@
 import React from "react";
 import "./Nav.scss";
-import { User } from "../../store/types/User";
+import { User } from "../../store/types/Auth";
 import { FBUserAuthResponse } from "../../store/types/FBUser";
 
 interface NavProps {
+  currentUser: User | undefined;
   handleLogoutButton: () => void;
-  user: User[];
-  fbUser: FBUserAuthResponse[];
 }
 
 type Props = NavProps;
 
 export const Nav: React.FC<Props> = ({
   handleLogoutButton,
-  user,
-  fbUser,
+  currentUser,
 }: Props) => {
   let activeUser: any;
   let signUpButton: any;
   let userType: string = "";
   let profileView: any;
 
-  // const [userType, setUserType] = useState <string> ();
-  if (fbUser.length > 0) {
-    userType = fbUser[0].roles;
-  } else if (user.length > 0) {
-    userType = user[0].roles;
-  }
-
-  if (
-    (user.length > 0 && user[0].roles != undefined) ||
-    (fbUser.length > 0 && fbUser[0] != undefined)
-  ) {
+  if (currentUser != undefined) {
     activeUser = (
       <li>
         <a onClick={() => handleLogoutButton()}>Logout</a>
@@ -80,16 +68,16 @@ export const Nav: React.FC<Props> = ({
         <span className="navicon"></span>
       </label>
       <ul className="menu">
-        <li>
+        {/* <li>
           <a href="/blog">Blog</a>
-        </li>
+        </li> */}
         {profileView}
         <li>
           <a href="/services">Services</a>
         </li>
-        <li>
+        {/* <li>
           <a href="/about">About</a>
-        </li>
+        </li> */}
         <li>
           <a href="/contact">Contact</a>
         </li>

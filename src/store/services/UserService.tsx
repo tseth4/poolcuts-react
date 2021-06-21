@@ -1,27 +1,15 @@
 import request from "../request";
-import { LoginCredentials, User} from "../types/User";
+import { LoginCredentials, User} from "../types/Auth";
 import { FBUser } from "../types/FBUser";
 import { UserIdInfoWithTokenRequest } from "../types/UserIdInfo";
 import { SignUpCredentials } from "../types/UserSignUp";
 import { PasswordRequest } from "../types/UserPasswordReset";
 
 export const authenticateUserService = (data: LoginCredentials) => {
+  console.log(data);
   return request({
     url: "authenticate",
     method: "POST",
-    data,
-  });
-};
-
-export const authenticateFBUserService = (data: FBUser) => {
-  let headers: any;
-  headers = {
-    Authorization: `Token ` + `${data.accessToken}`,
-  };
-  return request({
-    url: "authenticate/facebook/user",
-    method: "POST",
-    headers,
     data,
   });
 };

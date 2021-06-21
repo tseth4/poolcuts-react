@@ -1,6 +1,6 @@
 import React from "react";
 import { Cut } from "../../../store/types/Cut";
-import { Client, fbClient } from "../../../store/types/User";
+import { Client, fbClient } from "../../../store/types/Auth";
 import "./Book.scss";
 
 interface BookProps {
@@ -8,7 +8,6 @@ interface BookProps {
   category?: string;
   cut?: Cut;
   client?: Client;
-  fbClient?: fbClient;
   handleSetSelectedBooks: (id: number) => void;
   selectedBooksArr: number[];
 }
@@ -20,7 +19,6 @@ export const BookComponent: React.FC<Props> = ({
   category,
   bookId,
   client,
-  fbClient,
   selectedBooksArr,
   handleSetSelectedBooks,
 }: Props) => {
@@ -46,18 +44,14 @@ export const BookComponent: React.FC<Props> = ({
   if (cut) {
     if (cut.barberId != null) {
       barberDetails = cut.barberId.firstName + " " + cut.barberId.lastName;
-    } else if (cut.fbBarberId != null) {
-      barberDetails = cut.fbBarberId.firstName + " " + cut.fbBarberId.lastName;
-    }
+    } 
     if (cut.appointmentDate != null) {
       dateObj = new Date(cut.appointmentDate);
       date = dateObj.toDateString();
     }
     if (client != null) {
       clientDetails = client.firstName + " " + client.lastName;
-    } else if (fbClient != null) {
-      clientDetails = fbClient.firstName + " " + fbClient.lastName;
-    }
+    } 
     if (cut.location != null) {
       location = cut.location;
     }

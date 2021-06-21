@@ -1,19 +1,9 @@
-import { CutActionTypes } from "./Cut";
-import { UserActionTypes } from "./User";
-// import { ErrorActionTypes } from './Error';
-import { FBUserActionTypes } from "./FBUser";
-import { BookActionTypes } from "./Book";
-import { UserIdInfoActionTypes } from "./UserIdInfo";
-import { UserPasswordResetActionTypes } from "./UserPasswordReset";
-import { UserSignUpActionTypes } from "./UserSignUp";
-import { SplashPageTypes } from "./SplashPageTypes";
+import { AuthState } from "./Auth";
+import { BookState } from "./Book";
+import { CutState } from "./Cut";
 
-export type AppActions =
-  | CutActionTypes
-  | UserActionTypes
-  | FBUserActionTypes
-  | BookActionTypes
-  | UserIdInfoActionTypes
-  | UserPasswordResetActionTypes
-  | UserSignUpActionTypes
-  | SplashPageTypes;
+export interface RootState {
+  bookState: BookState;
+  cutState: CutState;
+  authState: AuthState
+}

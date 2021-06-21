@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { AppState } from "../../store";
-import { boundRegisterUser } from "../../store/actions/UserActions";
-import { AppActions } from "../../store/types";
+// import { boundRegisterUser } from "../../store/actions/UserActions";
+// import { AppActions } from "../../store/types";
 import { IError } from "../../store/types/Error";
 import { isEmpty, validateEmail } from "../../utils/Functions";
 import { Redirect } from "react-router";
@@ -16,13 +16,14 @@ interface SignUpProps {}
 
 interface SignUpState {}
 
-type Props = SignUpProps & SignUpState & LinkDispatchToProps & LinkStateProps;
+type Props = SignUpProps & SignUpState; 
+// & LinkDispatchToProps & LinkStateProps;
 
 //first name, last name, username, password, email, active
 const SignUp: React.FC<Props> = ({
-  signUpError,
-  boundRegisterUser,
-  signUpUserResponse,
+  // signUpError,
+  // boundRegisterUser,
+  // signUpUserResponse,
 }: Props) => {
   let buttonDisabled: boolean = true;
   let emailErrorMessage: string = "";
@@ -43,15 +44,15 @@ const SignUp: React.FC<Props> = ({
     email: "",
   });
 
-  useEffect(() => {
-    console.log(buttonDisabled);
-    console.log(signUpError);
-    console.log(signUpUserResponse);
-  });
+  // useEffect(() => {
+  //   console.log(buttonDisabled);
+  //   console.log(signUpError);
+  //   console.log(signUpUserResponse);
+  // });
 
-  if (signUpError.message) {
-    signUpErrorMessage = signUpError.message;
-  }
+  // if (signUpError.message) {
+  //   signUpErrorMessage = signUpError.message;
+  // }
 
   const handleInputChange = (input: string) => (event: any) => {
     setValue({ ...value, [input]: event.target.value });
@@ -61,11 +62,11 @@ const SignUp: React.FC<Props> = ({
     setConfirmPass(event.target.value);
   };
 
-  const handleSignUp = (event: any) => {
-    event.preventDefault();
-    console.log("hello");
-    boundRegisterUser(value);
-  };
+  // const handleSignUp = (event: any) => {
+  //   event.preventDefault();
+  //   console.log("hello");
+  //   boundRegisterUser(value);
+  // };
 
   if (
     value.userName.length > 1 &&
@@ -103,14 +104,16 @@ const SignUp: React.FC<Props> = ({
     passLengthError = "";
   }
 
-  if (!isEmpty(signUpUserResponse)) {
-    return <Redirect to={`signup/${signUpUserResponse.email}`} />;
-  }
+  // if (!isEmpty(signUpUserResponse)) {
+  //   return <Redirect to={`signup/${signUpUserResponse.email}`} />;
+  // }
 
   return (
     <div className="signup-container">
       <h1 style={{ color: "white" }}>Sign up</h1>
-      <form onSubmit={handleSignUp} className="signupform-container">
+      <form 
+      // onSubmit={handleSignUp} 
+      className="signupform-container">
         <div className="signupform-container__textbox">
           <input
             type="text"
@@ -174,28 +177,28 @@ const SignUp: React.FC<Props> = ({
   );
 };
 
-interface LinkStateProps {
-  signUpUserResponse: SignUpResponse;
-  signUpError: IError;
-}
+// interface LinkStateProps {
+//   signUpUserResponse: SignUpResponse;
+//   signUpError: IError;
+// }
 
-interface LinkDispatchToProps {
-  boundRegisterUser: (value: SignUpCredentials) => void;
-}
+// interface LinkDispatchToProps {
+//   boundRegisterUser: (value: SignUpCredentials) => void;
+// }
 
-const mapStateToProps = (
-  state: AppState,
-  ownProps: SignUpProps
-): LinkStateProps => ({
-  signUpUserResponse: state.signUpUserResponse,
-  signUpError: state.signUpError,
-});
+// const mapStateToProps = (
+//   state: AppState,
+//   ownProps: SignUpProps
+// ): LinkStateProps => ({
+//   signUpUserResponse: state.signUpUserResponse,
+//   signUpError: state.signUpError,
+// });
 
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: SignUpProps
-): LinkDispatchToProps => ({
-  boundRegisterUser: bindActionCreators(boundRegisterUser, dispatch),
-});
+// const mapDispatchToProps = (
+//   dispatch: ThunkDispatch<any, any, AppActions>,
+//   ownProps: SignUpProps
+// ): LinkDispatchToProps => ({
+//   boundRegisterUser: bindActionCreators(boundRegisterUser, dispatch),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default (SignUp);

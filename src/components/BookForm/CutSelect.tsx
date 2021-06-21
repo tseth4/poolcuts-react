@@ -1,60 +1,62 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { boundGetAllCuts } from "../../store/actions/CutActions";
-import { Cut } from "../../store/types/Cut";
-import { AppState } from "../../store";
-import { ThunkDispatch } from "redux-thunk";
-import { AppActions } from "../../store/types";
-import { bindActionCreators } from "redux";
-import { User } from "../../store/types/User";
+import { setOpenCuts, cutError } from "../../store/slices/cutSlice";
+import { logout, logoutSuccess } from "../../store/slices/authSlice";
 import { CutComponent } from "./Cut";
+import { useAppDispatch } from "../../store";
+import { useSelector } from "react-redux";
+import { Cut } from "../../store/types/Cut";
 import "./CutSelect.scss";
-import { Book, NewBooking } from "../../store/types/Book";
-import { FBUser, FBUserAuthResponse } from "../../store/types/FBUser";
+import { NewBooking } from "../../store/types/Book";
+import { getAuth, getCuts } from "../../store/selectors/index";
+import { getAllOpenCutsService } from "../../store/services/CutService";
+import { IError } from "../../store/types/Error";
 
 interface CutSelectProps {
-  cuts?: Cut[];
-  handleSetForm: (key: string, value: string) => void;
-  handleStep: () => void;
-  form: NewBooking;
+  bookForm: NewBooking;
+  handleSetBookForm: (key: string, value: any) => void;
   handleSelectedCut: (cut: Cut) => void;
 }
 
 interface CutSelectState {}
 
-type Props = CutSelectProps &
-  LinkDispatchToProps &
-  LinkStateProps &
-  CutSelectState;
+type Props = CutSelectProps & CutSelectState;
 
 const CutSelect: React.FC<Props> = ({
-  cuts,
-  boundGetAllCuts,
-  user,
-  fbUser,
-  handleSetForm,
-  handleStep,
-  form,
+  bookForm,
+  handleSetBookForm,
   handleSelectedCut,
 }: Props) => {
-  let cutsRender;
+  const dispatch = useAppDispatch();
+
+  const _setOpenCuts = (payload: Cut[]) => dispatch(setOpenCuts(payload));
+  const _cutError = (payload: IError) => dispatch(cutError(payload));
+  const _logoutSuccess = () => dispatch(logoutSuccess());
+
+  // ===========================================================================
+  // Selectors
+  // ===========================================================================
+  const { currentUser } = useSelector(getAuth);
+  const { cuts } = useSelector(getCuts);
 
   useEffect(() => {
-    if (user.length > 0 && user != null) {
-      boundGetAllCuts(user[0]);
-    } else if (fbUser.length > 0 && fbUser != null) {
-      boundGetAllCuts(fbUser[0]);
+    if (currentUser) {
+      getAllOpenCutsService()
+        .then((res) => {
+          console.log(res);
+          _setOpenCuts(res);
+        })
+        .catch((e) => {
+          _cutError(e.data);
+          _logoutSuccess();
+          console.log(e.data);
+        });
     }
   }, []);
 
-  console.log(cuts);
-
   return (
     <React.Fragment>
-
       <div className="cutselect-container">
-      <h5 className="cutselect-container__header">Select open appointment</h5>
-
+        <h5 className="cutselect-container__header">Select open appointment</h5>
         <div className="cutselect-table">
           <div className="cutselect-table__row">
             <div className="cutselect-table__head">Date</div>
@@ -62,68 +64,33 @@ const CutSelect: React.FC<Props> = ({
             <div className="cutselect-table__head">Barber</div>
             <div className="cutselect-table__head">Location</div>
           </div>
-            {cuts
-              .sort(
-                (a: any, b: any) =>
-                  +new Date(a.appointmentDate) - +new Date(b.appointmentDate)
+          {cuts
+            .slice()
+            .sort(
+              (a: any, b: any) =>
+                +new Date(a.appointmentDate) - +new Date(b.appointmentDate)
+            )
+            .map(
+              ({ cutId, appointmentDate, barberId, location }) => (
+                <CutComponent
+                  bookForm={bookForm}
+                  handleSetBookForm={handleSetBookForm}
+                  key={cutId}
+                  cutId={cutId}
+                  appointmentDate={appointmentDate}
+                  barberId={barberId}
+                  location={location}
+                  handleSelectedCut={handleSelectedCut}
+                />
               )
-              .map(
-                ({
-                  cutId,
-                  appointmentDate,
-                  barberId,
-                  location,
-                  fbBarberId,
-                }) => (
-                  <CutComponent
-                    form={form}
-                    handleStep={handleStep}
-                    handleSetForm={handleSetForm}
-                    key={cutId}
-                    cutId={cutId}
-                    appointmentDate={appointmentDate}
-                    barberId={barberId}
-                    fbBarberId={fbBarberId}
-                    location={location}
-                    handleSelectedCut={handleSelectedCut}
-                  />
-                )
-              )}
+            )}
         </div>
       </div>
     </React.Fragment>
   );
 };
 
-//specifies return value of mapStateToProps
-interface LinkStateProps {
-  cuts: Cut[];
-  user: User[];
-  fbUser: FBUserAuthResponse[];
-}
-
-//specifies return value of mapDispatchToProps
-interface LinkDispatchToProps {
-  boundGetAllCuts: (user: User | FBUser) => void;
-}
-
-const mapStateToProps = (
-  state: AppState,
-  ownProps: CutSelectProps
-): LinkStateProps => ({
-  cuts: state.cut,
-  user: state.user,
-  fbUser: state.fbUser,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: CutSelectProps
-): LinkDispatchToProps => ({
-  boundGetAllCuts: bindActionCreators(boundGetAllCuts, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CutSelect);
+export default CutSelect;
 
 // cutId: c.cutId,
 // appointmentDate: c.appointmentDate,

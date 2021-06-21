@@ -1,12 +1,10 @@
 import axios from "axios";
 export const client = axios.create({
+  // baseURL: "http://ec2-3-80-112-126.compute-1.amazonaws.com:8080/"
   baseURL: ""
 });
 
-// client.defaults.headers.common['Authorization'] = 'AUTH TOKEN FROM INSTANCE';
-
 const request = (options: any) => {
-
   const onSuccess = (response: any) => {
     return response.data; 
   };

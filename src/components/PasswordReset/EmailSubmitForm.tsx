@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { ThunkDispatch } from "redux-thunk";
 import { AppState } from "../../store";
-import { AppActions } from "../../store/types";
+// import { AppActions } from "../../store/types";
 import { validateEmail } from "../../utils/Functions";
 import { connect } from "react-redux";
-import { boundSendPasswordResetRequest } from "../../store/actions/UserActions";
+// import { boundSendPasswordResetRequest } from "../../store/actions/UserActions";
 import "./EmailSubmitForm.scss";
 import { bindActionCreators } from "redux";
 // import { PasswordRequestResponse } from "../../store/types/User";
@@ -16,13 +16,11 @@ interface EmailSubmitFormProps {}
 interface EmailSubmitFormState {}
 
 type Props = EmailSubmitFormProps &
-  EmailSubmitFormState &
-  LinkDispatchToProps &
-  LinkStateProps;
+  EmailSubmitFormState;
 const EmailSubmitForm: React.FC<Props> = ({
-  passwordRequestResponse,
-  passwordRequestError,
-  boundSendPasswordResetRequest,
+  // passwordRequestResponse,
+  // passwordRequestError,
+  // boundSendPasswordResetRequest,
 }: Props) => {
   let buttonDisabled: boolean = true;
   let buttonClass: string = "";
@@ -60,21 +58,21 @@ const EmailSubmitForm: React.FC<Props> = ({
   const handleSubmit = (event: any) => {
     event.preventDefault();
     // boundSendReq
-    boundSendPasswordResetRequest(emailForm.email);
+    // boundSendPasswordResetRequest(emailForm.email);
   };
 
-  if (passwordRequestError.message) {
-    console.log(passwordRequestError);
-    errorMessage = passwordRequestError.message;
-  } else {
-    errorMessage = "";
-  }
+  // if (passwordRequestError.message) {
+  //   console.log(passwordRequestError);
+  //   errorMessage = passwordRequestError.message;
+  // } else {
+  //   errorMessage = "";
+  // }
 
-  if (passwordRequestResponse.message) {
-    successMessage = passwordRequestResponse.message;
-  } else {
-    successMessage = "";
-  }
+  // if (passwordRequestResponse.message) {
+  //   successMessage = passwordRequestResponse.message;
+  // } else {
+  //   successMessage = "";
+  // }
 
   return (
     <div className="emailsubmitform-container">
@@ -98,31 +96,31 @@ const EmailSubmitForm: React.FC<Props> = ({
   );
 };
 
-interface LinkStateProps {
-  passwordRequestResponse: PasswordRequestResponse;
-  passwordRequestError: IError;
-}
+// interface LinkStateProps {
+//   passwordRequestResponse: PasswordRequestResponse;
+//   passwordRequestError: IError;
+// }
 
-interface LinkDispatchToProps {
-  boundSendPasswordResetRequest: (email: string) => void;
-}
+// interface LinkDispatchToProps {
+//   boundSendPasswordResetRequest: (email: string) => void;
+// }
 
-const mapStateToProps = (
-  state: AppState,
-  ownProps: EmailSubmitFormProps
-): LinkStateProps => ({
-  passwordRequestResponse: state.passwordRequestResponse,
-  passwordRequestError: state.passwordRequestError,
-});
+// const mapStateToProps = (
+//   state: AppState,
+//   ownProps: EmailSubmitFormProps
+// ): LinkStateProps => ({
+//   passwordRequestResponse: state.passwordRequestResponse,
+//   passwordRequestError: state.passwordRequestError,
+// });
 
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: EmailSubmitFormProps
-): LinkDispatchToProps => ({
-  boundSendPasswordResetRequest: bindActionCreators(
-    boundSendPasswordResetRequest,
-    dispatch
-  ),
-});
+// const mapDispatchToProps = (
+//   dispatch: ThunkDispatch<any, any, AppActions>,
+//   ownProps: EmailSubmitFormProps
+// ): LinkDispatchToProps => ({
+//   boundSendPasswordResetRequest: bindActionCreators(
+//     boundSendPasswordResetRequest,
+//     dispatch
+//   ),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmailSubmitForm);
+export default (EmailSubmitForm);

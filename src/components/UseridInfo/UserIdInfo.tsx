@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ThunkDispatch } from "redux-thunk";
 import { AppState } from "../../store";
-import { AppActions } from "../../store/types";
+// import { AppActions } from "../../store/types";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { IError } from "../../store/types/Error";
@@ -10,7 +10,7 @@ import {
   UserIdInfoWithTokenRequest,
 } from "../../store/types/UserIdInfo";
 import { bindActionCreators } from "redux";
-import { boundGetUserIdInfo } from "../../store/actions/UserIdInfoActions";
+// import { boundGetUserIdInfo } from "../../store/actions/UserIdInfoActions";
 import "./UserIdInfo.scss"
 
 interface ParamTypes {
@@ -23,60 +23,35 @@ interface UserIdInfoProps {}
 interface UserIdInfoState {}
 
 type Props = UserIdInfoProps &
-  UserIdInfoState &
-  LinkDispatchToProps &
-  LinkStateProps;
+  UserIdInfoState;
 
 const UserIdInfo: React.FC<Props> = ({
-  boundGetUserIdInfo,
-  userIdInfoRequestWithTokenResponse,
-  userIdInfoRequestWithTokenError,
+  // boundGetUserIdInfo,
+  // userIdInfoRequestWithTokenResponse,
+  // userIdInfoRequestWithTokenError,
 }: Props) => {
-  let { token, email } = useParams<ParamTypes>();
-  let userId: string = "";
+  // let { token, email } = useParams<ParamTypes>();
+  // let userId: string = "";
 
-  useEffect(() => {
-    if (token != null && email != null) {
-      boundGetUserIdInfo({
-        email: email,
-        token: token,
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (token != null && email != null) {
+  //     boundGetUserIdInfo({
+  //       email: email,
+  //       token: token,
+  //     });
+  //   }
+  // }, []);
 
-  if (userIdInfoRequestWithTokenResponse.username != undefined) {
-    userId = userIdInfoRequestWithTokenResponse.username;
-  }
+  // if (userIdInfoRequestWithTokenResponse.username != undefined) {
+  //   userId = userIdInfoRequestWithTokenResponse.username;
+  // }
   return (
     <div className="useridinfo-container">
       <div className="useridinfo-container__text">You userId: </div>
-      <p className="useridinfo-container__text">{userId}</p>
+      {/* <p className="useridinfo-container__text">{userId}</p> */}
     </div>
   );
 };
 
-interface LinkStateProps {
-  userIdInfoRequestWithTokenResponse: UserIdInfoWithTokenRequestResponse;
-  userIdInfoRequestWithTokenError: IError;
-}
 
-interface LinkDispatchToProps {
-  boundGetUserIdInfo: (data: UserIdInfoWithTokenRequest) => void;
-}
-
-const mapStateToProps = (
-  state: AppState,
-  ownProps: UserIdInfoProps
-): LinkStateProps => ({
-  userIdInfoRequestWithTokenResponse: state.userIdInfoRequestWithTokenResponse,
-  userIdInfoRequestWithTokenError: state.userIdInfoRequestWithTokenError,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: UserIdInfoProps
-): LinkDispatchToProps => ({
-  boundGetUserIdInfo: bindActionCreators(boundGetUserIdInfo, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserIdInfo);
+export default (UserIdInfo);

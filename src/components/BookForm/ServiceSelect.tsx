@@ -1,30 +1,24 @@
 import React, { useState } from "react";
 import "./ServiceSelect.scss";
-import { Book } from "../../store/types/Book";
+import { Book, NewBooking } from "../../store/types/Book";
 
 interface Props {
-  handleSetForm: (key: string, value: any) => void;
-  handleStep: () => void;
-  form: Book;
+  handleSetBookForm: (key: string, value: string) => void;
+  bookForm: NewBooking;
 }
-export const ServiceSelect: React.FC<Props> = ({
-  form,
-  handleSetForm,
-  handleStep,
+const ServiceSelect: React.FC<Props> = ({
+  handleSetBookForm,
+  bookForm,
 }: Props) => {
-  const [check, setCheck] = useState(false);
+  // const [check, setCheck] = useState(false);
 
   const handleChange = (e: any) => {
-    console.log("hiii");
-    handleSetForm("category", e.target.name);
-    handleStep();
+    handleSetBookForm("category", e.target.name);
   };
   return (
     <React.Fragment>
-
       <div className="service-select">
-      <h3>Services</h3>
-
+        <h3>Services</h3>
         <div className="service-select__item">
           <div className="service-select__label">Haircut</div>
           <div className="service-select__details">
@@ -37,7 +31,7 @@ export const ServiceSelect: React.FC<Props> = ({
               onChange={handleChange}
               type="checkbox"
               name="haircut"
-              checked={form.category == "haircut"}
+              checked={bookForm.category == "haircut"}
             />
           </div>
         </div>
@@ -53,7 +47,7 @@ export const ServiceSelect: React.FC<Props> = ({
               onChange={handleChange}
               type="checkbox"
               name="kidscut"
-              checked={form.category == "kidscut"}
+              checked={bookForm.category == "kidscut"}
             />
           </div>
         </div>
@@ -69,7 +63,7 @@ export const ServiceSelect: React.FC<Props> = ({
               onChange={handleChange}
               type="checkbox"
               name="edgeup"
-              checked={form.category == "edgeup"}
+              checked={bookForm.category == "edgeup"}
             />
           </div>
         </div>
@@ -99,3 +93,5 @@ export const ServiceSelect: React.FC<Props> = ({
     </React.Fragment>
   );
 };
+
+export default ServiceSelect;

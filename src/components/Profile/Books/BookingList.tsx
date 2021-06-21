@@ -1,62 +1,62 @@
 import React, { useEffect, useState } from "react";
 import "./BookingList.scss";
-import {
-  boundGetBarberBookings,
-  boundGetFacebookBarberBookings,
-  boundCancelBookingsByIdArr,
-} from "../../../store/actions/BookActions";
-import { connect } from "react-redux";
-import { Book } from "../../../store/types/Book";
-import { User } from "../../../store/types/User";
-import { AppState } from "../../../store";
-import { ThunkDispatch } from "redux-thunk";
-import { bindActionCreators } from "redux";
-import { AppActions } from "../../../store/types";
-import { FBUserAuthResponse } from "../../../store/types/FBUser";
+import { User } from "../../../store/types/Auth";
 import { BookComponent } from "./Book";
 import { SelectedIds } from "../../../store/types/SelectedIds";
 
-interface BookingListProps {}
+// selectors for getting the state
+import { useSelector } from "react-redux";
+import { getBooks } from "../../../store/selectors/index";
+
+// dispatches
+import { setBooks, bookError } from "../../../store/slices/bookSlice";
+
+// services for fetching data
+import {
+  getBarberBookingsService,
+  cancelBooksByIdsArr,
+} from "../../../store/services/BookService";
+import { useAppDispatch } from "../../../store";
+import { Book } from "../../../store/types/Book";
+import { IError } from "../../../store/types/Error";
+
+interface BookingListProps {
+  currentUser: User;
+}
 
 interface BookingListState {}
 
-type Props = BookingListProps &
-  LinkDispatchToProps &
-  LinkStateProps &
-  BookingListProps;
+type Props = BookingListProps & BookingListProps;
 
-const BookingList: React.FC<Props> = ({
-  books,
-  user,
-  fbUser,
-  boundGetBarberBookings,
-  boundGetFacebookBarberBookings,
-  boundCancelBookingsByIdArr,
-}: Props) => {
+const BookingList: React.FC<Props> = ({ currentUser }: Props) => {
   let deleteDisabled: boolean = true;
-  let currentUser: any = undefined;
 
-  // Setting currentUser
-  if (user !== undefined && user.length > 0) {
-    currentUser = user[0];
-  } else if (fbUser !== undefined && fbUser.length > 0) {
-    currentUser = fbUser[0];
-  }
+  // ===========================================================================
+  // Selectors
+  // ===========================================================================
 
-  // fetch books method
-  const fetchBooks  = () => {
-    if (user.length > 0 && user != null) {
-      boundGetBarberBookings(user[0]);
-    } else if (fbUser.length > 0 && fbUser != null) {
-      boundGetFacebookBarberBookings(fbUser[0]);
-    }
-  }
+  const { books } = useSelector(getBooks);
+  // let booksForSort = [...books];
 
-  // fetch bookings based on user type
+  // ===========================================================================
+  // Dispatch
+  // ===========================================================================
+
+  const dispatch = useAppDispatch();
+  const _setBookingList = (payload: Book[]) => dispatch(setBooks(payload));
+  const _bookError = (payload: IError) => dispatch(bookError(payload));
+
   useEffect(() => {
-    fetchBooks();
+    getBarberBookingsService(currentUser)
+      .then((res) => {
+        console.log(res);
+        _setBookingList(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        _bookError(err);
+      });
   }, []);
-
 
   // state for selectedBooks
   const [selectedBooks, setSelectedBooks] = useState<SelectedIds>({ ids: [] });
@@ -84,7 +84,15 @@ const BookingList: React.FC<Props> = ({
 
   // handle delete button / click of button
   const handleClick = () => {
-    boundCancelBookingsByIdArr(selectedBooks, currentUser);
+    console.log("canceling");
+    cancelBooksByIdsArr(selectedBooks)
+      .then((res) => {
+        window.location.reload();
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -108,7 +116,6 @@ const BookingList: React.FC<Props> = ({
               category={category}
               cut={cut}
               client={client}
-              fbClient={fbClient}
             />
           ))}
         </div>
@@ -129,40 +136,40 @@ const BookingList: React.FC<Props> = ({
   );
 };
 
-interface LinkStateProps {
-  books: Book[];
-  user: User[];
-  fbUser: FBUserAuthResponse[];
-}
+// interface LinkStateProps {
+//   books: Book[];
+//   user: User[];
+//   fbUser: FBUserAuthResponse[];
+// }
 
-interface LinkDispatchToProps {
-  boundGetBarberBookings: (barber: User) => void;
-  boundGetFacebookBarberBookings: (barber: FBUserAuthResponse) => void;
-  boundCancelBookingsByIdArr: (ids: SelectedIds, user: any) => void;
-}
+// interface LinkDispatchToProps {
+//   boundGetBarberBookings: (barber: User) => void;
+//   boundGetFacebookBarberBookings: (barber: FBUserAuthResponse) => void;
+//   boundCancelBookingsByIdArr: (ids: SelectedIds, user: any) => void;
+// }
 
-const mapStateToProps = (
-  state: AppState,
-  ownProps: BookingListProps
-): LinkStateProps => ({
-  books: state.book,
-  user: state.user,
-  fbUser: state.fbUser,
-});
+// const mapStateToProps = (
+//   state: AppState,
+//   ownProps: BookingListProps
+// ): LinkStateProps => ({
+//   books: state.book,
+//   user: state.user,
+//   fbUser: state.fbUser,
+// });
 
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: BookingListProps
-): LinkDispatchToProps => ({
-  boundGetBarberBookings: bindActionCreators(boundGetBarberBookings, dispatch),
-  boundGetFacebookBarberBookings: bindActionCreators(
-    boundGetFacebookBarberBookings,
-    dispatch
-  ),
-  boundCancelBookingsByIdArr: bindActionCreators(
-    boundCancelBookingsByIdArr,
-    dispatch
-  ),
-});
+// const mapDispatchToProps = (
+//   dispatch: ThunkDispatch<any, any, AppActions>,
+//   ownProps: BookingListProps
+// ): LinkDispatchToProps => ({
+//   boundGetBarberBookings: bindActionCreators(boundGetBarberBookings, dispatch),
+//   boundGetFacebookBarberBookings: bindActionCreators(
+//     boundGetFacebookBarberBookings,
+//     dispatch
+//   ),
+//   boundCancelBookingsByIdArr: bindActionCreators(
+//     boundCancelBookingsByIdArr,
+//     dispatch
+//   ),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookingList);
+export default BookingList;

@@ -1,62 +1,58 @@
 import React, { useState } from "react";
-import { User } from "../../store/types/User";
-import { FBUserAuthResponse } from "../../store/types/FBUser";
-import { connect } from "react-redux";
-import { AppState } from "../../store";
-import { AppActions } from "../../store/types";
+import { User } from "../../store/types/Auth";
+import { useSelector } from "react-redux";
+import { getAuth } from "../../store/selectors";
 import { ThunkDispatch } from "redux-thunk";
 import CutList from "./Cuts/CutList";
 import "./ProfileContainer.scss";
-import BookContainer from "./Books/BookingList";
+import BookingList from "./Books/BookingList";
 import AppointmentList from "./Appointments/AppointmentList";
-import { boundCancelBooking } from "../../store/actions/BookActions";
 import { bindActionCreators } from "redux";
 import CutEditFormModal from "./Cuts/CutFormModal";
 
-interface ProfileContainerProps {
-  user?: User[];
-  fbUser?: FBUserAuthResponse[];
-}
+interface ProfileContainerProps {}
 
 interface ProfileContainerState {}
 
-type Props = ProfileContainerProps &
-  ProfileContainerState &
-  LinkDispatchToProps &
-  LinkStateProps;
+type Props = ProfileContainerProps & ProfileContainerState;
 
-const ProfileContainer: React.FC<Props> = ({ user, fbUser }: Props) => {
+const ProfileContainer: React.FC<Props> = ({}: Props) => {
+  // ===========================================================================
+  // Selectors
+  // ===========================================================================
+
+  const { currentUser, isAuthenticated, error, loading } = useSelector(getAuth);
+
   let adminViews: any;
   let userNameView: string = "";
   let userType: string = "";
   // let modalClass = "cutform-modal";
   const [modalClass, setModalClass] = useState({ class: "cutform-modal" });
 
-  const handleAddCutFormModal = () => {
-    setModalClass({ class: "cutform-modal active" });
+  const handleAddCutFormModal = (active: boolean) => {
+    if (active == true) {
+      setModalClass({ class: "cutform-modal active" });
+    } else {
+      setModalClass({ class: "cutform-modal" });
+    }
   };
 
-  if (fbUser.length > 0) {
-    userType = fbUser[0].roles;
-    userNameView = fbUser[0].firstName;
-  } else if (user.length > 0) {
-    userType = user[0].roles;
-    userNameView = user[0].firstName;
-  }
-
-  if (userType == "ROLE_ADMIN") {
+  if (currentUser?.roles == "ROLE_ADMIN") {
     adminViews = (
       <React.Fragment>
         <CutEditFormModal
           modalClass={modalClass}
-          setModalClass={setModalClass}
+          handleAddCutFormModal={handleAddCutFormModal}
         />
         <div className="profile-container__row">
           <div className="profile-container__item">
-            <CutList handleAddCutFormModal={handleAddCutFormModal} />
+            <CutList
+              handleAddCutFormModal={handleAddCutFormModal}
+              currentUser={currentUser}
+            />
           </div>
           <div className="profile-container__item">
-            <BookContainer />
+            <BookingList currentUser={currentUser} />
           </div>
         </div>
       </React.Fragment>
@@ -73,35 +69,13 @@ const ProfileContainer: React.FC<Props> = ({ user, fbUser }: Props) => {
       {adminViews}
       <div className="profile-container__row">
         <div className="profile-container__item">
-          <AppointmentList />
+          <AppointmentList
+            currentUser={currentUser != null ? currentUser : undefined}
+          />
         </div>
       </div>
     </div>
   );
 };
 
-interface LinkStateProps {
-  user: User[];
-  fbUser: FBUserAuthResponse[];
-}
-
-interface LinkDispatchToProps {
-  boundCancelBooking: (id: number, user: any) => void;
-}
-
-const mapStateToProps = (
-  state: AppState,
-  ownProps: ProfileContainerProps
-): LinkStateProps => ({
-  user: state.user,
-  fbUser: state.fbUser,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: ProfileContainerProps
-): LinkDispatchToProps => ({
-  boundCancelBooking: bindActionCreators(boundCancelBooking, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);
+export default ProfileContainer;

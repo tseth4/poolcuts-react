@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./Cut.scss";
-import { Barber, fbBarber } from "../../../store/types/User";
+import { Barber, fbBarber } from "../../../store/types/Auth";
 import { Book } from "../../../store/types/Book";
 import { Cut } from "../../../store/types/Cut";
 import { FBUserAuthResponse } from "../../../store/types/FBUser";
@@ -11,7 +11,6 @@ interface CutProps {
   barberId?: number | Barber;
   location?: string;
   seatLeft?: number;
-  fbBarberId?: number | fbBarber;
   handleSetSelectedCuts: (id: number) => void;
   selectedCutsArr: number[];
   // handleSetForm: (key: string, value: any) => void;
@@ -28,7 +27,6 @@ export const CutComponent: React.FC<Props> = ({
   appointmentDate,
   barberId,
   location,
-  fbBarberId,
   handleSetSelectedCuts,
   selectedCutsArr
   // handleSetForm,
@@ -81,9 +79,7 @@ export const CutComponent: React.FC<Props> = ({
 
   if (typeof barberId != "number" && barberId != null) {
     barberDetails = barberId.firstName + " " + barberId.lastName;
-  } else if (typeof fbBarberId != "number" && fbBarberId != null){
-    barberDetails = fbBarberId.firstName + " " + fbBarberId.lastName;
-  }
+  } 
 
   return (
     <React.Fragment>

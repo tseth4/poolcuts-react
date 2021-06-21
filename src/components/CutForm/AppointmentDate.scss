@@ -1,14 +1,12 @@
 @import "../../layout/variables";
 
-.appointmentDate-container{
-  display:flex;
+.appointmentDate-container {
+  display: flex;
   align-items: flex-start;
   flex-direction: column;
   position: relative;
-  // border: 1px solid white;
 
-
-  input:nth-child(2){
+  input:nth-child(2) {
     margin-top: 10px;
   }
 
@@ -26,6 +24,4 @@
     color: map-get($colors, offGrey);
     cursor: default;
   }
-
-  // border: 7px solid green;
 }

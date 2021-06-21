@@ -1,31 +1,25 @@
 import React from "react";
 import { NewCut, Cut } from "../../store/types/Cut";
-import { User } from "../../store/types/User";
+import { User } from "../../store/types/Auth";
 import { FBUser, FBUserAuthResponse } from "../../store/types/FBUser";
 import { AppState } from "../../store";
 import { ThunkDispatch } from "redux-thunk";
-import { AppActions } from "../../store/types";
 import { bindActionCreators } from "redux";
-import {
-  boundNewOpenCut,
-  boundUnsetCutSuccess,
-} from "../../store/actions/CutActions";
+
 import { connect } from "react-redux";
 import "./ReviewSubmit.scss";
 
 interface ReviewSubmitProps {
   form: NewCut;
-  currentUser: User | FBUser;
+  currentUser?: User;
 }
 
 interface ReviewSubmitState {}
 
 type Props = ReviewSubmitProps &
-  ReviewSubmitState &
-  LinkDispatchToProps &
-  LinkStateProps;
+  ReviewSubmitState;
 
-const ReviewSubmit: React.FC<Props> = ({ form, currentUser }: Props) => {
+const ReviewSubmit: React.FC<Props> = ({ currentUser, form }: Props) => {
   // handle date and time
   let dateObj = new Date();
 
@@ -52,7 +46,7 @@ const ReviewSubmit: React.FC<Props> = ({ form, currentUser }: Props) => {
     <div className="rsc-container">
       <div className="rsc-container__item">
         <span className="rsc-container__property"> Barber: </span>
-        {currentUser.firstName + " " + currentUser.lastName}
+        {currentUser != null ? currentUser.firstName + " " + currentUser.lastName: "n/a"}
       </div>
       <div className="rsc-container__item">
         <span className="rsc-container__property">Date: </span>
@@ -71,32 +65,5 @@ const ReviewSubmit: React.FC<Props> = ({ form, currentUser }: Props) => {
   );
 };
 
-interface LinkStateProps {
-  user: User[];
-  fbUser: FBUser[];
-  addCutSuccess: Cut[];
-}
 
-interface LinkDispatchToProps {
-  boundNewOpenCut: (newCut: NewCut, user: FBUserAuthResponse | User) => void;
-  boundUnsetCutSuccess: () => void;
-}
-
-const mapStateToProps = (
-  state: AppState,
-  ownProps: ReviewSubmitProps
-): LinkStateProps => ({
-  user: state.user,
-  fbUser: state.fbUser,
-  addCutSuccess: state.addCutSuccess,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  ownProps: ReviewSubmitProps
-): LinkDispatchToProps => ({
-  boundNewOpenCut: bindActionCreators(boundNewOpenCut, dispatch),
-  boundUnsetCutSuccess: bindActionCreators(boundUnsetCutSuccess, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewSubmit);
+export default ReviewSubmit;
