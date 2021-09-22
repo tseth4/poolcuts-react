@@ -17,9 +17,6 @@ interface PrivateRouteProps {
 type Props = PrivateRouteProps;
 const PrivateRoute: React.FC<Props> = ({ component, path }: Props) => {
   const { isAuthenticated, currentUser, loading } = useSelector(getAuth);
-  console.log(loading)
-  console.log(isAuthenticated)
-  console.log(currentUser)
   if (isAuthenticated) {
     return <Route exact path={path} component={component} />;
   } else {

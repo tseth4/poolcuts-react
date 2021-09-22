@@ -12,7 +12,7 @@ import { cutError, setOpenCuts } from "@store/slices/cutSlice";
 import {
   getOpenBarberCuts,
   deleteCutsByIdsArr,
-} from "@store/services/CutService";
+} from "@store/mockServices/CutService";
 
 import "./CutList.scss";
 
@@ -61,7 +61,6 @@ const CutList: React.FC<Props> = ({
     if (currentUser)
       getOpenBarberCuts(currentUser)
         .then((res) => {
-          console.log(res);
           _setOpenCuts(res);
         })
         .catch((err) => {
@@ -88,14 +87,11 @@ const CutList: React.FC<Props> = ({
     deleteDisabled = true;
   }
 
-  console.log(selectedCuts);
 
   const handleClick = () => {
-    // Delete cuts if
     deleteCutsByIdsArr(selectedCuts)
       .then((res) => {
         window.location.reload()
-        console.log(res);
       })
       .catch((e) => {
         console.log(e);

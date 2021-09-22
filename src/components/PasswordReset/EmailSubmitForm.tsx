@@ -1,53 +1,33 @@
 import React, { useState } from "react";
-import { ThunkDispatch } from "redux-thunk";
-import { AppState } from "@store/index";
-// import { AppActions } from "@store/types";
 import { validateEmail } from "../../utils/Functions";
-import { connect } from "react-redux";
-// import { boundSendPasswordResetRequest } from "@store/actions/UserActions";
 import "./EmailSubmitForm.scss";
-import { bindActionCreators } from "redux";
-// import { PasswordRequestResponse } from "@store/types/User";
-import { IError } from "@store/types/Error";
-import { PasswordRequestResponse } from "@store/types/UserPasswordReset";
 
 interface EmailSubmitFormProps {}
 
 interface EmailSubmitFormState {}
 
-type Props = EmailSubmitFormProps &
-  EmailSubmitFormState;
-const EmailSubmitForm: React.FC<Props> = ({
-  // passwordRequestResponse,
-  // passwordRequestError,
-  // boundSendPasswordResetRequest,
-}: Props) => {
+type Props = EmailSubmitFormProps & EmailSubmitFormState;
+const EmailSubmitForm: React.FC<Props> = ({}: Props) => {
   let buttonDisabled: boolean = true;
   let buttonClass: string = "";
   let successMessage: string = "";
   let errorMessage: string = "";
 
-  
-  
   const [emailForm, setEmailForm] = useState({
     email: "",
   });
 
   if (validateEmail(emailForm.email)) {
     buttonDisabled = false;
-    buttonClass = "emailsubmitformform-container__sbtn"
+    buttonClass = "emailsubmitformform-container__sbtn";
   } else {
     buttonDisabled = true;
-    buttonClass = "emailsubmitformform-container__sbtn-disabled"
-    console.log("disbaled")
+    buttonClass = "emailsubmitformform-container__sbtn-disabled";
   }
 
   const handleInputChange = (input: string) => (event: any) => {
     setEmailForm({ ...emailForm, [input]: event.target.value });
-    console.log(emailForm);
   };
-
-
 
   if (validateEmail(emailForm.email)) {
     buttonDisabled = false;
@@ -57,26 +37,11 @@ const EmailSubmitForm: React.FC<Props> = ({
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    // boundSendReq
-    // boundSendPasswordResetRequest(emailForm.email);
   };
-
-  // if (passwordRequestError.message) {
-  //   console.log(passwordRequestError);
-  //   errorMessage = passwordRequestError.message;
-  // } else {
-  //   errorMessage = "";
-  // }
-
-  // if (passwordRequestResponse.message) {
-  //   successMessage = passwordRequestResponse.message;
-  // } else {
-  //   successMessage = "";
-  // }
 
   return (
     <div className="emailsubmitform-container">
-      <h2 style={{"color": "white"}}>Password reset</h2>
+      <h2 style={{ color: "white" }}>Password reset</h2>
       <form onSubmit={handleSubmit} className="emailsubmitformform-container">
         <div className="emailsubmitformform-container__textbox">
           <input
@@ -89,8 +54,12 @@ const EmailSubmitForm: React.FC<Props> = ({
         <button disabled={buttonDisabled} type="submit" className={buttonClass}>
           Send
         </button>
-        <div className="emailsubmitformform-container__message">{successMessage}</div>
-        <div className="uemailsubmitformform-container__message">{errorMessage}</div>
+        <div className="emailsubmitformform-container__message">
+          {successMessage}
+        </div>
+        <div className="uemailsubmitformform-container__message">
+          {errorMessage}
+        </div>
       </form>
     </div>
   );
@@ -123,4 +92,4 @@ const EmailSubmitForm: React.FC<Props> = ({
 //   ),
 // });
 
-export default (EmailSubmitForm);
+export default EmailSubmitForm;

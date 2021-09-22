@@ -5,8 +5,6 @@ import { connect } from "react-redux";
 import { FBUser } from "@store/types/FBUser";
 import { AppState } from "@store/index";
 import { ThunkDispatch } from "redux-thunk";
-// import { AppActions } from "@store/types";
-// import { boundLoginFBUser } from "@store/actions/FBUserActions";
 import { bindActionCreators } from "redux";
 import { Redirect } from "react-router";
 

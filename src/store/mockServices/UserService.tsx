@@ -6,38 +6,43 @@ import { SignUpCredentials } from "../types/UserSignUp";
 import { PasswordRequest } from "../types/UserPasswordReset";
 
 export const authenticateUserService = (data: LoginCredentials) => {
-  if (
-    data.username === "user_example" &&
-    data.password === "password_example"
-  ) {
-    return {
-      id: 1,
-      username: "user_example",
-      firstName: "tristan",
-      lastName: "setha",
-      email: "poolcuts@gmail.com",
-      roles: "ROLE_USER",
-    };
-  } else if (
-    data.username === "admin_example" &&
-    data.password === "password_example"
-  ) {
-    return {
-      id: 2,
-      username: "admin_example",
-      firstName: "admin",
-      lastName: "test",
-      email: "admin@gmail.com",
-      roles: "ROLE_ADMIN",
-    };
-  } else {
-    return {
-      errorCode: 400,
-      timestamp: "2021-09-21T22:38:05.085+0000",
-      jwtMessage: null,
-      message: "Bad credentials",
-    };
-  }
+  return new Promise<User>((resolve, reject) => {
+    let tempUser: User;
+    if (
+      data.username === "user_example" &&
+      data.password === "password_example"
+    ) {
+      tempUser={
+        id: 1,
+        username: "user_example",
+        firstName: "tristan",
+        lastName: "setha",
+        email: "poolcuts@gmail.com",
+        roles: "ROLE_USER",
+      }
+      resolve(tempUser);
+    } else if (
+      data.username === "admin_example" &&
+      data.password === "password_example"
+    ) {
+      tempUser={
+        id: 2,
+        username: "admin_example",
+        firstName: "admin",
+        lastName: "test",
+        email: "admin@gmail.com",
+        roles: "ROLE_ADMIN",
+      }
+      resolve(tempUser);
+    } else {
+      reject({
+        errorCode: 400,
+        timestamp: "2021-09-21T22:38:05.085+0000",
+        jwtMessage: null,
+        message: "Bad credentials",
+      });
+    }
+  });
 };
 
 export const registerUserService = (data: SignUpCredentials) => {

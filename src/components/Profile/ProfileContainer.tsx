@@ -26,7 +26,6 @@ const ProfileContainer: React.FC<Props> = ({}: Props) => {
   let adminViews: any;
   let userNameView: string = "";
   let userType: string = "";
-  // let modalClass = "cutform-modal";
   const [modalClass, setModalClass] = useState({ class: "cutform-modal" });
 
   const handleAddCutFormModal = (active: boolean) => {

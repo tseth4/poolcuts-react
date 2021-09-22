@@ -71,7 +71,6 @@ export const Appointment: React.FC<Props> = ({
 
   if (bookId != null && selectedAppointmentsArr.indexOf(bookId) != -1) {
     appointmentClass = "appointmentlist-datarow selected";
-    console.log(appointmentClass);
   } else {
     appointmentClass = "appointmentlist-datarow";
   }
@@ -83,7 +82,6 @@ export const Appointment: React.FC<Props> = ({
         <div className="appointmentlist-datarow__td">{barberDetails}</div>
         <div className="appointmentlist-datarow__td">{date}</div>
         <div className="appointmentlist-datarow__td">{formatAMPM(dateObj != null ? dateObj : new Date(""))}</div>
-        {/* <div className="appointmentlist-datarow__td">{clientDetails}</div> */}
         <div className="appointmentlist-datarow__td">{location}</div>
       </div>
     </React.Fragment>

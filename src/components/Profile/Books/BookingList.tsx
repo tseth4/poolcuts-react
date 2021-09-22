@@ -15,7 +15,7 @@ import { setBooks, bookError } from "@store/slices/bookSlice";
 import {
   getBarberBookingsService,
   cancelBooksByIdsArr,
-} from "@store/services/BookService";
+} from "@store/mockServices/BookService";
 import { useAppDispatch } from "@store/index";
 import { Book } from "@store/types/Book";
 import { IError } from "@store/types/Error";
@@ -49,11 +49,9 @@ const BookingList: React.FC<Props> = ({ currentUser }: Props) => {
   useEffect(() => {
     getBarberBookingsService(currentUser)
       .then((res) => {
-        console.log(res);
         _setBookingList(res);
       })
       .catch((err) => {
-        console.log(err);
         _bookError(err);
       });
   }, []);
@@ -84,11 +82,9 @@ const BookingList: React.FC<Props> = ({ currentUser }: Props) => {
 
   // handle delete button / click of button
   const handleClick = () => {
-    console.log("canceling");
     cancelBooksByIdsArr(selectedBooks)
       .then((res) => {
         window.location.reload();
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -102,7 +98,6 @@ const BookingList: React.FC<Props> = ({ currentUser }: Props) => {
         <div className="bookinglist-table">
           <div className="bookinglist-table__row">
             <div className="bookinglist-table__head">Type</div>
-            {/* <div className="bookinglist-table__head">Barber</div> */}
             <div className="bookinglist-table__head">Date</div>
             <div className="bookinglist-table__head">Time</div>
             <div className="bookinglist-table__head">Client</div>
@@ -136,40 +131,5 @@ const BookingList: React.FC<Props> = ({ currentUser }: Props) => {
   );
 };
 
-// interface LinkStateProps {
-//   books: Book[];
-//   user: User[];
-//   fbUser: FBUserAuthResponse[];
-// }
-
-// interface LinkDispatchToProps {
-//   boundGetBarberBookings: (barber: User) => void;
-//   boundGetFacebookBarberBookings: (barber: FBUserAuthResponse) => void;
-//   boundCancelBookingsByIdArr: (ids: SelectedIds, user: any) => void;
-// }
-
-// const mapStateToProps = (
-//   state: AppState,
-//   ownProps: BookingListProps
-// ): LinkStateProps => ({
-//   books: state.book,
-//   user: state.user,
-//   fbUser: state.fbUser,
-// });
-
-// const mapDispatchToProps = (
-//   dispatch: ThunkDispatch<any, any, AppActions>,
-//   ownProps: BookingListProps
-// ): LinkDispatchToProps => ({
-//   boundGetBarberBookings: bindActionCreators(boundGetBarberBookings, dispatch),
-//   boundGetFacebookBarberBookings: bindActionCreators(
-//     boundGetFacebookBarberBookings,
-//     dispatch
-//   ),
-//   boundCancelBookingsByIdArr: bindActionCreators(
-//     boundCancelBookingsByIdArr,
-//     dispatch
-//   ),
-// });
 
 export default BookingList;

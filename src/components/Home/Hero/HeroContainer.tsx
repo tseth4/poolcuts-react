@@ -1,10 +1,8 @@
-import React from 'react';
-import Hero from "./Hero"
+import React from "react";
+import Hero from "./Hero";
 
 const HeroContainer = () => {
-  return (          
-    <Hero/>
-  );
-}
+  return <Hero />;
+};
 
 export default HeroContainer;

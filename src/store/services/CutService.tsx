@@ -26,7 +26,6 @@ export const getOpenBarberCuts = (barber: User) => {
 };
 
 export const deleteCutsByIdsArr = (data: SelectedIds) => {
-  console.log(data)
   return request({
     url: '/cuts/delete',
     method: "DELETE",

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import pic2 from "../../../assets/pic2.jpg";
-import pic1 from "../../../assets/pic1.jpg";
+import pic1 from "@assets/pic1.jpg";
+import pic2 from "@assets/pic2.jpg";
 import "./Hero.scss";
 
 interface HeroProps {}
@@ -45,14 +45,12 @@ const Hero: React.FC<HeroProps> = ({}) => {
     slide = (
       <React.Fragment>
         <img key={Math.random()} className={imageClass1} src={images[0].path} />
-        {/* <h1>{images[0].title}</h1> */}
       </React.Fragment>
     );
   } else if (count.current == 1) {
     slide = (
       <React.Fragment>
         <img key={Math.random()} className={imageClass2} src={images[1].path} />
-        {/* <h1>{images[1].title}</h1> */}
       </React.Fragment>
     );
   }

@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Redirect, Link } from "react-router-dom";
-import pic2 from "@assets/pic2.jpg";
 import pic1 from "@assets/pic1.jpg";
+import pic2 from "@assets/pic2.jpg";
+import React, { useEffect, useState } from "react";
 import "./Hero2.scss";
 
 export default function Hero2() {
@@ -56,15 +55,9 @@ export default function Hero2() {
     );
   }
 
-  // getting each slide
-  // for each one display none
-  // if slide gets bigger
-
   return (
     <div className="hero-container">
-      {/* <div className="hero-box"></div> */}
       <div className="hero-container__desc hero-box">{slide}</div>
-      {/* <div className="hero-container__title hero-box"></div> */}
       <div className="hero-container__info hero-box">
         <h1></h1>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
@@ -77,11 +70,7 @@ export default function Hero2() {
         <div className="hero-container__services-container">
           <p></p>
         </div>
-        {/* <Link to="/services">
-            <button className="hero-container__button">Book</button>
-          </Link> */}
       </div>
-      {/* <div className="hero-box"></div> */}
     </div>
   );
 }

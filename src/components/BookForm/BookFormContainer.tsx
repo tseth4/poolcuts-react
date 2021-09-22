@@ -1,23 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { bookAppointmentService } from "@store/mockServices/BookService";
 import { getAuth } from "@store/selectors/index";
-import { createHashHistory } from "history";
-
-// import { getBooks } from "@store/selectors/index";
-import ServiceSelect from "./ServiceSelect";
-import CutSelect from "./CutSelect";
-import ReviewSubmit from "./ReviewSubmit";
-import "./BookForm.scss";
 import { NewBooking } from "@store/types/Book";
 import { Cut } from "@store/types/Cut";
-import { bookAppointmentService } from "@store/services/BookService";
 import { IError } from "@store/types/Error";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import "./BookForm.scss";
+import CutSelect from "./CutSelect";
+import ReviewSubmit from "./ReviewSubmit";
+import ServiceSelect from "./ServiceSelect";
 
-// import { useAppDispatch } from "@store";
-// import { setBooks } from "@store/slices/bookSlice";
-// import { IError } from "@store/types/Error";
-// import { isEmpty } from "../../utils/Functions";
 
 interface BookFormContainerProps {}
 
@@ -30,8 +23,6 @@ const BookFormContainer: React.FC<Props> = ({}: Props) => {
     success?: boolean;
     error?: IError;
   }
-
-
 
   // ===========================================================================
   // Selectors
@@ -54,8 +45,6 @@ const BookFormContainer: React.FC<Props> = ({}: Props) => {
   // Handelers
   // ===========================================================================
 
-  // When a cut is selected the cut component is setting selected cut and cutId in bookForm
-  // these handle methods are handling selecting and unSelecting cut
 
   const handleSelectedCut = (cut: Cut) => {
     if (cut.cutId == selectedCut.cutId) {
@@ -74,14 +63,10 @@ const BookFormContainer: React.FC<Props> = ({}: Props) => {
   };
 
   // handle setting clientId in bookForm of type NewBooking
-
   useEffect(() => {
     setBookForm({ ...bookForm, clientId: currentUser?.id });
   }, [currentUser]);
 
-  useEffect(() => {
-    console.log(bookForm);
-  }, [bookForm]);
 
   let bookFormProps = {
     bookForm: bookForm,
@@ -104,18 +89,15 @@ const BookFormContainer: React.FC<Props> = ({}: Props) => {
     buttonClass = "bookform-container__button";
   }
 
-  // handle appointment booking
 
   const handleBookAppointment = (event: any) => {
     event.preventDefault();
-    console.log("handle booking");
     if (currentUser != undefined) {
       bookAppointmentService(bookForm, currentUser)
         .then((res) => {
           setBookStatus({ ...bookStatus, success: true });
         })
         .catch((e) => {
-          console.log(e.data);
           setBookStatus({
             ...bookStatus,
             success: false,
@@ -125,13 +107,6 @@ const BookFormContainer: React.FC<Props> = ({}: Props) => {
     }
   };
 
-  // handle success message
-  // the bookError starts empty
-  // when we submit and theres an error its not empty
-  // when we submit with no error it clears and its empty
-  // boolean to know when we submit and therest no error
-  // we can create state with bookSuccess boolean\ which starts at false
-  // on unmount it clears it
 
   if (bookStatus.success){
     return <Redirect to='/profile'/>
