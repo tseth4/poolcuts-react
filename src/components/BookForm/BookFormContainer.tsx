@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getAuth } from "../../store/selectors/index";
+import { getAuth } from "@store/selectors/index";
 import { createHashHistory } from "history";
 
-// import { getBooks } from "../../store/selectors/index";
+// import { getBooks } from "@store/selectors/index";
 import ServiceSelect from "./ServiceSelect";
 import CutSelect from "./CutSelect";
 import ReviewSubmit from "./ReviewSubmit";
 import "./BookForm.scss";
-import { NewBooking } from "../../store/types/Book";
-import { Cut } from "../../store/types/Cut";
-import { bookAppointmentService } from "../../store/services/BookService";
-import { IError } from "../../store/types/Error";
+import { NewBooking } from "@store/types/Book";
+import { Cut } from "@store/types/Cut";
+import { bookAppointmentService } from "@store/services/BookService";
+import { IError } from "@store/types/Error";
 import { Redirect } from "react-router-dom";
 
-// import { useAppDispatch } from "../../store";
-// import { setBooks } from "../../store/slices/bookSlice";
-// import { IError } from "../../store/types/Error";
+// import { useAppDispatch } from "@store";
+// import { setBooks } from "@store/slices/bookSlice";
+// import { IError } from "@store/types/Error";
 // import { isEmpty } from "../../utils/Functions";
 
 interface BookFormContainerProps {}

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import "./Cut.scss";
-import { Barber, fbBarber } from "../../../store/types/Auth";
-import { Book } from "../../../store/types/Book";
-import { Cut } from "../../../store/types/Cut";
-import { FBUserAuthResponse } from "../../../store/types/FBUser";
+import { Barber, fbBarber } from "@store/types/Auth";
+import { Book } from "@store/types/Book";
+import { Cut } from "@store/types/Cut";
+import { FBUserAuthResponse } from "@store/types/FBUser";
 
 interface CutProps {
   cutId?: number;

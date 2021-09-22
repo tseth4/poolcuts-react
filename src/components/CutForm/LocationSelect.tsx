@@ -1,5 +1,5 @@
 import React, { useState, MouseEvent } from "react";
-import { NewCut } from "../../store/types/Cut";
+import { NewCut } from "@store/types/Cut";
 import "./LocationSelect.scss";
 
 interface LocationSelectProps {

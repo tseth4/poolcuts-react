@@ -1,7 +1,7 @@
 import React from "react";
-import { Cut } from "../../../store/types/Cut";
+import { Cut } from "@store/types/Cut";
 import "./Appointment.scss";
-import { Client } from "../../../store/types/Auth";
+import { Client } from "@store/types/Auth";
 
 interface AppointmentProps {
   bookId?: number;

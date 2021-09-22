@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { ThunkDispatch } from "redux-thunk";
-import { AppState } from "../../store";
-// import { AppActions } from "../../store/types";
-// import { boundSubmitNewPassword } from "../../store/actions/UserActions"
+import { AppState } from "@store/index";
+// import { AppActions } from "@store/types";
+// import { boundSubmitNewPassword } from "@store/actions/UserActions"
 import { connect } from "react-redux";
 import "./NewPasswordForm.scss";
-import { IError } from "../../store/types/Error";
+import { IError } from "@store/types/Error";
 import { bindActionCreators } from "redux";
 import { useParams } from "react-router-dom";
 import {
   PasswordRequest,
   PasswordResetResponse,
-} from "../../store/types/UserPasswordReset";
+} from "@store/types/UserPasswordReset";
 
 interface ParamTypes {
   token: string;

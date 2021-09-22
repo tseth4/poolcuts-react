@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import { bindActionCreators } from "redux";
 import { ThunkDispatch } from "redux-thunk";
-import { AppState } from "../../store";
-// import { boundActivateUser } from "../../store/actions/UserActions";
-// import { AppActions } from "../../store/types";
-import { IError } from "../../store/types/Error";
+import { AppState } from "@store/index";
+// import { boundActivateUser } from "@store/actions/UserActions";
+// import { AppActions } from "@store/types";
+import { IError } from "@store/types/Error";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-import { ActivationResponse } from "../../store/types/UserSignUp";
+import { ActivationResponse } from "@store/types/UserSignUp";
 
 interface ParamTypes {
   token: string;

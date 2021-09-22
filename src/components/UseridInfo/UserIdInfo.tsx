@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { ThunkDispatch } from "redux-thunk";
-import { AppState } from "../../store";
-// import { AppActions } from "../../store/types";
+import { AppState } from "@store/index";
+// import { AppActions } from "@store/types";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-import { IError } from "../../store/types/Error";
+import { IError } from "@store/types/Error";
 import {
   UserIdInfoWithTokenRequestResponse,
   UserIdInfoWithTokenRequest,
-} from "../../store/types/UserIdInfo";
+} from "@store/types/UserIdInfo";
 import { bindActionCreators } from "redux";
-// import { boundGetUserIdInfo } from "../../store/actions/UserIdInfoActions";
+// import { boundGetUserIdInfo } from "@store/actions/UserIdInfoActions";
 import "./UserIdInfo.scss"
 
 interface ParamTypes {

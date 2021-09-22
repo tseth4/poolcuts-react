@@ -1,8 +1,8 @@
 import React from "react";
-import { NewCut, Cut } from "../../store/types/Cut";
-import { User } from "../../store/types/Auth";
-import { FBUser, FBUserAuthResponse } from "../../store/types/FBUser";
-import { AppState } from "../../store";
+import { NewCut, Cut } from "@store/types/Cut";
+import { User } from "@store/types/Auth";
+import { FBUser, FBUserAuthResponse } from "@store/types/FBUser";
+import { AppState } from "@store/index";
 import { ThunkDispatch } from "redux-thunk";
 import { bindActionCreators } from "redux";
 

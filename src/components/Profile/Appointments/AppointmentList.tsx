@@ -3,20 +3,20 @@ import "./AppointmentList.scss";
 
 // selectors for getting the state
 import { useSelector } from "react-redux";
-import { getBooks } from "../../../store/selectors/index";
+import { getBooks } from "@store/selectors/index";
 
 // dispatches
-import { bookError, setAppointments } from "../../../store/slices/bookSlice";
+import { bookError, setAppointments } from "@store/slices/bookSlice";
 
 // services for fetching data
-import { getClientAppointmentsService, cancelBooksByIdsArr } from "../../../store/services/BookService";
-import { useAppDispatch } from "../../../store";
+import { getClientAppointmentsService, cancelBooksByIdsArr } from "@store/services/BookService";
+import { useAppDispatch } from "@store/index";
 
 // types
-import { Book } from "../../../store/types/Book";
-import { IError } from "../../../store/types/Error";
-import { User } from "../../../store/types/Auth";
-import { SelectedIds } from "../../../store/types/SelectedIds";
+import { Book } from "@store/types/Book";
+import { IError } from "@store/types/Error";
+import { User } from "@store/types/Auth";
+import { SelectedIds } from "@store/types/SelectedIds";
 
 import { Appointment } from "./Appointment";
 

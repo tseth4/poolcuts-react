@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NewCut, Cut } from "../../store/types/Cut";
+import { NewCut, Cut } from "@store/types/Cut";
 import AppointmentDate from "./AppointmentDate";
 import LocationSelect from "./LocationSelect";
 import { connect } from "react-redux";
@@ -8,12 +8,12 @@ import "./CutFormContainer.scss";
 
 // selectors for getting state
 import { useSelector } from "react-redux";
-import { getAuth } from "../../store/selectors";
+import { getAuth } from "@store/selectors";
 
 // dispatches for setting state
-import { useAppDispatch } from "../../store";
+import { useAppDispatch } from "@store/index";
 
-import { newCutService } from "../../store/services/CutService";
+import { newCutService } from "@store/services/CutService";
 export interface SelectedDate {
   date_str?: Date;
   time_str?: Date;

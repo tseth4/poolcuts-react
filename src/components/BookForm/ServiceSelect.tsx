@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./ServiceSelect.scss";
-import { Book, NewBooking } from "../../store/types/Book";
+import { Book, NewBooking } from "@store/types/Book";
 
 interface Props {
   handleSetBookForm: (key: string, value: string) => void;

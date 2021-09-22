@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { ThunkDispatch } from "redux-thunk";
-import { AppState } from "../../store";
-// import { AppActions } from "../../store/types";
+import { AppState } from "@store/index";
+// import { AppActions } from "@store/types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-// import { boundSendUserInfoRequest } from "../../store/actions/UserIdInfoActions"
-import { UserIdInfoRequestResponse } from "../../store/types/UserIdInfo";
-import { IError } from "../../store/types/Error";
+// import { boundSendUserInfoRequest } from "@store/actions/UserIdInfoActions"
+import { UserIdInfoRequestResponse } from "@store/types/UserIdInfo";
+import { IError } from "@store/types/Error";
 import { validateEmail } from "../../utils/Functions";
 import "./UserIdEmailSubmit.scss"
 

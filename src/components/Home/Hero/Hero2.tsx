@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
-import pic2 from "../../../assets/pic2.jpg";
-import pic1 from "../../../assets/pic1.jpg";
+import pic2 from "@assets/pic2.jpg";
+import pic1 from "@assets/pic1.jpg";
 import "./Hero2.scss";
 
 export default function Hero2() {

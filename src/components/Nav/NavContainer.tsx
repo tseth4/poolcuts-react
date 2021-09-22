@@ -1,14 +1,14 @@
 import React from "react";
 import { Nav } from "./Nav";
-import { User } from "../../store/types/Auth";
+import { User } from "@store/types/Auth";
 
 import { useSelector } from "react-redux";
-import { getAuth } from "../../store/selectors/index";
+import { getAuth } from "@store/selectors/index";
 
-import { logout } from "../../store/slices/authSlice";
-import { useAppDispatch } from "../../store";
+import { logout } from "@store/slices/authSlice";
+import { useAppDispatch } from "@store/index";
 
-import { FBUserAuthResponse } from "../../store/types/FBUser";
+import { FBUserAuthResponse } from "@store/types/FBUser";
 
 import { Redirect } from "react-router-dom";
 

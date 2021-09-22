@@ -1,22 +1,22 @@
 import React, { useEffect } from "react";
-import { Book, NewBooking } from "../../store/types/Book";
+import { Book, NewBooking } from "@store/types/Book";
 import { useSelector } from "react-redux";
-import { getAuth } from "../../store/selectors/index";
+import { getAuth } from "@store/selectors/index";
 
-import { Cut } from "../../store/types/Cut";
-import { AppState } from "../../store";
-import { User } from "../../store/types/Auth";
+import { Cut } from "@store/types/Cut";
+import { AppState } from "@store/index";
+import { User } from "@store/types/Auth";
 import { ThunkDispatch } from "redux-thunk";
-// import { AppActions } from "../../store/types";
+// import { AppActions } from "@store/types";
 import { connect } from "react-redux";
 import "./ReviewSubmit.scss";
-import { FBUser } from "../../store/types/FBUser";
+import { FBUser } from "@store/types/FBUser";
 import { bindActionCreators } from "redux";
 // import {
 //   boundUnsetSuccessMessage,
 //   boundCancelBooking,
 //   boundUnsetCancelSuccessMessage,
-// } from "../../store/actions/BookActions";
+// } from "@store/actions/BookActions";
 
 import { Redirect } from "react-router";
 

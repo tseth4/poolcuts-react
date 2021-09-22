@@ -1,7 +1,7 @@
 import React from "react";
 import "./Nav.scss";
-import { User } from "../../store/types/Auth";
-import { FBUserAuthResponse } from "../../store/types/FBUser";
+import { User } from "@store/types/Auth";
+import { FBUserAuthResponse } from "@store/types/FBUser";
 
 interface NavProps {
   currentUser: User | undefined;

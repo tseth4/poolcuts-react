@@ -1,11 +1,11 @@
 import React from "react";
 import { Redirect, Route, RouteProps } from "react-router";
 import { useSelector } from "react-redux";
-import { User } from "../store/types/Auth";
-import { AppState } from "../store";
+import { User } from "@store/types/Auth";
+import { AppState } from "@store/index";
 import { connect } from "react-redux";
-import { FBUser, FBUserAuthResponse } from "../store/types/FBUser";
-import { getAuth } from "../store/selectors/index";
+import { FBUser, FBUserAuthResponse } from "@store/types/FBUser";
+import { getAuth } from "@store/selectors/index";
 
 
 

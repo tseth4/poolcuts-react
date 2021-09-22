@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./BookingList.scss";
-import { User } from "../../../store/types/Auth";
+import { User } from "@store/types/Auth";
 import { BookComponent } from "./Book";
-import { SelectedIds } from "../../../store/types/SelectedIds";
+import { SelectedIds } from "@store/types/SelectedIds";
 
 // selectors for getting the state
 import { useSelector } from "react-redux";
-import { getBooks } from "../../../store/selectors/index";
+import { getBooks } from "@store/selectors/index";
 
 // dispatches
-import { setBooks, bookError } from "../../../store/slices/bookSlice";
+import { setBooks, bookError } from "@store/slices/bookSlice";
 
 // services for fetching data
 import {
   getBarberBookingsService,
   cancelBooksByIdsArr,
-} from "../../../store/services/BookService";
-import { useAppDispatch } from "../../../store";
-import { Book } from "../../../store/types/Book";
-import { IError } from "../../../store/types/Error";
+} from "@store/services/BookService";
+import { useAppDispatch } from "@store/index";
+import { Book } from "@store/types/Book";
+import { IError } from "@store/types/Error";
 
 interface BookingListProps {
   currentUser: User;

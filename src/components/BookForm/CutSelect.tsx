@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import { setOpenCuts, cutError } from "../../store/slices/cutSlice";
-import { logout, logoutSuccess } from "../../store/slices/authSlice";
+import { setOpenCuts, cutError } from "@store/slices/cutSlice";
+import { logout, logoutSuccess } from "@store/slices/authSlice";
 import { CutComponent } from "./Cut";
-import { useAppDispatch } from "../../store";
+import { useAppDispatch } from "@store/index";
 import { useSelector } from "react-redux";
-import { Cut } from "../../store/types/Cut";
+import { Cut } from "@store/types/Cut";
 import "./CutSelect.scss";
-import { NewBooking } from "../../store/types/Book";
-import { getAuth, getCuts } from "../../store/selectors/index";
-import { getAllOpenCutsService } from "../../store/services/CutService";
-import { IError } from "../../store/types/Error";
+import { NewBooking } from "@store/types/Book";
+import { getAuth, getCuts } from "@store/selectors/index";
+import { getAllOpenCutsService } from "@store/services/CutService";
+import { IError } from "@store/types/Error";
 
 interface CutSelectProps {
   bookForm: NewBooking;

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { ThunkDispatch } from "redux-thunk";
-import { AppState } from "../../store";
-// import { AppActions } from "../../store/types";
+import { AppState } from "@store/index";
+// import { AppActions } from "@store/types";
 import { validateEmail } from "../../utils/Functions";
 import { connect } from "react-redux";
-// import { boundSendPasswordResetRequest } from "../../store/actions/UserActions";
+// import { boundSendPasswordResetRequest } from "@store/actions/UserActions";
 import "./EmailSubmitForm.scss";
 import { bindActionCreators } from "redux";
-// import { PasswordRequestResponse } from "../../store/types/User";
-import { IError } from "../../store/types/Error";
-import { PasswordRequestResponse } from "../../store/types/UserPasswordReset";
+// import { PasswordRequestResponse } from "@store/types/User";
+import { IError } from "@store/types/Error";
+import { PasswordRequestResponse } from "@store/types/UserPasswordReset";
 
 interface EmailSubmitFormProps {}
 

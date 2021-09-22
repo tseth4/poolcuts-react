@@ -1,8 +1,8 @@
 import React from "react";
-import { Cut } from "../../store/types/Cut";
+import { Cut } from "@store/types/Cut";
 import "./Cut.scss";
-import { NewBooking } from "../../store/types/Book";
-import { Barber, fbBarber } from "../../store/types/Auth";
+import { NewBooking } from "@store/types/Book";
+import { Barber, fbBarber } from "@store/types/Auth";
 interface CutProps {
   cutId?: number;
   appointmentDate?: string;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { User } from "../../store/types/Auth";
+import { User } from "@store/types/Auth";
 import { useSelector } from "react-redux";
-import { getAuth } from "../../store/selectors";
+import { getAuth } from "@store/selectors";
 import { ThunkDispatch } from "redux-thunk";
 import CutList from "./Cuts/CutList";
 import "./ProfileContainer.scss";

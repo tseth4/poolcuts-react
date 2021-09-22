@@ -1,5 +1,5 @@
 import React from "react";
-import CutFormContainer from "../../CutForm/CutFormContainer";
+import CutFormContainer from "@components/CutForm/CutFormContainer";
 import "./CutFormModal.scss";
 
 interface CutFormModalProps {

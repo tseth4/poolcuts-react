@@ -1,6 +1,6 @@
 import React, { useState, MouseEvent } from "react";
 import "./AppointmentDate.scss";
-import { NewCut, UpdateCut } from "../../store/types/Cut";
+import { NewCut, UpdateCut } from "@store/types/Cut";
 
 interface AppointmentDateProps {
   handleSetForm: (input: any, value: any) => void;

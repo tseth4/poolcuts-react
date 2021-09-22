@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { ThunkDispatch } from "redux-thunk";
-import { AppState } from "../../store";
-// import { boundRegisterUser } from "../../store/actions/UserActions";
-// import { AppActions } from "../../store/types";
-import { IError } from "../../store/types/Error";
+import { AppState } from "@store/index";
+// import { boundRegisterUser } from "@store/actions/UserActions";
+// import { AppActions } from "@store/types";
+import { IError } from "@store/types/Error";
 import { isEmpty, validateEmail } from "../../utils/Functions";
 import { Redirect } from "react-router";
 
 import "./Signup.scss";
-import { SignUpCredentials, SignUpResponse } from "../../store/types/UserSignUp";
+import { SignUpCredentials, SignUpResponse } from "@store/types/UserSignUp";
 
 interface SignUpProps {}
 
