@@ -1,12 +1,12 @@
 import request from "../request";
-import { LoginCredentials, User} from "../types/Auth";
+import { LoginCredentials, User } from "../types/Auth";
 import { FBUser } from "../types/FBUser";
 import { UserIdInfoWithTokenRequest } from "../types/UserIdInfo";
 import { SignUpCredentials } from "../types/UserSignUp";
 import { PasswordRequest } from "../types/UserPasswordReset";
 
 export const authenticateUserService = (data: LoginCredentials) => {
-  console.log(data);
+
   return request({
     url: "authenticate",
     method: "POST",
@@ -44,33 +44,34 @@ export const activateUserService = (token: string) => {
   });
 };
 
-
 export const sendPasswordResetRequestService = (email: string) => {
   return request({
     url: `/reset?email=${email}`,
-    method: "GET"
-  })
-}
+    method: "GET",
+  });
+};
 
 export const sendNewPasswordService = (data: PasswordRequest) => {
   return request({
-    url: '/reset/password',
+    url: "/reset/password",
     method: "POST",
-    data
-  })
-}
+    data,
+  });
+};
 
 export const sendUserIdInfoRequestService = (email: string) => {
   return request({
     url: `/info/userid/email?email=${email}`,
-    method: "GET"
-  })
-}
+    method: "GET",
+  });
+};
 
-export const getUserIdInfoWithTokenService = (data: UserIdInfoWithTokenRequest) => {
+export const getUserIdInfoWithTokenService = (
+  data: UserIdInfoWithTokenRequest
+) => {
   return request({
     url: "/info/userid",
     method: "POST",
-    data
-  })
-}
+    data,
+  });
+};
