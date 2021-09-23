@@ -1,11 +1,7 @@
-import request from "../request";
-import { Book, NewBooking } from "../types/Book";
-import { User } from "../types/Auth";
-import { FBUser, FBUserAuthResponse } from "../types/FBUser";
-import { SelectedIds } from "../types/SelectedIds";
 import { Cut } from "@store/types/Cut";
-// import { useSelector } from "react-redux";
-// import { getAuth } from "../../store/selectors/index";
+import { User } from "../types/Auth";
+import { Book, NewBooking } from "../types/Book";
+import { SelectedIds } from "../types/SelectedIds";
 
 export const bookApptService = (data: Book) => {};
 
