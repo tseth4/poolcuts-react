@@ -15,7 +15,7 @@ import { setBooks, bookError } from "@store/slices/bookSlice";
 import {
   getBarberBookingsService,
   cancelBooksByIdsArr,
-} from "@store/mockServices/BookService";
+} from "@store/mockServices/BookService/Book.service";
 import { useAppDispatch } from "@store/index";
 import { Book } from "@store/types/Book";
 import { IError } from "@store/types/Error";

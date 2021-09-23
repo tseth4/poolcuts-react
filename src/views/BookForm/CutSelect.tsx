@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@store/index";
-import { getAllOpenCutsService } from "@store/mockServices/CutService";
+import { getAllOpenCutsService } from "@store/mockServices/CutService/Cut.service";
 import { getAuth, getCuts } from "@store/selectors/index";
 import { logoutSuccess } from "@store/slices/authSlice";
 import { cutError, setOpenCuts } from "@store/slices/cutSlice";

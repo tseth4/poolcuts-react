@@ -1,4 +1,4 @@
-import { newCutService } from "@store/mockServices/CutService";
+import { newCutService } from "@store/mockServices/CutService/Cut.service";
 import { getAuth } from "@store/selectors";
 import { NewCut } from "@store/types/Cut";
 import React, { useState } from "react";

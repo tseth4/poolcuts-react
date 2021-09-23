@@ -1,8 +1,8 @@
-import request from "../request";
-import { User } from "../types/Auth";
-import { FBUser, FBUserAuthResponse } from "../types/FBUser";
-import { SelectedIds } from "../types/SelectedIds";
-import { NewCut } from "../types/Cut";
+import request from "../../request";
+import { User } from "../../types/Auth";
+import { FBUser, FBUserAuthResponse } from "../../types/FBUser";
+import { SelectedIds } from "../../types/SelectedIds";
+import { NewCut } from "../../types/Cut";
 
 export const getAllOpenCutsService = () => {
   return request({

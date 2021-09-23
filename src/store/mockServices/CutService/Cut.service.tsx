@@ -1,7 +1,7 @@
-import { User } from "../types/Auth";
-import { Cut, NewCut, UpdateCut } from "../types/Cut";
-import { FBUserAuthResponse } from "../types/FBUser";
-import { SelectedIds } from "../types/SelectedIds";
+import { User } from "../../types/Auth";
+import { Cut, NewCut, UpdateCut } from "../../types/Cut";
+import { FBUserAuthResponse } from "../../types/FBUser";
+import { SelectedIds } from "../../types/SelectedIds";
 
 export const getAllOpenCutsService = () => {
   const bookJSON = localStorage.getItem("books");

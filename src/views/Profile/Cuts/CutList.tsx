@@ -12,7 +12,7 @@ import { cutError, setOpenCuts } from "@store/slices/cutSlice";
 import {
   getOpenBarberCuts,
   deleteCutsByIdsArr,
-} from "@store/mockServices/CutService";
+} from "@store/mockServices/CutService/Cut.service";
 
 import "./CutList.scss";
 

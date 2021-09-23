@@ -1,7 +1,7 @@
 import { Cut } from "@store/types/Cut";
-import { User } from "../types/Auth";
-import { Book, NewBooking } from "../types/Book";
-import { SelectedIds } from "../types/SelectedIds";
+import { User } from "../../types/Auth";
+import { Book, NewBooking } from "../../types/Book";
+import { SelectedIds } from "../../types/SelectedIds";
 
 export const bookApptService = (data: Book) => {};
 

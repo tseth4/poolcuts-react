@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@store/index";
-import { authenticateUserService } from "@store/mockServices/UserService";
+import { authenticateUserService } from "@store/mockServices/UserService/User.service";
 import { getAuth } from "@store/selectors/index";
 import { login, loginError, loginSuccess } from "@store/slices/authSlice";
 import { LoginCredentials, User } from "@store/types/Auth";

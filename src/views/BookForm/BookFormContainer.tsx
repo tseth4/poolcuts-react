@@ -1,4 +1,4 @@
-import { bookAppointmentService } from "@store/mockServices/BookService";
+import { bookAppointmentService } from "@store/mockServices/BookService/Book.service";
 import { getAuth } from "@store/selectors/index";
 import { NewBooking } from "@store/types/Book";
 import { Cut } from "@store/types/Cut";

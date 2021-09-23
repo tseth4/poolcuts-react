@@ -1,8 +1,8 @@
-import request from "../request";
-import { Book, NewBooking } from "../types/Book";
-import { User } from "../types/Auth";
-import { FBUser, FBUserAuthResponse } from "../types/FBUser";
-import { SelectedIds } from "../types/SelectedIds";
+import request from "../../request";
+import { Book, NewBooking } from "../../types/Book";
+import { User } from "../../types/Auth";
+import { FBUser, FBUserAuthResponse } from "../../types/FBUser";
+import { SelectedIds } from "../../types/SelectedIds";
 export const bookApptService = (data: Book) => {};
 
 export const bookAppointmentService = (data: NewBooking, user: User) => {

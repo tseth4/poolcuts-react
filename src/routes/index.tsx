@@ -1,13 +1,13 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
-import HomeContainer from "@components/Home/HomeContainer";
-import About from "@components/About/About";
-import Contact from "@components/Contact/Contact";
-import Login from "@components/Login/Login";
-import BookFormContainer from "@components/BookForm/BookFormContainer";
+import HomeContainer from "@views/Home/HomeContainer";
+import About from "src/views/About/About";
+import Contact from "@views/Contact/Contact";
+import Login from "@views/Login/Login";
+import BookFormContainer from "@views/BookForm/BookFormContainer";
 import PrivateRoute from "./PrivateRoute";
-import ProfileContainer from "@components/Profile/ProfileContainer";
+import ProfileContainer from "@views/Profile/ProfileContainer";
 
 export const history = createHistory();
 

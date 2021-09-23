@@ -12,7 +12,7 @@ import { bookError, setAppointments } from "@store/slices/bookSlice";
 import {
   getClientAppointmentsService,
   cancelBooksByIdsArr,
-} from "@store/mockServices/BookService";
+} from "@store/mockServices/BookService/Book.service";
 import { useAppDispatch } from "@store/index";
 
 // types
