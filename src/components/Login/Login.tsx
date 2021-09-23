@@ -7,8 +7,6 @@ import { IError } from "@store/types/Error";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router";
-import FacebookLogin from "../Login/FacebookLogin";
-// import { MessageContext } from "";
 import "./Login.scss";
 
 interface LoginProps {}
@@ -116,11 +114,7 @@ const Login: React.FC<Props> = () => {
         </div>
         <p className="login-error">{errorMessage}</p>
         <div>...</div>
-        <p>
-          <FacebookLogin />
-        </p>
       </form>
-      {/* <button onClick={() => handleGetAllCuts()}>get all cuts</button> */}
     </div>
   );
 };

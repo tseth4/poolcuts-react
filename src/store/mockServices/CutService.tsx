@@ -59,17 +59,15 @@ export const getOpenBarberCuts = (barber: User) => {
 export const deleteCutsByIdsArr = (data: SelectedIds) => {
   const cutJSON = localStorage.getItem("cuts");
   let allCuts = cutJSON ? JSON.parse(cutJSON) : [];
-  // let returnJSON;
-  // let returnCuts;
-
+  let returnCuts: Cut[] = [];
   return new Promise<Cut[]>((resolve, reject) => {
     for (const c of allCuts) {
-      if (data.ids.includes(c.cutId)) {
-        allCuts.splice(allCuts.indexOf(c.cutId), 1);
+      if (!data.ids.includes(c.cutId)) {
+        returnCuts.push(c);
       }
     }
-    localStorage.setItem("cuts", JSON.stringify(allCuts));
-    resolve(allCuts);
+    localStorage.setItem("cuts", JSON.stringify(returnCuts));
+    resolve(returnCuts);
   });
 };
 

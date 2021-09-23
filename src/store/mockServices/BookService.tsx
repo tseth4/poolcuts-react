@@ -87,17 +87,18 @@ export const getClientAppointmentsService = (user: User) => {
 export const cancelAppointmentService = (id: number) => {};
 
 export const cancelBooksByIdsArr = (data: SelectedIds) => {
+  console.log(data);
   const bookJSON = localStorage.getItem("books");
   let allBooks = bookJSON ? JSON.parse(bookJSON) : [];
-
+  let returnBooks: Book[] = [];
   return new Promise<Book[]>((resolve, reject) => {
     for (const b of allBooks) {
-      if (data.ids.includes(b.bookId)) {
-        allBooks.splice(allBooks.indexOf(b.bookId), 1);
+      if (!data.ids.includes(b.bookId)) {
+        returnBooks.push(b);
       }
     }
-    localStorage.setItem("books", JSON.stringify(allBooks));
-    resolve(allBooks);
+    localStorage.setItem("books", JSON.stringify(returnBooks));
+    resolve(returnBooks);
   });
 };
 

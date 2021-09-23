@@ -82,6 +82,7 @@ const BookingList: React.FC<Props> = ({ currentUser }: Props) => {
 
   // handle delete button / click of button
   const handleClick = () => {
+    console.log(selectedBooks)
     cancelBooksByIdsArr(selectedBooks)
       .then((res) => {
         window.location.reload();
