@@ -1,7 +1,6 @@
+import { User } from "@store/types/Auth";
 import React from "react";
 import "./Nav.scss";
-import { User } from "../../store/types/Auth";
-import { FBUserAuthResponse } from "../../store/types/FBUser";
 
 interface NavProps {
   currentUser: User | undefined;
@@ -68,16 +67,10 @@ export const Nav: React.FC<Props> = ({
         <span className="navicon"></span>
       </label>
       <ul className="menu">
-        {/* <li>
-          <a href="/blog">Blog</a>
-        </li> */}
         {profileView}
         <li>
           <a href="/services">Services</a>
         </li>
-        {/* <li>
-          <a href="/about">About</a>
-        </li> */}
         <li>
           <a href="/contact">Contact</a>
         </li>

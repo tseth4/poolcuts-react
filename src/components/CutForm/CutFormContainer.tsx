@@ -1,26 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { NewCut, Cut } from "../../store/types/Cut";
-import AppointmentDate from "./AppointmentDate";
-import LocationSelect from "./LocationSelect";
-import { connect } from "react-redux";
-import ReviewSubmit from "./ReviewSubmit";
-import "./CutFormContainer.scss";
-
+import { newCutService } from "@store/mockServices/CutService";
+import { getAuth } from "@store/selectors";
+import { NewCut } from "@store/types/Cut";
+import React, { useState } from "react";
 // selectors for getting state
 import { useSelector } from "react-redux";
-import { getAuth } from "../../store/selectors";
+import AppointmentDate from "./AppointmentDate";
+import "./CutFormContainer.scss";
+import LocationSelect from "./LocationSelect";
+import ReviewSubmit from "./ReviewSubmit";
 
-// dispatches for setting state
-import { useAppDispatch } from "../../store";
 
-import { newCutService } from "../../store/services/CutService";
+
 export interface SelectedDate {
   date_str?: Date;
   time_str?: Date;
 }
 
 interface CutFormContainerProps {
-  // modalClass: any;
   handleAddCutFormModal: (active: boolean) => void;
 }
 
@@ -55,23 +51,13 @@ const CutFormContainer: React.FC<Props> = ({
     if (currentUser) {
       newCutService(form, currentUser)
         .then((res) => {
-          console.log(res);
           handleAddCutFormModal(false);
           window.location.reload()
         })
         .catch((err) => {
-          console.log(err);
         });
     }
   };
-
-  console.log(form);
-
-  // useEffect(() => {
-  //   return function cleanup() {
-  //     // boundUnsetCutSuccess();
-  //   };
-  // }, []);
 
   const handleSetForm = (input: any, value: any) => {
     setForm({
@@ -93,12 +79,6 @@ const CutFormContainer: React.FC<Props> = ({
     form: form,
   };
 
-  // handle successfull creation
-  // useEffect(() => {
-  //   if (addCutSuccess.length > 1) {
-  //     // handleCloseModal();
-  //   }
-  // }, [addCutSuccess]);
 
   // handle button disbaled, and style
 

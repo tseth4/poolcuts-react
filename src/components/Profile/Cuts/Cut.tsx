@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import "./Cut.scss";
-import { Barber, fbBarber } from "../../../store/types/Auth";
-import { Book } from "../../../store/types/Book";
-import { Cut } from "../../../store/types/Cut";
-import { FBUserAuthResponse } from "../../../store/types/FBUser";
+import { Barber, fbBarber } from "@store/types/Auth";
+import { Book } from "@store/types/Book";
+import { Cut } from "@store/types/Cut";
+import { FBUserAuthResponse } from "@store/types/FBUser";
 
 interface CutProps {
   cutId?: number;
@@ -13,10 +13,6 @@ interface CutProps {
   seatLeft?: number;
   handleSetSelectedCuts: (id: number) => void;
   selectedCutsArr: number[];
-  // handleSetForm: (key: string, value: any) => void;
-  // handleStep: () => void;
-  // form: Book;
-  // handleSelectedCut: (cut: Cut) => void;
 }
 
 interface CutState {}
@@ -28,11 +24,7 @@ export const CutComponent: React.FC<Props> = ({
   barberId,
   location,
   handleSetSelectedCuts,
-  selectedCutsArr
-  // handleSetForm,
-  // handleStep,
-  // form,
-  // handleSelectedCut,
+  selectedCutsArr,
 }: Props) => {
   let barberDetails: string = "N/A";
   let dateObj = new Date();
@@ -55,19 +47,10 @@ export const CutComponent: React.FC<Props> = ({
 
   const handleClick = () => {
     let tempId: number = 0;
-    if (cutId != null){
+    if (cutId != null) {
       tempId = cutId;
       handleSetSelectedCuts(tempId);
     }
-    // handleSetForm("cutId", cutId);
-    // handleSelectedCut({
-    //   cutId: cutId,
-    //   barberId: barberId,
-    //   appointmentDate: appointmentDate,
-    //   location: location,
-    // });
-    // console.log("handle click", form.cutId);
-    // handleStep();
   };
 
   if (cutId != null && selectedCutsArr.indexOf(cutId) != -1) {
@@ -79,7 +62,7 @@ export const CutComponent: React.FC<Props> = ({
 
   if (typeof barberId != "number" && barberId != null) {
     barberDetails = barberId.firstName + " " + barberId.lastName;
-  } 
+  }
 
   return (
     <React.Fragment>
@@ -90,11 +73,5 @@ export const CutComponent: React.FC<Props> = ({
         <div className="cutlist-datarow__td">{location}</div>
       </div>
     </React.Fragment>
-    // <div onClick={() => handleClick()} className={cutClass}>
-    //   {/* <div>cutid: {cutId}</div> */}
-    //   <div>{date}</div>
-    //   <p>{formatAMPM(dateObj)}</p>
-    //   <p>{location}</p>
-    // </div>
   );
 };

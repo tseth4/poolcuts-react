@@ -2,9 +2,9 @@ import React from "react";
 import { Redirect, Route } from "react-router";
 import { connect } from "react-redux";
 import PrivateRoute from "./PrivateRoute";
-import { AppState } from "../store";
-import { User } from "../store/types/Auth";
-import { FBUser, FBUserAuthResponse } from "../store/types/FBUser";
+import { AppState } from "@store/index";
+import { User } from "@store/types/Auth";
+import { FBUser, FBUserAuthResponse } from "@store/types/FBUser";
 
 
 interface AdminRouteProps {

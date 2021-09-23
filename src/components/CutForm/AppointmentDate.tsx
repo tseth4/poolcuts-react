@@ -1,6 +1,6 @@
-import React, { useState, MouseEvent } from "react";
+import { NewCut, UpdateCut } from "@store/types/Cut";
+import React, { useState } from "react";
 import "./AppointmentDate.scss";
-import { NewCut, UpdateCut } from "../../store/types/Cut";
 
 interface AppointmentDateProps {
   handleSetForm: (input: any, value: any) => void;
@@ -26,14 +26,7 @@ const AppointmentDate: React.FC<Props> = ({ handleDateChange }: Props) => {
 
   const handleChange = (input: string, value: string) => {
     setVal({ ...val, [input]: value });
-    console.log(val);
   };
-
-  // const handleClick = () => (event: MouseEvent) => {
-  //   event.preventDefault();
-  //   let dateISOString = new Date(val.date + "T" + val.time).toISOString();
-  //   handleDateChange("appointmentDate", dateISOString);
-  // };
 
   // if the val is in correct format -> handleDateChange
   React.useEffect(() => {

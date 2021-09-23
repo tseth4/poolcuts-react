@@ -1,8 +1,8 @@
+import { Barber } from "@store/types/Auth";
+import { NewBooking } from "@store/types/Book";
+import { Cut } from "@store/types/Cut";
 import React from "react";
-import { Cut } from "../../store/types/Cut";
 import "./Cut.scss";
-import { NewBooking } from "../../store/types/Book";
-import { Barber, fbBarber } from "../../store/types/Auth";
 interface CutProps {
   cutId?: number;
   appointmentDate?: string;
@@ -51,11 +51,9 @@ export const CutComponent: React.FC<Props> = ({
       appointmentDate: appointmentDate,
       location: location,
     });
-    // handleStep();
   };
 
   if (bookForm.cutId == cutId) {
-    console.log("class changed");
     cutClass = "cutselect-datarow selected";
   } else {
     cutClass = "cutselect-datarow ";

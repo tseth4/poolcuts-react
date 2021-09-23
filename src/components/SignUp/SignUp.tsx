@@ -1,29 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { ThunkDispatch } from "redux-thunk";
-import { AppState } from "../../store";
-// import { boundRegisterUser } from "../../store/actions/UserActions";
-// import { AppActions } from "../../store/types";
-import { IError } from "../../store/types/Error";
-import { isEmpty, validateEmail } from "../../utils/Functions";
-import { Redirect } from "react-router";
-
+import React, { useState } from "react";
+import { validateEmail } from "../../utils/Functions";
 import "./Signup.scss";
-import { SignUpCredentials, SignUpResponse } from "../../store/types/UserSignUp";
+
 
 interface SignUpProps {}
 
 interface SignUpState {}
 
 type Props = SignUpProps & SignUpState; 
-// & LinkDispatchToProps & LinkStateProps;
-
-//first name, last name, username, password, email, active
 const SignUp: React.FC<Props> = ({
-  // signUpError,
-  // boundRegisterUser,
-  // signUpUserResponse,
 }: Props) => {
   let buttonDisabled: boolean = true;
   let emailErrorMessage: string = "";
@@ -44,15 +29,6 @@ const SignUp: React.FC<Props> = ({
     email: "",
   });
 
-  // useEffect(() => {
-  //   console.log(buttonDisabled);
-  //   console.log(signUpError);
-  //   console.log(signUpUserResponse);
-  // });
-
-  // if (signUpError.message) {
-  //   signUpErrorMessage = signUpError.message;
-  // }
 
   const handleInputChange = (input: string) => (event: any) => {
     setValue({ ...value, [input]: event.target.value });
@@ -62,12 +38,6 @@ const SignUp: React.FC<Props> = ({
     setConfirmPass(event.target.value);
   };
 
-  // const handleSignUp = (event: any) => {
-  //   event.preventDefault();
-  //   console.log("hello");
-  //   boundRegisterUser(value);
-  // };
-
   if (
     value.userName.length > 1 &&
     value.password.length >= 7 &&
@@ -76,7 +46,6 @@ const SignUp: React.FC<Props> = ({
     validateEmail(value.email) &&
     confirmPass == value.password
   ) {
-    console.log("button enabled");
     buttonDisabled = false;
   }
 
@@ -177,28 +146,5 @@ const SignUp: React.FC<Props> = ({
   );
 };
 
-// interface LinkStateProps {
-//   signUpUserResponse: SignUpResponse;
-//   signUpError: IError;
-// }
-
-// interface LinkDispatchToProps {
-//   boundRegisterUser: (value: SignUpCredentials) => void;
-// }
-
-// const mapStateToProps = (
-//   state: AppState,
-//   ownProps: SignUpProps
-// ): LinkStateProps => ({
-//   signUpUserResponse: state.signUpUserResponse,
-//   signUpError: state.signUpError,
-// });
-
-// const mapDispatchToProps = (
-//   dispatch: ThunkDispatch<any, any, AppActions>,
-//   ownProps: SignUpProps
-// ): LinkDispatchToProps => ({
-//   boundRegisterUser: bindActionCreators(boundRegisterUser, dispatch),
-// });
 
 export default (SignUp);

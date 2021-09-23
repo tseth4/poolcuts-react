@@ -1,15 +1,15 @@
+import { useAppDispatch } from "@store/index";
+import { getAllOpenCutsService } from "@store/mockServices/CutService";
+import { getAuth, getCuts } from "@store/selectors/index";
+import { logoutSuccess } from "@store/slices/authSlice";
+import { cutError, setOpenCuts } from "@store/slices/cutSlice";
+import { NewBooking } from "@store/types/Book";
+import { Cut } from "@store/types/Cut";
+import { IError } from "@store/types/Error";
 import React, { useEffect } from "react";
-import { setOpenCuts, cutError } from "../../store/slices/cutSlice";
-import { logout, logoutSuccess } from "../../store/slices/authSlice";
-import { CutComponent } from "./Cut";
-import { useAppDispatch } from "../../store";
 import { useSelector } from "react-redux";
-import { Cut } from "../../store/types/Cut";
+import { CutComponent } from "./Cut";
 import "./CutSelect.scss";
-import { NewBooking } from "../../store/types/Book";
-import { getAuth, getCuts } from "../../store/selectors/index";
-import { getAllOpenCutsService } from "../../store/services/CutService";
-import { IError } from "../../store/types/Error";
 
 interface CutSelectProps {
   bookForm: NewBooking;
@@ -42,13 +42,12 @@ const CutSelect: React.FC<Props> = ({
     if (currentUser) {
       getAllOpenCutsService()
         .then((res) => {
-          console.log(res);
+
           _setOpenCuts(res);
         })
         .catch((e) => {
           _cutError(e.data);
           _logoutSuccess();
-          console.log(e.data);
         });
     }
   }, []);

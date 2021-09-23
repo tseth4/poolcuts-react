@@ -2,25 +2,25 @@ import React, { useEffect, useState } from "react";
 
 // selectors for geting the state
 import { useSelector } from "react-redux";
-import { getAuth, getCuts } from "../../../store/selectors/index";
+import { getAuth, getCuts } from "@store/selectors/index";
 
 // dispatches for setting the state
-import { useAppDispatch } from "../../../store";
-import { cutError, setOpenCuts } from "../../../store/slices/cutSlice";
+import { useAppDispatch } from "@store/index";
+import { cutError, setOpenCuts } from "@store/slices/cutSlice";
 
 // services for fetching data
 import {
   getOpenBarberCuts,
   deleteCutsByIdsArr,
-} from "../../../store/services/CutService";
+} from "@store/mockServices/CutService";
 
 import "./CutList.scss";
 
 import { CutComponent } from "./Cut";
-import { SelectedIds } from "../../../store/types/SelectedIds";
-import { Cut } from "../../../store/types/Cut";
-import { User } from "../../../store/types/Auth";
-import { IError } from "../../../store/types/Error";
+import { SelectedIds } from "@store/types/SelectedIds";
+import { Cut } from "@store/types/Cut";
+import { User } from "@store/types/Auth";
+import { IError } from "@store/types/Error";
 
 // parent: profile container
 
@@ -61,7 +61,6 @@ const CutList: React.FC<Props> = ({
     if (currentUser)
       getOpenBarberCuts(currentUser)
         .then((res) => {
-          console.log(res);
           _setOpenCuts(res);
         })
         .catch((err) => {
@@ -88,14 +87,11 @@ const CutList: React.FC<Props> = ({
     deleteDisabled = true;
   }
 
-  console.log(selectedCuts);
 
   const handleClick = () => {
-    // Delete cuts if
     deleteCutsByIdsArr(selectedCuts)
       .then((res) => {
         window.location.reload()
-        console.log(res);
       })
       .catch((e) => {
         console.log(e);

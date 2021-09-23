@@ -1,17 +1,8 @@
+import { PasswordRequest } from "@store/types/UserPasswordReset";
 import React, { useState } from "react";
-import { ThunkDispatch } from "redux-thunk";
-import { AppState } from "../../store";
-// import { AppActions } from "../../store/types";
-// import { boundSubmitNewPassword } from "../../store/actions/UserActions"
 import { connect } from "react-redux";
-import "./NewPasswordForm.scss";
-import { IError } from "../../store/types/Error";
-import { bindActionCreators } from "redux";
 import { useParams } from "react-router-dom";
-import {
-  PasswordRequest,
-  PasswordResetResponse,
-} from "../../store/types/UserPasswordReset";
+import "./NewPasswordForm.scss";
 
 interface ParamTypes {
   token: string;
@@ -21,11 +12,7 @@ interface NewPasswordFormProps {}
 interface NewPasswordFormState {}
 
 type Props = NewPasswordFormProps & NewPasswordFormState;
-const NewPasswordForm: React.FC<Props> = ({
-  // passwordResetResponse,
-  // passwordResetError,
-  // boundSubmitNewPassword,
-}: Props) => {
+const NewPasswordForm: React.FC<Props> = ({}: Props) => {
   let { token } = useParams<ParamTypes>();
   let successMessage: string = "";
   let errorMessage: string = "";
@@ -53,14 +40,11 @@ const NewPasswordForm: React.FC<Props> = ({
     }
   }, []);
 
-  if (newPasswordForm) console.log(newPasswordForm);
-
   let buttonDisabled: boolean = true;
   let buttonClass: string = "newpasswordform-container__sbtn";
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    // boundSubmitNewPassword(newPasswordForm);
   };
 
   if (confirmPassword.password == newPasswordForm.password) {
@@ -68,18 +52,6 @@ const NewPasswordForm: React.FC<Props> = ({
   } else {
     buttonDisabled = true;
   }
-
-  // if (passwordResetError.message) {
-  //   errorMessage = passwordResetError.message;
-  // }
-
-  // if (passwordResetResponse.message) {
-  //   successMessage = passwordResetResponse.message;
-  // }
-
-  // if (!isEmpty(passwordResetResponse)) {
-  //   return <Redirect to="/login" />;
-  // }
 
   return (
     <div className="newpasswordform-container">

@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useAppDispatch } from "@store/index";
+import { authenticateUserService } from "@store/mockServices/UserService";
+import { getAuth } from "@store/selectors/index";
+import { login, loginError, loginSuccess } from "@store/slices/authSlice";
+import { LoginCredentials, User } from "@store/types/Auth";
+import { IError } from "@store/types/Error";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { getAuth } from "../../store/selectors/index";
-import { useAppDispatch } from "../../store";
-import { login, loginSuccess, loginError } from "../../store/slices/authSlice";
-import { authenticateUserService } from "../../store/services/UserService";
-// import { MessageContext } from "../../store/contexts/testContext";
-
-import "./Login.scss";
-import { User, LoginCredentials } from "../../store/types/Auth";
-import { IError } from "../../store/types/Error";
 import { Redirect } from "react-router";
 import FacebookLogin from "../Login/FacebookLogin";
+// import { MessageContext } from "";
+import "./Login.scss";
 
 interface LoginProps {}
 
@@ -25,12 +24,7 @@ const Login: React.FC<Props> = () => {
   // Selectors
   // ===========================================================================
 
-  const {
-    // currentUser,
-    isAuthenticated,
-    // error,
-    // loading
-  } = useSelector(getAuth);
+  const { isAuthenticated } = useSelector(getAuth);
 
   // ===========================================================================
   // Dispatch
@@ -59,12 +53,9 @@ const Login: React.FC<Props> = () => {
     _login();
     authenticateUserService(value)
       .then((res) => {
-        console.log(res);
         _loginSuccess(res);
-        // setExampleValue("example value from login")
       })
       .catch((err) => {
-        console.log(err);
         _loginError(err);
       });
   };

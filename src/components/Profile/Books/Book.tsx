@@ -1,6 +1,6 @@
 import React from "react";
-import { Cut } from "../../../store/types/Cut";
-import { Client, fbClient } from "../../../store/types/Auth";
+import { Cut } from "@store/types/Cut";
+import { Client, fbClient } from "@store/types/Auth";
 import "./Book.scss";
 
 interface BookProps {

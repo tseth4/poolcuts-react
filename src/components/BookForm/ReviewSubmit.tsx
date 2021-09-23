@@ -1,55 +1,28 @@
-import React, { useEffect } from "react";
-import { Book, NewBooking } from "../../store/types/Book";
+import { getAuth } from "@store/selectors/index";
+import { NewBooking } from "@store/types/Book";
+import { Cut } from "@store/types/Cut";
+import React from "react";
 import { useSelector } from "react-redux";
-import { getAuth } from "../../store/selectors/index";
-
-import { Cut } from "../../store/types/Cut";
-import { AppState } from "../../store";
-import { User } from "../../store/types/Auth";
-import { ThunkDispatch } from "redux-thunk";
-// import { AppActions } from "../../store/types";
-import { connect } from "react-redux";
 import "./ReviewSubmit.scss";
-import { FBUser } from "../../store/types/FBUser";
-import { bindActionCreators } from "redux";
-// import {
-//   boundUnsetSuccessMessage,
-//   boundCancelBooking,
-//   boundUnsetCancelSuccessMessage,
-// } from "../../store/actions/BookActions";
-
-import { Redirect } from "react-router";
 
 interface RsProps {
   cuts?: Cut[];
   handleSetBookForm: (key: string, value: any) => void;
-  // handleStep: () => void;
   bookForm: NewBooking;
   selectedCut: Cut;
-  // currentUser: User | FBUser;
 }
 
 interface RsState {}
 
 type Props = RsProps & RsState;
 
-const ReviewSubmit: React.FC<Props> = ({
-  bookForm,
-  selectedCut,
-}: // currentUser,
-// bookSuccess,
-// boundUnsetSuccessMessage,
-// boundCancelBooking,
-// cancelBookResp,
-Props) => {
+const ReviewSubmit: React.FC<Props> = ({ bookForm, selectedCut }: Props) => {
   let buttonDisable: boolean = true;
   let buttonClass: string;
   let successMessage: any;
   let price: number = 0.0;
 
   const { currentUser } = useSelector(getAuth);
-
-  // if button clicked true and successMessage
 
   function isEmpty(obj: any) {
     for (var key in obj) {
@@ -87,38 +60,6 @@ Props) => {
 
   let date = dateObj.toDateString();
 
-  // const testing = () => {
-  //   let bookId = bookSuccess.bookId;
-  //   if (bookId) {
-  //     boundCancelBooking(bookId, currentUser);
-  //   }
-  //   if (!isEmpty(bookSuccess)) {
-  //     return <Redirect to="/profile" />;
-  //   }
-
-  //   console.log("testing click");
-  // };
-
-  // if (!isEmpty(bookSuccess)) {
-  //   successMessage = (
-  //     <p className="rs-container__successmsg">
-  //       successfully booked new booking with id: {bookSuccess.bookId}
-  //     </p>
-  //   );
-  // }
-
-  // useEffect(() => {
-  //   boundUnsetSuccessMessage();
-  //   // boundUnsetCancelSuccessMessage();
-  //   return function cleanup() {
-  //     console.log("clean up");
-  //     boundUnsetSuccessMessage();
-  //     // boundUnsetCancelSuccessMessage();
-  //   };
-  // }, []);
-
-  // console.log(bookSuccess);
-
   return (
     <div className="rs-container">
       <h3>Review and book</h3>
@@ -144,16 +85,10 @@ Props) => {
         <span className="rs-container__property">Time: </span>
         {formatAMPM(dateObj)}
       </div>
-      {/* <div>Barber: {selectedCut.barberId}</div> */}
       <div className="rs-container__item">
         <span className="rs-container__property">Price: </span>
         {price}
       </div>
-      {/* <div className="rs-container__button-container">
-        <button disabled={buttonDisable} type="submit" className={buttonClass}>
-          Book
-        </button>
-      </div> */}
       <div>{successMessage}</div>
     </div>
   );

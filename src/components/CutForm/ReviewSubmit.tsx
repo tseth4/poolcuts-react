@@ -1,13 +1,8 @@
+import { User } from "@store/types/Auth";
+import { NewCut } from "@store/types/Cut";
 import React from "react";
-import { NewCut, Cut } from "../../store/types/Cut";
-import { User } from "../../store/types/Auth";
-import { FBUser, FBUserAuthResponse } from "../../store/types/FBUser";
-import { AppState } from "../../store";
-import { ThunkDispatch } from "redux-thunk";
-import { bindActionCreators } from "redux";
-
-import { connect } from "react-redux";
 import "./ReviewSubmit.scss";
+
 
 interface ReviewSubmitProps {
   form: NewCut;

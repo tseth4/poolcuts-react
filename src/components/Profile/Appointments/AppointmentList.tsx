@@ -3,20 +3,23 @@ import "./AppointmentList.scss";
 
 // selectors for getting the state
 import { useSelector } from "react-redux";
-import { getBooks } from "../../../store/selectors/index";
+import { getBooks } from "@store/selectors/index";
 
 // dispatches
-import { bookError, setAppointments } from "../../../store/slices/bookSlice";
+import { bookError, setAppointments } from "@store/slices/bookSlice";
 
 // services for fetching data
-import { getClientAppointmentsService, cancelBooksByIdsArr } from "../../../store/services/BookService";
-import { useAppDispatch } from "../../../store";
+import {
+  getClientAppointmentsService,
+  cancelBooksByIdsArr,
+} from "@store/mockServices/BookService";
+import { useAppDispatch } from "@store/index";
 
 // types
-import { Book } from "../../../store/types/Book";
-import { IError } from "../../../store/types/Error";
-import { User } from "../../../store/types/Auth";
-import { SelectedIds } from "../../../store/types/SelectedIds";
+import { Book } from "@store/types/Book";
+import { IError } from "@store/types/Error";
+import { User } from "@store/types/Auth";
+import { SelectedIds } from "@store/types/SelectedIds";
 
 import { Appointment } from "./Appointment";
 
@@ -26,15 +29,7 @@ interface AppointmentListProps {
 
 type Props = AppointmentListProps;
 
-const AppointmentList: React.FC<Props> = ({
-  currentUser,
-}: // boundGetFacebookUserAppointments,
-// boundGetUserAppointments,
-// appts,
-// user,
-// fbUser,
-// boundCancelAppointmentsByIdArr,
-Props) => {
+const AppointmentList: React.FC<Props> = ({ currentUser }: Props) => {
   let deleteDisabled: boolean = true;
 
   // ===========================================================================
@@ -56,37 +51,18 @@ Props) => {
     if (currentUser)
       getClientAppointmentsService(currentUser)
         .then((res) => {
-          console.log(res);
           _setAppointmentList(res);
         })
         .catch((err) => {
-          console.log(err);
           _bookError(err);
         });
   }, []);
-
-  // Setting currentUser
-  // if (user !== undefined && user.length > 0) {
-  //   currentUser = user[0];
-  // } else if (fbUser !== undefined && fbUser.length > 0) {
-  //   currentUser = fbUser[0];
-  // }
-
-  // useEffect(() => {
-  //   if (user.length > 0 && user != null) {
-  //     boundGetUserAppointments(user[0]);
-  //   } else if (fbUser.length > 0 && fbUser != null) {
-  //     boundGetFacebookUserAppointments(fbUser[0]);
-  //   }
-  // }, []);
 
   // state for selectedBooks
   const [selectedAppointments, setSelectedAppointments] = useState<SelectedIds>(
     { ids: [] }
   );
 
-
-  console.log(selectedAppointments);
 
   const handleSetSelectedAppointments = (id: number): void => {
     if (selectedAppointments.ids.indexOf(id) == -1) {
@@ -113,14 +89,12 @@ Props) => {
 
   // handle delete button / click of button
   const handleClick = () => {
-    console.log("canceling");
-    cancelBooksByIdsArr(selectedAppointments).then((res) => {
-      window.location.reload()
-      console.log(res)
-    }).catch((err) => {
-      console.log(err)
-    })
-    // boundCancelAppointmentsByIdArr(selectedAppointments, currentUser);
+    cancelBooksByIdsArr(selectedAppointments)
+      .then((res) => {
+        window.location.reload()
+      })
+      .catch((err) => {
+      });
   };
   return (
     <React.Fragment>
@@ -132,7 +106,6 @@ Props) => {
             <div className="appointmentlist-table__head">Barber</div>
             <div className="appointmentlist-table__head">Date</div>
             <div className="appointmentlist-table__head">Time</div>
-            {/* <div className="appointmentlist-table__head">Client</div> */}
             <div className="appointmentlist-table__head">Location</div>
           </div>
           {appointmentsForSort
