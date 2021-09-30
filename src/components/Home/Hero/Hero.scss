@@ -50,4 +50,16 @@
     -webkit-animation: fadeIn 8s linear forwards;
     animation: fadeIn 8s linear forwards;
   }
+  @media (max-width: 48em) {
+    flex-direction: column;
+    align-items: center;
+    #{&}__desc {
+      > p {
+        display: none;
+      }
+    }
+    #{&}__button {
+      margin-top: 45px;
+    }
+  }
 }

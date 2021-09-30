@@ -74,7 +74,9 @@ const Hero: React.FC<HeroProps> = ({}) => {
             beatae, impedit consequuntur praesentium veritatis. Esse veritatis
             incidunt consequuntur!
           </p>
-          <button className="hero-container__button">Get a haircut</button>
+          <a href="/services">
+            <button className="hero-container__button">Get a haircut</button>
+          </a>
         </div>
       </div>
 
